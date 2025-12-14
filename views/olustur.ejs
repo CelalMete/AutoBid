@@ -1,0 +1,53 @@
+<div class="container mt-5">
+<script src="/scripts/olustursrc.js" defer></script>
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <input type="hidden" id="secilen1" name="secilen1" value="<%= secilen1 %>">
+    <input type="hidden" id="secilen2" name="secilen2" value="<%= secilen2  %>">
+    <input type="hidden" id="secilen3" name="secilen3" value="<%= secilen3  %>">
+<div id="down">
+      <label for="down" >Downbar ekle</label>
+      <input type="text" name="downName" id="downName">
+      <input type="checkbox" name="checktype" id="checktype">
+      <button id="but">bas</button>
+</div>
+    <h2 class="mb-4">İlan Ekle</h2>
+    <form id="ilanForm" enctype="multipart/form-data">
+
+      <div class="mb-3">
+        <label for="Baslik" class="form-label ">İlan Başlığı:</label>
+        <input type="text" class="form-control" id="Baslik" name="Baslik" required>
+      </div>
+      <div class="mb-3">
+        <label for="VIN" class="form-label ">VIN:</label>
+        <input type="text" class="form-control" id="VIN" name="VIN" required>
+      </div>
+      <div class="mb-3">
+        <label for="LOT" class="form-label ">LOT:</label>
+        <input type="text" class="form-control" id="LOT" name="LOT" required>
+      </div>
+    <div class="mb-3">
+      <label for="Kapak" class="Kapak">Kapak fotosu seçin:</label>
+      <input type="file" name="IlanKapak" accept="image/*"><br><br>
+      </div>
+      <div class="mb-3">
+        <label for="resimler" class="form-label">Resimler:</label>
+        <input type="file" class="form-control" id="sayfalar" name="sayfalar" multiple accept="image/*" >
+      </div>
+    <br><br>
+     <h2 id="h2" >EKSTRALAR</h2>
+     <% txtinput.forEach(te => {%>
+       <div class="mb-3">
+        <label for="<%= te.id%>" class="form-label "><%= te.name%>:</label>
+        <input type="number" class="form-control" id="<%= te.id%>" name="<%= te.id%>" required>
+      </div>
+     <%}); %>
+     <br>
+
+<div id="downbarContainer" data-filtre='<%- JSON.stringify(filtreler) %>'>
+</div>
+   
+      
+      
+      <button type="submit" class="btn btn-primary">İlanı Kaydet</button>
+    </form>
+</div>

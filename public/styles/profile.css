@@ -1,0 +1,58 @@
+@font-face {
+font-family: 'lato'; /* piksel ??? tasuki çalıntı*/
+src: url('/fonts/Lato-Regular.ttf'); 
+}
+body{background-color: rgb(244, 244, 244);}
+.perInfo{width: 300px;float: left ; margin-left: 50px; font-size: 20px;margin-top: 10px;}
+.leftProf{width:250px;float: left;height: auto;margin-right: 30px;margin-top: 50px;  background-color: white;}
+.rightProf{width: 800px;float: left;height: 1000px;margin-top: 50px;}
+.list{display: flex; align-items: center; padding-left: 10px; text-decoration: none;
+    height: 50px;width: 100%;color: #494848;border: 1px solid #ccc;border-bottom: 0;}
+
+.profileCont{width: 1100px;justify-self: center;height: 1000px;
+}
+.profileCont2{height: auto;width:100%;}
+.ppCont{height: auto;width: 300px;float: left;}
+.ppFoto{margin-top: 10px;height: auto;width: 300px;}
+#bioMetin{font-size: 15px;color: #494848; margin-top: 15px;font-family: 'lato'sans-serif;}
+.sonuclar2 {float: left;
+  display: flex; font-family: 'lato'sans-serif;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px; width:800px;
+}
+.bas{margin-top: 50px;font-family: sans-serif;}
+.l{border-bottom:1px solid #ccc;}
+.btn{font-family: 'lato'sans-serif;color: white; padding: 8px 15px; font-size: 14px; background-color: #007bff;
+   border: none; border-radius: 5px; cursor: pointer;margin-top: 20px;}
+ .sonuc2 {
+  display: flex;
+  border: 1px solid #ccc;
+width: 800px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  background-color: #fff;
+  height: 120px;
+}
+.foto2 img {
+  
+  height: 100%;
+  object-fit: cover;
+}
+.PersonalBas{font-family:  sans-serif;justify-self: center;font-size: 28px;}
+.infos2 {font-family: 'lato',sans-serif;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.infos2 a{text-decoration: none;}
+.infos2 h3 {
+  margin: 0;
+  font-size: 1.2em;
+  color: #333;
+}
+.active{background-color: rgb(240, 240, 240);}
+#ppModal{display: none;}
+
+#bioFormAlani{display: none;}

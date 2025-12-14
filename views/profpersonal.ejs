@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="/styles/profile.css">
+<meta name="csrf-token" content="<%= csrfToken %>">
+<div class="profileCont2" >
+<h2 class="PersonalBas">Profil</h2>
+<div class="ppCont">
+    <div>
+        <img src="<%= user.pp || '/img/default-pp.jpg' %>"  alt="Profil Fotoğrafı" class="ppFoto">
+    </div>
+        <button class="btn" id="open">Profil Fotoğrafını Değiştir</button>
+</div>
+
+      <div id="ppModal" class="modal" >
+        <div class="modal-content">
+          <span class="btn close" id="close">&times;</span>
+          <h3>Yeni Profil Fotoğrafı Yükle</h3>
+          <form id="ppForm" enctype="multipart/form-data">
+            <input  type="file" id="fileInput">
+            <input type="hidden" name="userId" value="<%= user._id %>">
+            <button class="btn" id="uploadBtn">yukle</button>
+          </form>
+        </div>
+    </div>
+    <div class="perInfo" >
+        <h3><%= user.Ad %></h3>
+        <h3><%= user.Soyad %></h3>
+        <div id="bioAlani">
+        <p id="bioMetin"><%= user.bio || "Henüz bio eklenmemiş." %></p>
+        <button class="btn" id="bioDuzenleBtn">Düzenle</button>
+        </div>
+
+<div id="bioFormAlani">
+  <textarea id="bioTextarea"><%= user.bio %></textarea>
+  <button id="bioKaydetBtn">Kaydet</button>
+  <button id="bioIptalBtn">İptal</button>
+</div>
+
+    </div>
+    <button id="odemeYapBtn">500 TL Yükle</button>
+
+<div id="paytr-iframe-container" style="width: 100%; min-height: 600px; display:none;">
+    <iframe id="paytr-iframe" src="" style="width: 100%; height: 600px;" frameborder="0"></iframe>
+</div>
+      <script src="/scripts/personalsrc.js" defer></script>
+      <script src="/scripts/paytr.js" defer></script>
+</div>

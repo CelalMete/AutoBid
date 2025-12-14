@@ -1,0 +1,167 @@
+<div class="home-container">
+  <script src="/scripts/homepagesrc.js" defer></script>
+   <link rel="stylesheet" href="/styles/swiper.css">
+   <script src="/scripts/swiper.js" defer></script>
+  <script src="/scripts/swiper2.js" defer></script>
+
+<link rel="stylesheet" href="/styles/home.css">
+
+
+  <div class="container1" >
+    <div class="background-overlay">
+      <ul class="tags" >
+        <li>Bidding</li>
+        <li>Shipping</li>
+        <li>Custom Clearance</li>
+        <li>Home Delivery</li>
+      </ul>
+
+      <div class="motto" >
+        BUYING & SHIPPING AMERICAN AUTOMOBILES
+      </div>
+
+      <div class="start">
+        <button class="btn loginbtn"> Start Bidding </button>
+        <button id="how" class="btn loginbtn" > How It Works</button>
+      </div>
+      
+      <div class="filter">
+        <div class="container" id="kategoriContainer" >
+          <div id="anaKategoriler">
+            <% AnakategoriList.forEach((al)=>{%>
+              <label class="btn btnrd">
+              <input type="radio" name="kategori" value="<%= al.altKategori  %>" hidden>
+              <div class="txt" ><%= al.altKategori  %><img class="sembol" src="/photos/icons/konut.svg" alt=""> </div>
+            </label>
+              <%}) %>
+          </div>
+          
+          <div class="kate " >
+          <div id="altKategorilerWrapper" class="alt-kategori-wrapper">
+            
+            <div class="dropdown1 a">
+              <div class="dropdown-toggle1 w" id="dropdownToggle1">
+                <div  class="txt kategori1" >Kategori 1</div>
+              <img class="arr" src="/photos/bluearrows.png" alt="<>" ></div>
+              
+              <ul class="dropdown-menu1" id="dropdownMenu1">
+                <li>önce tür sec</li>
+              </ul>
+            </div>
+
+            <div class="dropdown1 a">
+              <div class="dropdown-toggle1 w " id="dropdownToggle2">
+                 <div class="txt kategori1" >Alt Kategori</div> 
+              <img class="arr"  src="/photos/bluearrows.png" alt="<>" >
+                </div>
+                
+              <ul class="dropdown-menu1" id="dropdownMenu2" >
+                <li>marka seç önce</li>
+              </ul>
+            </div>
+          </div></div>
+          <div id="vinLot">
+            <input type="text" id="vinLotInput" placeholder="Search by VIN or lot number">
+            <i class="search1 fa-solid fa-magnifying-glass"></i>
+         </div>
+          <div  class="date"  >
+            <div class="dropdown1 b dd2 fl" >
+  <div class="dropdown-toggle1 dt2 " id="dropdownToggle5" >
+    <div class="txt t2 " >From</div>
+  <img class="arr"  src="/photos/bluearrows.png" alt="<>" ></div>
+  <ul class="dropdown-menu1 ds ddm2" id="dropdownMenu5"></ul>
+</div>
+            <div class="dropdown1 b dd2 fr">
+              <div class="dropdown-toggle1 dt2" id="dropdownToggle6" >
+                <div class="txt t2 ">To</div>
+              <img class="arr"  src="/photos/bluearrows.png" alt="<>" ></div>
+              <ul class="dropdown-menu1 ds ddm2" id="dropdownMenu6"></ul>
+</div>
+
+</div>
+          <div id="ilerleDiv">
+            <button id="ilerleBtn" >
+              İlerle
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="home-main">
+      
+      <div class="main-baslik" >İlanlar</div>
+      <div class="home-main-grid">
+  <% ilanlar.forEach(ilan => { %>
+    <div class="ilan">
+      <div class="foto">
+            <img src='<%= ilan.IlanKapak %>'>
+      </div>
+      <div class="info">
+
+            <div class="baslik"><a class="link" href="/ilan/<%= ilan._id %>"><%= ilan.Baslik %></a></div>
+
+            <div class="time" >Yayın Tarihi: <%= new Date(ilan.yuklenmeTarihi).toLocaleDateString("tr-TR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric"
+        }) %></div>
+       <div class="time" ><div class="sembol"></div>Bitiş Tarihi: <%= new Date(ilan.bitisTarihi).toLocaleDateString("tr-TR", {
+          day: "2-digit",
+          month: "2-digit",
+          year: "numeric"
+        }) %></div>
+        <div class="price">
+          <div class="mini-price">
+            <div class="mini-bs">currentBid</div>
+            <div class="mini-amount">
+              <% if (teklifler[ilan._id]) { %>
+                <p><%= teklifler[ilan._id].fiyat %>₺ </p>
+              <% } else { %>
+              <p>0$</p>
+              <% } %>
+      </div><!--amount-->
+      </div><!--miniprice-->
+          <div class="mini-price">
+          <div class="mini-bs2" >Buy Now!!</div>
+            <div class="mini-amount">
+            
+              <p class="bn" ">999999₺ </p>
+        
+      </div>
+      </div>
+            </div>
+          </div>
+        </div>
+        <% }); %>
+    </div></div>
+         <h2>We handle container loading, unloading, and transport<h2></h2>
+   <div class="swiper mySwiper">
+
+  <div class="swiper-wrapper">
+    <div class="swiper-slide"><img src="/photos/audiyarım.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/galery.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/maviaudi.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/rs8.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/porc.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/genel/forksPors.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/genel/arka.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/genel/fork.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/genel/auctionferr.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/genel/merc.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/genel/somuccat.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/genel/tırcık.jpg"></div>
+    <div class="swiper-slide"><img src="/photos/genel/tırkontrol.jpg"></div>
+  </div>
+</div>
+
+
+
+
+    
+  </div>
+
+
+  
+</div>
+

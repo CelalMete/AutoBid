@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Website
+    </title>
+    <meta name="csrf-token" content="<%= csrfToken %>">
+    <meta name="viewport" content="width=device-width">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <script src="/scripts/loginsrc.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Ancizar+Serif:ital,wght@0,300..900;1,300..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+   <link rel="stylesheet" href="/styles/login.css">
+</head>
+
+<body>
+   
+    <div id="main" class="aktif">
+  
+         <div class="deneme d1 aktif" id="d1">
+            
+            <div class="baslik">Giriş Yap</div>
+            <div class="inp">
+                <div class="di1 girisler">
+                    <label class="lbl lbl1" for="i1">Kullanıcı Adı</label>
+                    <input type="text" name="Ad" id="i1" placeholder="rapist3169">
+                </div>
+               <div class="di5 girisler">
+                    <label class="lbl lbl5" for="i8">Soyad</label>
+                    <input type="text" name="Soyad" id="i8" placeholder=" purna">
+                </div>
+
+                <div class="di3 girisler">
+                    <label class="lbl lbl3" for="i3">Şifre</label>
+                    <div id="visib" class="material-symbols-outlined">visibility_off</div>
+                    <input type="password" name="sifre" id="i3" placeholder="*">
+                </div>
+            </div>
+        
+        </div>
+        <div class="deneme d2 aktif" id="d2">
+            <div class="kayit inaktif" onclick="registerUser()" id="kayit">Kaydol</div>
+        </div>
+        <div class="deneme d3 aktif" id="d3">
+            <div class="tus aktif" id="tus">Giriş Yap</div>
+        </div>
+        <div class="orospucocugu aktif" id="orospucocugu"></div>
+        <div id="yeni" class="inaktif">
+            <div class="baslik">Kayıt Formu</div>
+            <div class="inp inp2">
+                <div class="di1 girisler inaktif" id="di1">
+                    <label class="lbl lbl1" for="i5">Kullanıcı Adı</label>
+                    <input type="text" name="Ad" id="i5" placeholder="rapist3169">
+                </div>
+                 <div class="di5 girisler inaktif" id="di7">
+                    <label class="lbl lbl5" for="i7">Soyad</label>
+                    <input type="text" name="Soyad" id="i7" placeholder="Purna">
+                </div>
+                <div class="di2 girisler inaktif" id="di2">
+                    <label class="lbl lbl2" for="i2">E-posta</label>
+                    <input type="email" name="email" id="i2" placeholder="mostfrontier@gmail.com">
+                </div>
+                <div class="di3 girisler inaktif" id="di3">
+                    <label class="lbl lbl3" for="i6">Şifre</label>
+                    <div id="visib2" class="material-symbols-outlined">visibility_off</div>
+                    <input type="password" name="sifre" id="i6" placeholder="*">
+                </div>
+                <div class="di4 girisler inaktif" id="di4">
+                    <label class="lbl lbl3 lbl4" for="i4">Şifre Tekrar</label>
+                    <div id="visib3" class="material-symbols-outlined">visibility_off</div>
+                    <input type="password" name="sifre" id="i4" placeholder="*">
+                </div>
+            </div>
+        </div>
+    </div>        
+
+
+</body>
+       
+
+</html>

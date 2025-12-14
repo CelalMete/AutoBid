@@ -1,0 +1,248 @@
+<div class="container1">
+  <input type="hidden" id="tur" value="<%= Anakategori %>">
+  <meta name="csrf-token" content="<%= csrfToken %>">
+  <div class="dropdowns">
+    
+  </div>
+  <div id="app-data"
+     data-ilan-data='<%- JSON.stringify(ilan) %>'
+     data-dd='<%=dd %>'
+     data-en-yuksek-teklif="<%= enYuksekTeklif %>"
+      data-kullanici-id="<%= user ? user._id : '' %>">
+</div>
+<div class="ilanTop">
+<div class="basL">
+  <div class="LT">
+    <div class="LInfo">
+      <div class="LBas"><%= ilan.Baslik %></div>
+      <div class="LVIN"><%= ilan.VIN %></div>
+      <div class="LLot"><%= ilan.Lot %></div>
+    </div>
+  </div>
+  <div class="LL">
+      <div class="infoT"><div class="basT">Konum: </div> <div class="inpT">[konum.txt]</div></div>
+      <div class="infoT"><div class="basT">Kilometre: </div> <div class="inpT"><%= ilan.km %></div></div>
+      <div class="infoT"><div class="basT">Tahmini Masrafı: </div> <div id="fastbuy" class="inpT blue" ><%= ilan.FastBuyPrice %></div></div>
+    </div>
+</div>
+ <div class="basR">
+  <div class="finalDate RBtn">
+    <div class="dateB"> Bitis Tarihine:</div>
+    <div class="geri-sayim"data-bitis="<%= ilan.bitisTarihi %>"></div>
+  </div>
+  <div class="watch RBtn" id="addWatchlist">Ekle</div>
+ </div>
+</div>
+   
+   <div class="main-content-layout">
+  <div class="resim">
+ <div class="slider-container">
+                <% if (ilan.resimler && ilan.resimler.length > 0) { %>
+                    <button class="prev-btn">&#10094;</button>
+                    <img id="mainImage" src="<%= ilan.resimler[0] %>" alt="Ana Resim">
+                    <button class="next-btn">&#10095;</button>
+                <% } else { %>
+                    <p>Görüntülenecek resim yok.</p>
+                <% } %>
+  </div>
+  <div class="thumbnail-container">
+    <% if (ilan.resimler && ilan.resimler.length > 0) { %>
+      <% ilan.resimler.forEach((resim, index) => { %>
+        <img class="thumbnail" src="<%= resim %>">
+      <% }) %>
+    <% } %>
+  </div>
+</div>
+<div class="info-cont">
+  <div class="kutu">
+    <div class="info"><div class="info-bas ">Lot: </div> <div class="info-txt hoverB"> <%= ilan.LOT %></div></div>
+    <div class="info"><div class="info-bas ">VIN: </div> <div class="info-txt hoverB"> <%= ilan.VIN %></div></div>    
+    <div class="info"><div class="info-bas">Satıcı: </div> <div class="info-txt box green"><%= ilansahibi.kullaniciAdi || 'Bilinmiyor' %></div></div>
+    <div class="info"><div class="info-bas">Oluşturulma Tarihi:</div> <div class="info-txt"><%= ilan.yuklenmeTarihi.toLocaleDateString("tr-TR") + " " + ilan.yuklenmeTarihi.toLocaleTimeString("tr-TR") %></div></div>  
+  </div>
+    
+<div id="downbarContainer" class="kutu" data-filtre="<%= filtreler %>"></div>
+</div>
+        <div class="teklif" >
+          <% if (ilan.sell ==='aktif') {%>
+
+      <div class="teklif-info">
+        <div class="crnt-bid half" >
+          <div class="info-bas">Current Bid</div>
+          <div  id="enYuksekTeklif" class="sayi">$<%= enYuksekTeklif %></div> 
+        </div>
+        <div class="maks-bid half" >
+          <div class="info-bas" id="rightB">Your Maks Bid<img class="sembol" src="/photos/icons/questionB.svg" alt=""></div>
+          <div class="bid-pow sayi"></div>
+        </div>
+      </div><% } %>
+      <div class="time"></div>
+      
+    <% if (ilan.sell ==='aktif') {%>
+<div class="teklif-ver">
+  <div class="time-left"></div><br>
+  <div class="field-wr"><div class="field-name" >Time left</div>
+  <% if (ilan.sell=='pasif') {%>
+    <div class="bid-input grey">Final Auction Ended </div>
+  <%}else{ %> 
+<div class="bid-input " id="green"> </div>
+<% } %> </div>
+<form id="teklifForm" >
+  <div class="miktar-kontrol">
+  <div  id="plus-five">+</div>
+  <input type="number" id="teklifInput" class="ucret" value="0" step="50" placeholder="Teklifinizi girin" required>
+  <div id="minus-five">-</div></div>
+  <button id="teklifverbtn" type="submit" >Teklif Ver</button>
+</form></div>
+<div class="fastbuy">
+        <div class="half" >
+          <div class="info-bas">Fast Buy</div>
+          <div   class="sayi">$<%= ilan.FastBuyPrice %></div> 
+        </div>
+        <div class="half" >
+          <button id="buynowbtn">BUY NOW</button>
+        </div>
+</div>  
+    <% } if(ilan.sell ==='pasif'&&kazananUser!==null) {%>
+          <% if (user.id===kazananUser.id&&ilan.durum==="vehicle-Payment") {%>
+  <form id="payment-form">
+    <label class="info-bas" for="price1">Fiyat ($):</label>
+    <input type="number" class="ucret2"id="price1" name="price1" placeholder="Fiyat giriniz" required readonly>
+    <button class="ode sendMessage" type="submit"  data-ilan-id="<%= ilan._id %>">Onayla</button>
+  </form>
+          <% } if (user.id===kazananUser.id&& ilan.durum!=="vehicle-Payment") {%>
+  <form id="payment-form">
+    <label  class="info-bas" for="price1">Fiyat ($):<%= enYuksekTeklif %></label>
+    <input id="odendi" type="text" placeholder="Çoktan ödediniz" required readonly>
+    
+  </form>
+          <% }%>
+           <% if(user.id!==kazananUser.id) {%>
+        <form id="payment-form">
+            <label  class="info-bas" for="price1">Satılan Fiyat ($):<%= enYuksekTeklif %></label>
+            <input id="odendi" type="text" placeholder="Arttırmayı Kazanmadınız" required readonly>
+        </form>
+          <%} %>
+    <% }if (ilan.sell ==='pasif'&&kazananUser===null) {%>
+       <form id="payment-form">
+            <input id="odendi" type="text" placeholder="Kimse kazanamadı" required readonly>
+        </form>
+   <%  } %>
+    
+
+<div class="final-price-calc">
+    <div class="calcbas"><img class="sembol2" src="/photos/icons/tag.svg" alt="">Final Price Calculator</div>
+    <div class="info"><div class="info-bas"><div class="num">1</div>Lot Price: </div> <div id="lot" class="info-txt"></div></div>
+    <div class="info"><div class="info-bas"><div class="num">2</div>Auction Fees:<img class="sembol" src="/photos/icons/questionB.svg" alt=""> </div> <div id="auction-fees" class="info-txt"></div></div>
+    <div class="info"><div class="info-bas"><div class="num">3</div>Trucking to port: </div> <div id="trucking" class="info-txt"></div></div>
+    <div class="info"><div class="info-bas"><div class="num">4</div>Shipping to: </div> <div id="shipping" class="info-txt"></div></div>
+    <div class="info"><div class="info-bas"><div class="num">5</div>Our fee: </div> <div id="our-fee" class="info-txt"></div></div>
+    <div class="total"><div class="calcbas">Subtotal:</div> <div id="subtotal" class="amount"></div>  </div>
+
+</div>
+<div class="final-price-calc">
+    <div class="calcbas"><img class="sembol2" src="/photos/icons/carbon_calculator.svg" alt="">Customs Calculator</div>
+    <div class="info"><div class="info-bas"><div class="num numbas">1</div> <div class="tire">-</div> <div class="num numbas">5</div>Customs Value: </div> <div id="custom-value" class="info-txt"></div></div>
+    <div class="info"><div class="info-bas"><div class="num">6</div>Tax: </div> <div id="tax" class="info-txt"></div></div>
+    <div class="info"><div class="info-bas"><div class="num">7</div>Vat: </div> <div id="vat" class="info-txt"></div></div>
+    <div class="info"><div class="info-bas"><div class="num">8</div>Custom Agency(all in): </div> <div id="agency" class="info-txt"></div></div>
+    <div class="info"><div class="info-bas"><div class="num numbas">6</div><div class="tire">-</div><div class="num numbas">8</div>Custom Claerence Total: </div> <div id="Claerence" class="info-txt"></div></div>
+    <div class="total"><div class="calcbas">Estimated Total Price:</div> <div id="total" class="amount"></div>  </div>
+</div>
+
+
+<br>
+
+</div>
+ 
+  
+        
+</div>
+
+<div class="bottomParaghs">
+  <div >
+    <div class="block">
+      <h5>Is the process of purchasing vehicles from BidCars complicated?</h5>
+      <p>The process of purchasing vehicles through the BidCars platform is characterized
+         by its ease and clarity. It is essential to have basic website navigation skills, 
+         including tasks such as placing bids, depositing security, and conducting international 
+         transfers in US dollars (USD) and euros (EUR) through your bank. We handle all 
+         formalities for the client, from contact with the auction house, documentation management,
+          arranging transportation in the United States, loading into the container, unloading, 
+          customs clearance, to vehicle delivery to the specified address.</p>
+      <button>BidCars Vehicle Purchase Process</button>
+    </div>
+    <div class="block">
+      <h5>What happens after winning a bid?</h5>
+      <p>After winning a bid on the BidCars platform, your bid status will change to 'Vehicle Won'. This means your offer has been accepted by the seller, and you have purchased the vehicle. The final amount you pay may be lower than your maximum offered sum, thanks to BidCars' efforts to secure the car at the best price during live bidding. Within a few hours of the auction ending, you will receive an email with transaction details, including the account number, the exact amount to be paid, and the transfer title. Payments are made in USD, directing funds directly to the auction house, whether it's Copart or IAAI.</p>
+      <button>Import Schedule</button>
+    </div>
+    <div class="block">
+      <h5>How to pay for the auctioned vehicle?</h5>
+      <p>To finalize the payment for the auctioned vehicle, you need a currency account in USD and the ability to make international foreign transfers. If you have doubts about conducting the transaction on your own, you can print the email received from us along with the attached PDF file with transfer details and seek support at your local bank branch.</p>
+    </div>
+    <div class="block">
+      <h5>Does BidCars handle customs clearance and home delivery?</h5>
+      <p>For all vehicles directed to Rotterdam, our main port, we offer comprehensive logistics services. This includes customs clearance and the delivery of the vehicle directly to the client's (for specific locations), ensuring the entire process of importing the car is comfortable and hassle-free for our clients.</p>
+    </div>
+  </div>
+
+  <div>
+    <div class="block">
+      <h5>Find your dream car</h5>
+      <p>Find your dream car from the USA. Our search engine and detailed filters will make it easy for you to browse through our car database. At BidCars, you don't need to create an account to view the cars and auctions that interest you.</p>
+
+<p> You only need to create an account when you want to participate in an auction. The registration and account activation process is straightforward and will take you no more than 5 minutes.</p>
+      <button>Create a free account</button>
+    </div>
+  <div class="block">
+      <h5>Make a Refundable Deposit</h5>
+      <p>A refundable deposit is required so you can participate in auctions – this is a requirement of the auction houses Copart and IAAI. We do not charge any fees for participating in auctions - if you wish to withdraw from cooperation, you can order a refund of the deposit from your customer panel.</p>
+
+<p> Once the deposit is booked into our account, you will have the opportunity to place bids the same day. If you win the auction, the funds will be frozen until you pay for the vehicle. If you lose, the deposit will be automatically released. Use it to bid on another vehicle, or refund the funds to your bank account under the "Deposit Refund"</p>
+    </div>
+    <div class="block">
+      <h5>The auction starts right now – feel the thrill of the action!</h5>
+      <p>Set the maximum amount you're willing to pay for a given vehicle. The calculator provided on the page will help you sum up all the costs. Your order will be accepted - the vehicle will be auctioned by BidCars during the live auction of the auction house.</p>
+
+<p> In the case when the BidCars user's offer is higher than the highest offer from the preliminary bidding in the auction house, the user is represented by our team during the live auction up to the maximum amount set by themselves - this way you ensure the highest effectiveness in the auction and the possibility of buying the vehicle at the lowest possible price.</p>
+    </div>
+    <div class="block">
+      <h5>Pay for the vehicle and... wait for it to arrive!</h5>
+      <p>After the auction has been won by BidCars, you'll receive bank transfer details and instructions for making an international transfer to the USA.</p>
+
+<p> Once the funds are booked, we'll pick up your vehicle and take additional photos.</p>
+
+<p> We stay in touch with you throughout the entire process of importing the vehicle from the USA. You can check the status of your vehicle on our website, and in case of customs clearance at the port in Rotterdam, we'll handle all the formalities.</p>
+
+<p> All you need to do is wait for your new car to be delivered to your doorstep!</p>
+    </div>
+    
+  </div>
+  <div id="paypal-button-container"></div>
+</div>
+</div>
+<div id="lightbox-modal">
+    <div id="lightbox-backdrop"></div> 
+
+    <div id="lightbox-content">
+        <span id="close-btn">&times;</span> 
+
+        <img id="modal-image" src="" alt="Büyük Fotoğraf"> 
+
+        <button id="prev-btn" class="nav-btn">&#10094;</button> 
+        
+        <button id="next-btn" class="nav-btn">&#10095;</button> 
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/scripts/swiper.js" ></script>
+<script src="/scripts/afterBuy.js" ></script>
+<script src="/scripts/ab.js" ></script>
+
+
+
+
+
+
+

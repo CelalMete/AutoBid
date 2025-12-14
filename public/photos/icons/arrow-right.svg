@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="8px" height="12px" viewBox="0 0 8 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>Arrow Right</title>
+    <desc>Created with Sketch.</desc>
+    <g id="1.-Home-✅" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home" transform="translate(-362.000000, -914.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g id="Recent-Auctions-&amp;-Lots" transform="translate(0.000000, 687.000000)">
+                <g id="Auction-Today" transform="translate(186.000000, 115.000000)">
+                    <g id="Lot" transform="translate(0.000000, 46.000000)">
+                        <g id="Hover-Active">
+                            <path d="M180,73.4814121 L184.317517,68.3415085 C184.666651,67.9258726 185.273142,67.8837552 185.672152,68.2474366 C186.071162,68.611118 186.111595,69.2428795 185.762461,69.6585155 L180.722472,75.6585052 C180.339998,76.1138316 179.660002,76.1138316 179.277528,75.6585052 L174.237539,69.6585155 C173.888405,69.2428795 173.928838,68.611118 174.327848,68.2474366 C174.726858,67.8837552 175.333349,67.9258726 175.682483,68.3415085 L180,73.4814121 Z" id="Arrow-Right" transform="translate(180.000000, 72.000000) rotate(-90.000000) translate(-180.000000, -72.000000) "></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

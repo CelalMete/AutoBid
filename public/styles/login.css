@@ -1,0 +1,416 @@
+
+                .kayit, .tus, #visib{
+        -webkit-tap-highlight-color: transparent;}
+        @property --angle{
+            syntax:  "<angle>";
+                initial-value: 0deg;
+                inherits: false;
+        }
+
+        @keyframes cerceve{
+            0%{
+                --angle:0deg 
+            }
+            100%{
+                --angle:360deg
+            }
+        }
+        
+       
+        :root {
+            --r1: #142c54;
+            --r2: hsl(218, 62%, 40%);
+            --r0: #f0fcfc;
+    
+        }
+        *{
+            box-sizing: border-box;
+            user-select: none;
+        }
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background-color: var(--r0);
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .baslik, .girisler input, .girisler label{
+            font-family: "Ancizar Serif", serif ;
+        }
+        #main{
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20vh;
+            height: 70vh;
+            width: 90vw;
+            background-color: var(--r2);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border-radius: 15px;
+            flex-direction: column;
+            z-index: 1;
+        }
+        #main.inaktif{
+            background-color: var(--r1);
+        }
+        #main .baslik{
+            margin-top: 3vh;
+            font-size: 2em;
+            color: var(--r0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .inp{
+            margin-top: 10vh;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            width: 100%;
+            gap: 8vh;
+            padding-inline:5vw ;
+        }
+        .inp.inp2{
+            margin-top: 5vh;
+            gap: 5vh;
+        }
+        .girisler{
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 0vw;
+        }
+        .girisler.inaktif{
+            opacity: 0;
+            margin-top: 10vh;
+        }
+        #di1{
+            transition: margin-top .2s ease-out, opacity .4s ease-out;
+        }
+        #di2{
+            transition: margin-top .2s ease-out .2s, opacity .2s ease-out .2s;
+        }
+        #di3{
+            transition: margin-top .2s ease-out .4s, opacity .2s ease-out .4s;
+        }
+        #di4{
+            transition: margin-top .2s ease-out .6s, opacity .2s ease-out .6s;
+        }
+        #di5{
+            transition: margin-top .2s ease-out .6s, opacity .2s ease-out .6s;
+        }
+
+        input{
+            border-radius: 10px;
+            border: none;
+            padding: 1vh;
+            padding-inline: 1.5vh;
+            width: 60%;
+            background-color: var(--r0);
+            flex-shrink: 0;
+            height: 4vh;
+        }
+        #visib, #visib2, #visib3{
+            background-color: var(--r0);
+            border-radius: 10px 0px 0px 10px;
+            padding: 3px;
+            border-right: 1px solid black;
+            height: 4vh;
+            cursor: pointer;
+        }
+        #i3, #i4, #i6{
+            border-radius: 0px 10px 10px 0px;
+        }
+        #visib.aktif,#visib2.aktif,#visib3.aktif{
+            background-color: black;
+            color:var(--r0) ;
+        }
+        .lbl{
+            text-align: star;
+            padding-left: 2vw;
+            width: 40%;
+            color: var(--r0);
+            flex-shrink: 1;
+        }
+        .lbl{
+            padding-left: 0
+        }
+        .lbl1, .lbl2{
+            flex-shrink: 0;
+        }
+        .lbl:hover{
+            transition: color .2s;
+            color: rgb(150, 150, 150);
+        }
+        .tus{
+            flex-shrink: 0;
+            position: relative;
+            width: 30vw;
+            height: 5vh;
+            background-color: var(--r2);
+            border: 2px black solid;
+            border-radius: 10px;
+            cursor: pointer;
+            color: #f0fcfc;
+            font-size: 1.3em;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .kayit{
+            transition: margin-left .4s ease-out,color .5s ease-out, background-color .4s ease-out;
+        }
+        .kayit.inaktif{
+            transition: margin-left .4s ease-out,color .5s;
+            position: relative;
+            flex-shrink: 0;
+            cursor: pointer;
+            width: 30vw;
+            height: 5vh;
+            background-color: var(--r1);
+            border: 2px black solid;
+            border-radius: 10px;
+            z-index: 3;
+            font-size: 1.3em;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #7a7a7a;
+        }
+        .tus.aktif::after{
+            content: '';
+            position: absolute;
+            height: 100%;  
+            width: 100%;
+            background-image: conic-gradient(from var(--angle),white, transparent, transparent,transparent,white);
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            z-index: -1;
+            padding: 3px;
+            border-radius: 10px;
+            animation: cerceve 2s infinite linear;
+
+        }   
+        .kayit.aktif::after{
+            content: '';
+            position: absolute;
+            height: 100%;  
+            width: 100%;
+            background-image: conic-gradient(from var(--angle),white, transparent, transparent,transparent,white);
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            z-index: -1;
+            padding: 3px;
+            border-radius: 10px;
+            animation: cerceve 2s infinite linear;
+
+        }     
+        .tus.aktif{
+        transition: color .5s;
+        }
+        .kayit.aktif{
+        margin-left: 42vw;
+        color: var(--r0);
+        position: relative;
+        flex-shrink: 0;
+        cursor: pointer;
+        width: 30vw;
+        height: 5vh;
+        background-color: var(--r1);
+        border: 2px black solid;
+        border-radius: 10px;
+        font-size: 1.3em;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--r2);
+        }
+        .tus.inaktif{
+        color:#7a7a7a ;
+        }
+        .tus.inaktif::after{
+        display: none;
+        }
+        .deneme{
+            flex-shrink: 0;
+        }
+        .d1{
+            transition: opacity .4s ease-out;
+        }
+        .d1.aktif{
+            opacity: 1;
+            width: 84vw;
+            height:56vh ;
+            background-color: var(--r1);
+            margin-top: 2vh;
+            z-index: 1;
+            border-radius: 10px 10px 0 10px;
+            
+        }
+        .d1.inaktif{
+            width: 84vw;
+            height:56vh ;
+            background-color: var(--r1);
+            margin-top: 2vh;
+            opacity: 0;
+            border-radius: 10px 10px 0 10px;
+            
+         }
+        .d2{
+            transition: background-color .2s ease-out;
+            width: 42vw;
+            height:10vh ;
+
+            align-self: start;
+            border-radius: 0px 10px 0px 10px;
+            margin-left: 3.1vw;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+        .d2.aktif{
+            background-color: var(--r2);
+        }
+        .d2.inaktif{
+           background-color:transparent;
+        }
+        .d3{
+            transition: margin-top .4s ease-out, opacity .4s ease-out, margin-right 1s ease-out;
+        }
+        .d3.aktif{
+            opacity: 1;
+            z-index: 1;
+            width: 42vw;
+            height:10vh ;
+            background-color: var(--r1);
+            align-self: flex-end;
+            margin-right: 3vw;
+            margin-top: -10vh;
+            z-index: 1;
+            border-radius: 0px 0px 10px 10px;  
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+        .d3.inaktif{
+            opacity: 0;
+            z-index: 1;
+            width: 42vw;
+            height:10vh ;
+            background-color: var(--r1);
+            align-self: flex-end;
+            margin-right: -50vw;
+            margin-top: -10vh;
+            border-radius: 0px 0px 10px 10px;  
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+        .orospucocugu.aktif{
+            opacity: 1;
+            width: 39vw;
+            height: 11vh;
+            background-color: var(--r1);
+            position: absolute;
+            right: 3vw;
+            left: 3vw;
+            bottom:5vh;
+            z-index: 0;
+        }
+        #orospucocugu.inaktif{
+            display: none;
+            width: 45vw;
+        }
+        #yeni{
+            transition: bottom .4s ease-out,color .5s, left .4s ease-out,opacity .4s ease-out;
+            height: 56vh;
+            width: 84vw;
+            z-index: 1;
+
+        }
+        #yeni.inaktif{
+            position: absolute;
+            overflow: hidden;
+            left: -40vw;
+            bottom: -54vh;
+            opacity:0;
+            background-color: var(--r2);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border-radius: 15px;
+            flex-direction: column;
+            z-index: 1;
+        }
+        #yeni.aktif{
+            opacity:1;
+            position: absolute;
+            overflow: hidden;
+            left: 3vw;
+            bottom: 12vh;
+            background-color: var(r2);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border-radius: 10px;
+            flex-direction: column;
+            background-color: var(--r2);
+        }
+       
+@media screen and (min-width: 768px) {
+    #main {
+        width: 690px;
+    }
+
+    #yeni.aktif {
+        width: 644px;
+        left: 23px;
+    }
+    #yeni.inaktif {
+        width: 650px;
+        left: calc(50% - 345px);
+    }
+
+    .d1.aktif,
+    .d1.inaktif {
+        width: 645px;
+    }
+
+    .d2{margin-left: 23px;
+        width: 322px;
+        display: flex;
+        justify-content: center;
+    }
+    
+    
+    .d3.aktif{width: 322px;
+        display: flex;
+        justify-content: center;
+        margin-right: 23px; }
+        
+    .kayit.aktif{
+        margin-left: 322px;
+        width: 230px;
+    }
+     .kayit.inaktif{
+        width: 230px;
+    }
+    .tus {
+        width: 230px; 
+        
+    }
+}

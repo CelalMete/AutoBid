@@ -1,0 +1,131 @@
+
+@font-face {
+font-family: 'lato'; /* piksel ??? tasuki çalıntı*/
+src: url('/fonts/Lato-Regular.ttf'); 
+}
+
+@keyframes heartbeat {
+ 0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.05); /* Birinci "dıp" */
+  }
+  40% {
+    transform: scale(1); /* İniş */
+  }
+  60% {
+    transform: scale(1.05); /* İkinci "dıp" */
+  }
+  80% {
+    transform: scale(1); /* İniş */
+  }
+  100% {
+    transform: scale(1); /* Animasyon sonu, boşluk bırakıyor */
+  }
+}
+
+body{background-color: #f7f7f7;}
+.ust { margin-top: 50px;
+  max-width: 750px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+}
+
+.steps {margin-top: 50px;
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  width: 100%; 
+}
+
+.step {
+  /* Add some basic styling here if you like */
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+.step div{display: flex;font-size: 14px;background-color: #249AF3;font-family:'lato',sans-serif ;
+    color: white;border-radius: 50%;width: 30px;height: 30px;align-items: center;justify-self: center;
+    justify-content: center; margin-top: 20px;}
+.step h2{font-family: 'lato',sans-serif;font-size: 20px;}
+.step:not(.active) {
+  animation: heartbeat 3.5s infinite; /* Animasyonu uygula */
+  /* Diğer geçiş efektleri için */
+  transition: transform 0.4s ease; 
+}
+.step:not(.active) div{background-color: #7F8FA4;}
+.step:not(.active) h2{color:#687687 ;}
+.dots {
+width: 28%;border-bottom: 2px dotted #97A4B8;
+margin: 0 0 15px 0;position: absolute;
+left: 36%; top: 250px;
+}
+
+.header-caption{margin-top: 50px; text-align: center;font-family:'lato', sans-serif;}
+.header-caption h3{font-size: 26px; margin-bottom: 10px; }
+.header-caption p{ font-size: 16px; color: #687687; line-height: 26px; }
+
+.main-description{    background: #F8FCFF;
+    border-left: 3px solid #219AF3;
+    border-radius: 6px;
+    box-shadow: 0 2px 3px rgb(51 65 80 / 5%);
+    display: flex;
+    width: 80%;justify-self: center;
+    padding: 55px 40px 20px 40px;
+    grid-column-start: 1;
+    grid-column-end: 3;}
+
+.description{width: 60%;float: left;background-color:white;}
+.image{vertical-align: middle;
+    border-style: none;}
+.description h3{font-family:'lato',sans-serif ;font-size: 20px;}
+.description p{font-family:'lato', sans-serif; font-size: 17px;color: #687687;}
+.blocks {
+    width: 70%;
+    margin: 0 auto; /* justify-self yerine margin auto ile ortala */
+    display: grid; /* Grid düzenini etkinleştir */
+    grid-template-columns: 1fr 1fr; /* İki eşit sütun oluştur */
+    gap: 20px; /* Bloklar arasındaki boşluk */
+    /* clear: both; grid kullanınca buna gerek kalmaz */
+}
+
+.block {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px; /* İç boşluğu biraz artırdım */
+    /* width, margin ve float özelliklerini kaldırıyoruz */
+    display: flex; /* İçerik hizalaması için flex */
+    flex-direction: column; /* İçerikleri alt alta diz */
+    align-items: flex-start; /* İçerikleri sola yasla */
+}
+
+.block h5 {
+    font-family: 'lato', sans-serif;
+    font-size: 15px;
+    color: #212529;
+    margin-top: 0; /* Üst boşluğu sıfırla */
+    margin-bottom: 10px;
+    font-weight: bold; /* Başlıkları belirginleştir */
+}
+
+.block p {
+    color: #7F8FA4;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 16px;
+    flex-grow: 1; /* Paragrafın kalan alanı doldurmasını sağla (butonları hizalar) */
+}
+
+.block button {
+    padding: 10px 20px;
+    background-color: #249AF3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer; /* Tıklanabilir imleç */
+    margin-top: auto; /* Butonu en alta it */
+}

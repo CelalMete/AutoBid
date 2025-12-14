@@ -1,0 +1,22 @@
+<h1><%= sectionTitle %></h1>
+
+  <% if(items.length === 0){%>
+        <h1 class="bas"  >aradığınız kategoride ilan yoktur</h1>
+      <% } %>
+    <% items.forEach(ilan => { %>
+  <div class="sonuclar2">
+      <div class="sonuc2">
+        <div class="foto2">
+            <img src="<%= ilan.resimler[0] %>" alt="İlan Fotoğrafı" />
+        </div>
+        <div class="infos2">
+          <a href="/ilan/<%= ilan._id %>"><h3><%= ilan.Baslik || "Başlık Yok" %></h3></a>
+          <p>Fiyat: <%= ilan.fiyat || "Belirtilmemiş" %></p>
+          <p>Açıklama: <%= ilan.aciklama || "Açıklama yok" %></p>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  
+  <script>
+</script>

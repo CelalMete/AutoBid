@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="/styles/profile.css">
+<meta name="csrf-token" content="<%= csrfToken %>">
+
+
+<div class="profileCont">
+  <div class="leftProf">
+    <% durumlar.forEach(d => { %>
+      <% if (d.key !== 'none' && d.key !== 'vehicle-Payment') { %> 
+        <a href="/shipping/<%= kategori %>/<%= d.key %>" 
+           class="<%= section === d.key ? 'active' : '' %> list">
+          <%= d.subject[lang] %> 
+        </a>
+      <% } %>
+    <% }) %>
+  </div>
+
+  <div class="rightProf">
+    <% if (items.length === 0) { %>
+      <h1 class="bas">aradığınız kategoride ilan yoktur</h1>
+    <% } %>
+
+    <% items.forEach(ilan => { %>
+      <div class="sonuclar2">
+        <div class="sonuc2">
+          <div class="foto2">
+            <img src="<%= ilan.resimler[0] %>" alt="İlan Fotoğrafı" />
+          </div>
+          <div class="infos2">
+  <h3><%= ilan.Baslik || "Başlık Yok" %></h3>
+  <p>Fiyat: <%= ilan.fiyat || "Belirtilmemiş" %></p>
+
+  <div class="file-upload-container" style="margin-bottom: 10px;">
+      <label style="font-size:12px; color:grey;">(Gerekliyse Belge/Foto Yükle)</label>
+      <input type="file" class="fileInput" name="photo" accept="image/*">
+  </div>
+
+  <button class="sendMessage" data-ilan-id="<%= ilan._id %>">
+    İlerle (Next Step)
+  </button>
+</div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<script src="/scripts/afterBuy.js" defer></script>

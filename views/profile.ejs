@@ -1,0 +1,19 @@
+<link rel="stylesheet" href="/styles/profile.css">
+
+<div class="profileCont" >
+  <div class="leftProf">
+    <a href="/profile/profwatchlist"  class="<%= section === 'profwatchlist' ? 'active' : '' %> list">WatchList</a>
+    <a href="/profile/current-bids" class="<%= section === 'current-bids' ? 'active' : '' %> list">Current Bids</a>
+    <a href="/profile/won-bids" class="<%= section === 'won-bids' ? 'active' : '' %> list">Won Bids</a>
+    <a href="/profile/lost-bids" class="<%= section === 'lost-bids' ? 'active' : '' %> list">Lost Bids</a>
+    <a href="/profile/shipping" class="<%= section === 'shipping' ? 'active' : '' %> list">Shipping</a>
+    <a href="/profile/Personal-Informaton" class="<%= section === 'Personal-Informaton' ? 'active' : '' %> list">Personal Information</a>
+    <a href="/profile/change-password" class="<%= section === 'change-password' ? 'active' : '' %> list">Change Password</a>
+    <a  href="/profile/logout" class="<%= section === 'logout' ? 'active' : '' %> list l" >Log Out</a>
+    <% if (user.rutbe==='admin') {%>
+      <a  href="/profile/adminPanel" class="<%= section === 'adminPanel' ? 'active' : '' %> list " >Admin Panel</a>
+    <% } %>
+  </div>
+  <div class="rightProf"><%- include(prof) %></div>
+</div>
+

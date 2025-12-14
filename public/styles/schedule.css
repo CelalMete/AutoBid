@@ -1,0 +1,54 @@
+body{background-color: #f7f7f7;font-family: 'lato',sans-serif;}
+@font-face {
+font-family: 'lato'; /* piksel ??? tasuki çalıntı*/
+src: url('/fonts/Lato-Regular.ttf'); 
+}
+.how-it-works-container {
+    display: flex; width: 1000px; justify-self: center;
+    margin-top: 100px;
+}
+
+.how-it-works-navbar {
+    font-family: 'lato', sans-serif;
+    width: 340px; /* Navbar genişliği */
+    display: flex;
+    flex-direction: column; /* Linkleri alt alta dizer */
+}
+
+.how-it-works-navbar .nav-link {
+    padding: 10px;height: 50px;
+    width: 340px;
+    background-color: #ffffff;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #e3e3e3;padding-left: 10px;
+}
+
+.how-it-works-navbar .nav-link.active {
+    background-color: #007bff; /* Aktif link rengi */
+    color: white;
+}
+.nav-link h4{float: left;height: 27px;width: 27px;display: flex;
+    align-items: center;justify-content: center;color: #A4ADB7;
+    border: 1px solid #A4ADB7 ;border-radius: 50%;font-size: 14px;}
+.nav-link p{float: left;margin-left: 12px;padding-top: 3px;}
+.how-it-works-content{margin-left: 50px;background-color: white;
+width: 600px;}
+.how-it-works-content .content-item {
+
+    display: none; /* Varsayılan olarak tüm içerikleri gizle */
+}
+
+.how-it-works-content .content-item.active {
+    display: block; /* Sadece aktif içeriği göster */
+}
+.content-item.active h2{margin-left: 40px;font-size: 24px;margin-top: 10px;}
+.content-item.active img{width: 80%;justify-self:center ;}
+.content-item.active p{padding: 20px;}
+.content-item.active li {margin-left: 50px;}
+.content-item.active .b {background: #219af317;
+    padding: 20px; width: 88%;justify-self: center;
+    font-size: 16px;
+    border-radius: 6px;
+    border-left: 3px solid #219af3;
+    margin-top: 30px;}

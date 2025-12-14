@@ -1,0 +1,65 @@
+@font-face {
+font-family: 'lato'; /* piksel ??? tasuki çalıntı*/
+src: url('/fonts/Lato-Regular.ttf'); 
+}
+.SSScont {
+    background-color: white;
+    width: 80%;justify-self: center;
+    max-width: 900px; /* Geniş ekranlarda çok fazla yayılmasını engeller */
+    margin-top: 30px;
+    min-height: 500px;
+    padding: 20px; /* İç boşluk ekler */
+    box-sizing: border-box;
+}
+
+.bas {
+    text-align: center;
+    padding-top: 20px;
+    font: 26px 'lato', sans-serif;
+    margin-bottom: 20px;
+}
+
+/* Soru ve cevap grupları için boşluk */
+.soru-cevap-group {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.soru {
+    display: flex; /* İçindeki elemanları yan yana hizala */
+    align-items: center; /* Elemanları dikeyde ortala */
+    gap: 15px; /* Elemanlar arasına boşluk bırakır */
+    background: #219af317;
+    padding: 20px;
+    font-size: 16px;
+    border-radius: 6px;
+    border-left: 3px solid #219af3;
+}
+.info-bas
+.num {
+    height: 27px;
+    width: 27px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #A4ADB7;
+    border: 1px solid #FF4D4D;
+    border-radius: 50%;
+    font-size: 14px;
+    flex-shrink: 0; /* Küçülmesini engelle */
+}
+
+.soru p {
+    margin: 0; /* Varsayılan p margin'lerini kaldır */
+}
+
+.cevap {
+    background: #219af317;
+    padding: 20px;
+    width: 88%;
+    font-size: 16px;
+    border-radius: 6px;
+    border-left: 3px solid #FF4D4D;
+    margin: 10px auto; /* Yukarıdan 10px boşluk ve ortalama */
+}

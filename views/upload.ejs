@@ -1,0 +1,28 @@
+
+  <link rel="stylesheet" href="/styles/left.css">
+      <input type="hidden" id="csrfToken" value="<%= csrfToken %>">
+     <script src="/scripts/uploadsrc.js" defer></script>
+  <div id="anal" data-rutbe="<%= user.rutbe %>"></div>
+  <div class="container " id="kategoriContainer">
+      <div id="Ilan-bs">İlan Oluştur</div>
+     
+    <div id="anaKategoriler" >
+       <% AL.forEach(AL => {%>
+        <div class="btn" data-kategori="<%= AL.altKategori%>">
+        <div class="renk" id="s" ></div>
+        <div class="txt"><%= AL.altKategori%></div>
+      </div>
+      <%}); %>
+    </div>
+
+     <div id="altKategorilerWrapper" class="alt-kategori-wrapper"></div>
+     <div  id="ilerleDiv">
+  <button id="ilerleBtn">
+    İlerle
+  </button>
+</div>
+
+  </div>
+
+
+  

@@ -1,0 +1,10 @@
+<div ><meta name="csrf-token" content="<%= csrfToken %>">
+    <h2>TEST ÖDEME EKRANI</h2>
+    <p>Bu bir simülasyondur. Kart bilgisi girmeden ödemeyi test edebilirsiniz.</p>
+    <h3>Tutar: <%= tutar %> TL</h3>
+    
+    <button id="1" data-oid="<%= oid %>">✅ Ödemeyi Başarıyla Tamamla</button>
+    
+    <button id="2" data-oid="<%= oid %>">❌ Yetersiz Bakiye Hatası Ver</button>
+</div>
+<script src="/scripts/mock.js" defer></script>

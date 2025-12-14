@@ -1,0 +1,70 @@
+<div class="container" >
+    <link rel="stylesheet" href="/styles/filter.css">
+  <div class="filter-tags"> <div id="breadcrumbContainer" class="breadcrumb"></div></div>
+  <div class="filters">
+    
+   
+    <div class="kate">
+      <input type="hidden" id="ustler" value="<%= anaKategori %>">
+      <div id="breadcrumbContainerVertical" class="breadcrumb-vertical"></div>
+
+  <div class="alt-kategori-scroll" id="alt-kategori-scroll">
+    <% if (altKategoriler && altKategoriler.length > 0) { %>
+        <% altKategoriler.forEach((altKategori, index) => { %>
+      <div class="alt-kategori-item"  data-alt="<%= altKategori.altKategori %>">
+  <%= altKategori.altKategori %>
+</div>
+    <% }) %>
+  <% } %>
+</div>
+</div>
+ 
+
+  <div class="filtCont" >
+  <h3 class="fil-bs">Yapım yılı</h3>
+  <div class="year-inputs">
+    <input type="number" id="yearMin" min="1900" max="2100" placeholder="Min yıl">
+    <input type="number" id="yearMax" min="1900" max="2100" placeholder="Max yıl">
+  </div>
+</div>
+
+<div></div>
+<div id="downbarContainer" data-filtre="<%= filtreler %>"></div>
+  <button id="searchButton" >ARA</button>
+
+    </div >
+        
+    
+
+  <div class="sonuclar">
+    <div class="megabas">
+    <h2 class="bas">Sonuçlar</h2>
+    <div class="sirala"> 
+              <div class="dropdown-toggles w " id="dropdownToggles">
+                 <div class="txt kategori1" ></div> 
+                </div>
+              <ul class="dropdown-menus" id="dropdownMenus" >
+                <li class="sirala-item " id="1">Pahalıdan Ucuza</li>
+                <li class="sirala-item " id="2">Ucuzdan Pahalıya</li>
+              </ul>
+    </div>
+  </div>
+    <% ilanlar.forEach(ilan => { %>
+      <div class="sonuc">
+        <div class="foto">
+            <img src="<%= ilan.resimler[0] %>" alt="İlan Fotoğrafı" />
+        </div>
+        <div class="infos">
+          <a href="/ilan/<%= ilan._id %>"><%= ilan.Baslik %></a>
+          <p>Fiyat: <%= ilan.fiyat || "Belirtilmemiş" %></p>
+          <p>Açıklama: <%= ilan.aciklama || "Açıklama yok" %></p>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+</div>
+<script src="/scripts/filtersrc.js" defer></script>
+
+
+

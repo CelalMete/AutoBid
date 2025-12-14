@@ -1,0 +1,630 @@
+@font-face {
+    font-family: 'lato';
+    src: url('/fonts/Lato-Regular.ttf') format('truetype');
+}
+
+body {
+    background-color: #F6F6F8;
+    margin: 0; /* Body'nin varsayılan marjinlerini kaldırın */
+    padding: 0;
+}
+
+.container1 {
+    width: 96%; 
+    margin: 0 auto; 
+    padding-top: 20px; 
+    box-sizing: border-box; 
+    
+}
+
+.ilanTop {
+    height: 80px;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: white;
+    padding: 0 20px; 
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px; 
+}
+.basL{height: 90px;width: 800px;}
+.LInfo{  margin-top: 15px; display: flex;width: 800px;
+    margin-bottom: 13px;
+    align-items: center;font-family: 'lato',sans-serif;
+    flex-wrap: wrap;
+    row-gap: 5px;}
+.LBas{font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 10px 0 0;}
+.LVIN{padding: 2px 10px;
+    background: #e6edf6;
+    border-radius: 4px;
+    color: #000;
+    font-size: 12px;
+    height: 26px;
+    line-height: 22px;
+    transition: all .3s;
+    margin: 0 10px 0 0;}
+.LLot{}
+
+
+.basR{}
+.RBtn{border: 1px solid #E6EDF6;
+    padding: 11px 14px;
+    display: flex;float: left;
+    margin: 0 0 0 15px;
+    align-items: center;
+    border-radius: 6px;height: 40px;margin-top: 5px;
+    font-size: 14px;
+    color: #212529;
+    transition: all .3s;
+    position: relative;
+    background: transparent;
+    left: auto;
+    top: auto;
+    line-height: 24px;
+    font-weight: 400;
+    opacity: 1;}
+
+
+.infoTop{width: 200px;float: left; margin-right: 20px;border-right: 1px solid #E6EDF6;}
+
+#odendi{ margin-left: 0; 
+    height: 40px;
+    width: 100%; text-align: center;
+    border-radius: 5px;
+    font-size: 18px;
+    background-color: white;
+    color: #249AF3;
+    border: 1px solid #249AF3;
+    margin-top: 15px; 
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;}
+
+.main-content-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start; 
+    gap: 20px; 
+    margin-bottom: 20px;
+}
+.finalDate {
+    display: flex;
+    flex-direction:row; gap: 10px;
+    justify-content: center; 
+    align-items: flex-start;
+    padding: 8px 8px;
+}
+
+.dateB {
+    font-size: 12px; 
+    color: #888; 
+    margin-bottom: 0; 
+    font-weight: normal;
+}
+
+/* Tarihin Kendisi */
+.geri-sayim {
+    font-size: 16px; /* Tarihi büyütelim */
+    font-weight: bold;
+    color: #d9534f; /* Kırmızımsı bir renk (Aciliyet hissi) */
+}
+.resim {
+flex: 4; 
+background-color: white; 
+padding: 15px; 
+border-radius: 8px;
+box-sizing: border-box; display: flex; 
+flex-direction: column; 
+gap: 10px; 
+    
+    /* * * * YAPILMASI GEREKEN DEĞİŞİKLİK * * * */
+position: sticky;
+top: 20px; /* Ekranın üstünden ne kadar aşağıda duracağını belirler */
+}
+
+.slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 250px; /* Slider için minimum yükseklik */
+}
+
+#mainImage {
+    width: 100%;
+    max-height: 400px; /* Yüksekliği biraz artırdım */
+    object-fit: contain;
+    border: 1px solid #eee; /* Daha hafif bir çerçeve */
+    border-radius: 5px;
+}
+
+.prev-btn, .next-btn {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10; /* Butonların önde olmasını sağla */
+    border-radius: 50%; /* Yuvarlak butonlar */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.prev-btn { left: 10px; }
+.next-btn { right: 10px; }
+
+
+.thumbnail-container {
+    display: grid; 
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 5px; 
+    width: 100%;
+    margin-top: 10px;
+}
+
+.thumbnail {
+    width: 100%;
+    height: 70px;
+    object-fit: cover;
+    border: 2px solid transparent;
+    cursor: pointer;
+    border-radius: 5px; /* Yuvarlatılmış köşeler */
+    transition: border-color 0.2s ease; /* Hover efekti yumuşat */
+}
+
+.thumbnail:hover, .thumbnail.active { /* Aktif thumbnail için de bir stil ekleyelim */
+    border-color: #249AF3; /* Mavi çerçeve */
+}
+
+
+.info-cont {
+    flex: 3; 
+    
+    padding: 0; 
+    background-color: transparent; 
+    position: sticky;
+top: 20px; 
+}
+
+.kutu {
+    padding: 20px;
+    width: 100%; /* Kapsayıcısının genişliğini tamamen kapla */
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 20px; /* Kutular arasında boşluk */
+    box-sizing: border-box; /* Padding'i genişliğe dahil et */
+}
+
+/* .kutu içindeki .info elemanları */
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Dikeyde ortala */
+    padding: 8px 0; /* Yatay padding'i kaldırdım, kapsayıcıdan geliyor */
+    border-bottom: 1px solid #ddd;
+    font-size: 15px; /* Ortak font boyutu */
+}
+.infoT {
+    padding: 5px 0; width: auto;display: flex;
+    border-right: 1px solid #ddd;float: left;
+    font-size: 13px; gap: 5px;padding-right: 14px;margin-right: 20px;
+}
+
+.basT{width: auto;color: #4f5863;font-family: 'lato', sans-serif; }
+.inpT{width:auto;color: #212529;font-family: 'lato', sans-serif;font-weight: 500;}
+.info:last-child {
+    border-bottom: none; 
+}
+
+.info-bas {
+    font-size: 14px; /* Biraz küçük ve gri */
+    color: #555;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px; font-family: 'lato',sans-serif;
+}
+#rightB{text-align: left;}
+.info-txt {
+    font-family: 'lato', sans-serif;
+    color: #212529; /* Daha belirgin bir renk */
+    font-weight: 500; /* Biraz daha kalın */
+}
+.hoverB:hover{color: #249AF3;}
+.box.green { /* Satıcı için özel stil */
+    background-color: #16AD590F; /* Arka plan rengi */
+    color: #16AD59; /* Metin rengi */
+    padding: 5px 10px; /* İç boşluk */
+    border-radius: 5px; /* Köşe yuvarlama */
+    font-size: 14px; /* Font boyutunu biraz küçültelim */
+    font-weight: bold;
+    display: inline-flex; /* Metni kapsayacak şekilde daral ve flexbox kullan */
+    align-items: center;
+    justify-content: center;
+    /* margin-left: 20px; margin-right: 20px; Bu artık gerekmiyor */
+}
+
+
+/* SAĞ SÜTUN: Teklif ve Hesaplama Alanları */
+.teklif { /* Bu div aslında sağ sütunun ilk öğesi */
+    flex: 3; /* Kalan alanı doldur */
+    background-color: white;
+    margin-left: 0; /* Kapsayıcı flex gap'inden geliyor */
+    color: #212529;
+    height: auto; /* İçerik belirlesin */
+    border-radius: 10px; /* Köşe yuvarlama */
+    padding: 20px; /* İç boşluk */
+    box-sizing: border-box;
+    margin-bottom: 20px; /* Altındaki kutuyla arasına boşluk */
+}
+
+.teklif-info {
+    width: 100%;
+    height: auto; /* İçerik belirlesin */
+    margin-top: 0;
+    display: flex; /* crnt-bid ve maks-bid'i yan yana getir */
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.maks-bid{text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;}
+
+.sayi {
+    clear: both;
+    margin-left: 0; /* Kutu padding'inden geliyor */
+    margin-top: 5px; /* Üstteki başlıkla arasına boşluk */
+    color: #212529;
+    font-weight: bold;
+    font-family: 'lato', sans-serif;
+    font-size: 24px; /* Varsayılan font boyutu */
+}
+
+/* Teklif verme formu */
+.teklif-ver {
+    background-color: #F4FAFF;
+    padding: 15px; /* İç boşluk */
+    border-radius: 8px;
+    margin-top: 15px; /* Üstteki teklif bilgileriyle arasına boşluk */
+}
+
+.time-left { /* Bu divin içeriği yok gibi duruyor, gerekliyse doldurun */
+    /* stil verin */
+}
+.field-wr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    padding: 5px 0; /* Boşluk ekleyelim */
+}
+.field-wr .field-name {
+    min-width: 80px;
+    padding-left: 0; /* Teklif-ver padding'inden geliyor */
+    color: #334150;
+}
+.bid-input {
+    color: #ef2621;
+    padding-right: 0; /* Teklif-ver padding'inden geliyor */
+}
+
+#teklifForm{width: 100%;height: auto;gap: 0;align-items: center; 
+    padding-top: 15px;display: flex;flex-direction: column;}
+.miktar-kontrol {
+    width: 100%; /* Formun genişliğini kapla */
+    display: flex; /* İçindeki buton ve inputu yan yana sırala */
+    align-items: center;
+    /* İsteğe bağlı: Buton ile input grubu arasına boşluk ekleyelim */
+    margin-bottom: 15px; 
+}
+
+#plus-five, #minus-five {
+    width: 44px;
+    height: 44px;
+    background-color: white;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    cursor: pointer;
+    user-select: none; /* Metin seçmeyi engelle */
+}
+#plus-five { border-top-left-radius: 5px; border-bottom-left-radius: 5px; border-right: none; margin-left: 0; }
+#minus-five { border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-left: none; }
+
+.ucret {
+    flex: 1; /* Geri kalan alanı kapla */
+    height: 44px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-left: none; /* Yanlardaki borderları birleştir */
+    border-right: none;
+    font-size: 18px; /* Input'un yazı tipi */
+    box-sizing: border-box;
+}
+
+#teklifverbtn {
+    margin-left: 0; 
+    height: 40px;
+    width: 100%; 
+    border-radius: 5px;
+    font-size: 18px;
+    background-color: white;
+    color: #249AF3;
+    border: 1px solid #249AF3;
+    margin-top: 15px; 
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+#teklifverbtn:hover {
+    background-color: #249AF3;
+    color: white;
+}
+
+/* Fast Buy Kısmı */
+.fastbuy {
+    height: auto; /* İçerik belirlesin */
+    width: 100%;
+    background-color: white;
+    padding: 15px 20px; /* İç boşluk */
+    border-radius: 10px; /* Köşe yuvarlama */
+    margin-top: 20px; /* Üstteki kutudan boşluk */
+    display: flex; /* half divlerini hizala */
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+.half { 
+    flex: 1;
+   
+}
+
+#buynowbtn {
+    height: 40px; /* Yüksekliği düşürdüm */
+    width: 120px; /* Genişliği biraz küçülttüm */
+    border-radius: 5px;
+    float: right; /* float burada kalabilir, ancak button'u flex ile ortalamak daha iyi */
+    background-color: white;
+    margin-top: 0; /* Hizalama için marjinleri düzenledim */
+    margin-right: 0;
+    color: #249AF3;
+    border: 1px solid #249AF3;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+#buynowbtn:hover {
+    background-color: #249AF3;
+    color: white;
+}
+
+/* Final Price Calculator ve Customs Calculator */
+.final-price-calc {
+    display: block; /* Bu, bir blok elemanı olarak kalabilir */
+    margin-top: 20px;
+    height: auto; /* İçerik belirlesin */
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.calcbas {
+    font-family: 'lato', sans-serif;
+    margin-left: 0; /* Kutu padding'inden geliyor */
+    font-size: 20px;
+    padding-bottom: 15px; /* Başlık altına boşluk */
+    /* float: left; Bu kaldırıldı */
+    display: flex; /* İkon ve metni hizala */
+    align-items: center;
+    color: #212529; 
+}
+.amount {
+    margin-top: 0; /* Başlık ile hizalama için */
+    /* float: right; Bu kaldırıldı */
+    margin-right: 0; /* Kutu padding'inden geliyor */
+    font-family: 'lato',sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #212529;
+}
+.final-price-calc .total { /* Toplam satırı */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+
+    margin-top: 15px;
+}
+
+
+/* Alt Paragraflar (BOTTOM PARAGHS) */
+.bottomParaghs {
+    clear: both; /* Tüm önceki float'ları temizle (eğer kaldıysa) */
+    width: 96%;
+    margin: 40px auto; /* Ortala ve üstten daha fazla boşluk */
+    display: grid; /* Izgara düzeni kullan */
+    grid-template-columns: repeat(2, 1fr); /* İki eşit sütun */
+    gap: 20px; /* Bloklar arasına boşluk */
+}
+
+.bottomParaghs > div { /* bottomParaghs içindeki doğrudan div'ler */
+    /* width: 48%; margin-right: 1%;margin-left: 1%; float: left; */ /* Bu satırlar tamamen kaldırıldı */
+    display: grid; /* Kendi içinde de ızgara düzeni olsun */
+    grid-template-columns: 1fr; /* Tek sütun */
+    gap: 20px; /* İçindeki bloklar arasına boşluk */
+}
+
+.block {
+    width: 100%; /* Tam genişlik */
+    padding: 20px; /* İç boşluk */
+    background-color: white;
+    border-radius: 10px;
+    margin: 0; /* Varsayılan marjinleri kaldır */
+    box-sizing: border-box;
+    display: flex; /* İçeriği düzenlemek için flex kullanabiliriz */
+    flex-direction: column; /* Dikey sıralama */
+}
+.block h5 {
+    font-family: 'lato', sans-serif;
+    font-size: 15px;
+    color: #212529;
+    margin-top: 0; /* Üstteki marjini kaldır */
+    margin-bottom: 10px; /* P ile arasına boşluk */
+}
+.block p {
+    color: #7F8FA4;
+    margin-top: 0; 
+    margin-bottom: 10px;
+    font-size: 16px;
+    flex-grow: 1; 
+}
+.block button {
+    padding: 10px;
+    background-color: #249AF3;
+    color: white;
+    border: none;width:fit-content;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: auto; 
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.block button:hover {
+    background-color: #1a7ad0;
+}
+
+
+/* GENEL İKON VE METİN HİZALAMALARI */
+.sembol, .sembol2 {
+    flex-shrink: 0; /* Küçülmelerini engelle */
+}
+.sembol {
+    height: 16px;
+    width: 16px;
+    margin-left: 5px;
+    margin-top: 0; /* Dikey hizalama için sıfırladık */
+    /* float: right; kaldırıldı */
+}
+.sembol2 {
+    height: 20px;
+    width: 20px;
+    margin-left: 0;
+    margin-right: 8px; /* Metinle arasına boşluk */
+    margin-top: 0; /* Dikey hizalama için sıfırladık */
+    /* float: left; kaldırıldı */
+}
+.num {
+    height: 18px; 
+    width: 18px; 
+    font-size: 13px; 
+    margin-right: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 50%; margin-right: 5px;
+    flex-shrink: 0;
+}
+.numbas{color: #249af3;
+    border: 1px solid #249af3;}
+.tire {
+    color: #135caf;
+    margin-right: 4px;
+    font-size: 18px; margin-left: 0;
+}
+.blue{color: #249AF3;}
+/* Diğer kullanılmayan float'lar veya gereksiz stiller */
+.man-kapak, .manga-info, .text1, .ode, .ucret2 { /* Bu sınıflar görünürde kullanılmıyor veya başka bir düzenlemeye ihtiyacı olabilir */
+    /* Eğer kullanılmıyorsa silin */
+    /* Eğer kullanılıyorsa, float yerine flexbox/grid ile düzenlenmelidir */
+}
+/* MODALIN KENDİSİ: Ekranı tamamen kapla ve gizle */
+#lightbox-modal {
+    position: fixed; /* Ekran kaydırılsa bile sabit kalsın */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999; /* Her şeyin üstünde görünmesi için */
+    display: none; /* Başlangıçta gizli */
+    align-items: center; /* İçeriği dikeyde ortala */
+    justify-content: center; /* İçeriği yatayda ortala */
+}
+
+/* ARKA PLAN: Hafif şeffaf siyahlık */
+#lightbox-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* %85 Şeffaflıkta siyah */
+}
+
+/* FOTOĞRAF KAPSAYICISI */
+#lightbox-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+/* ANA GÖRSEL STİLİ */
+#modal-image {
+    display: block;
+    max-width: 100%;
+    max-height: 90vh; /* Ekran yüksekliğinin %90'ını geçmesin */
+    object-fit: contain;
+}
+
+/* KAPATMA VE GEZİNME BUTONLARI */
+#close-btn {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10001;
+}
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 50px;
+    cursor: pointer;
+    padding: 10px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    z-index: 10001;
+}
+
+.nav-btn:hover {
+    opacity: 1;
+}
+
+#prev-btn { left: 20px; }
+#next-btn { right: 20px; }
