@@ -262,8 +262,10 @@ async function sendEmail(toEmail, verificationCode) {
   };
   await transporter.sendMail(mailOptions);
   
-}catch(err){console.err("a",err)}
-}
+} catch (err) {
+    console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
+    throw err; 
+}}
 
 app.post('/register', async (req, res) => {
     const { Ad, Soyad, email, sifre1, sifre2 } = req.body;
