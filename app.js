@@ -265,38 +265,41 @@ async function sendEmail(toEmail, verificationCode) {
 }catch(err){console.err("a",err)}
 }
 
-app.post('/register', async (req, res) => { 
-  const { Ad,Soyad, email, sifre1, sifre2 } = req.body;
-   
-  if (!Ad ||!Soyad || !email || !sifre1 || !sifre2) {
-    return res.json({ success: false, message: 'Tüm alanlar doldurulmalıdır' });
-  }
+app.post('/register', async (req, res) => {
+    const { Ad, Soyad, email, sifre1, sifre2 } = req.body;
 
-  if (sifre1 !== sifre2) {
-    return res.json({ success: false, message: 'Şifreler uyuşmuyor' });
-  }
+    if (!Ad || !Soyad || !email || !sifre1 || !sifre2) {
+        return res.status(400).json({ success: false, message: 'Tüm alanlar doldurulmalıdır' });
+    }
 
-  // Örnek kontrol: kullanıcı daha önce kaydolmuş mu?
-  const existingUser = await Kullanici.findOne({ Ad });
-  if (existingUser) {
-    return res.json({ success: false, message: 'Bu kullanıcı zaten kayıtlı' });
-  }
+    if (sifre1 !== sifre2) {
+        return res.status(400).json({ success: false, message: 'Şifreler uyuşmuyor' });
+    }
 
-  req.session.user1 = { Ad,Soyad, email, sifre1 };
-  
-  let verificationCode = Math.floor(100000 + Math.random() * 900000);
-  verificationCodes[email] = verificationCode;
-  console.log(email)
-  try {  console.log("sendemail girilio")
+    try {
+        const existingUser = await Kullanici.findOne({ email }); // E-postaya göre kontrol daha mantıklı
+        if (existingUser) {
+            return res.status(400).json({ success: false, message: 'Bu kullanıcı zaten kayıtlı' });
+        }
 
-    await sendEmail(email, verificationCode)
-    console.log("eposta yollandı")
-  console.log(verificationCode)
-  } catch (error) {
-    res.status(500).json({ message: "E-posta gönderilemedi!", error });
-  }
-  return res.json({ success: true });
- 
+        req.session.user1 = { Ad, Soyad, email, sifre1 };
+
+        let verificationCode = Math.floor(100000 + Math.random() * 900000);
+        verificationCodes[email] = verificationCode;
+
+        console.log("Mail gönderiliyor: ", email);
+        
+        // Mail göndermeyi dene
+        await sendEmail(email, verificationCode);
+        
+        console.log("Mail başarıyla yollandı");
+        return res.json({ success: true });
+
+    } catch (error) {
+        console.error("Register Rotası Hatası:", error);
+        // Hata durumunda mutlaka JSON dönüyoruz
+        return res.status(500).json({ success: false, message: "İşlem başarısız", error: error.message });
+    }
 });
 app.get('/verify-code', (req, res) => {
   console.log(process.env.EMAIL)
