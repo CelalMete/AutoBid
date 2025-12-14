@@ -135,10 +135,11 @@ app.use(cors({
 }));
 
 // VERİTABANI BAĞLANTISI
-mongoose.connect('mongodb://localhost:27017/yenidb2')
-  .then(() => console.log('MongoDB bağlantısı başarılı!'))
-  .catch((err) => console.error('MongoDB bağlantı hatası:', err));
+const dbURL = process.env.MONGO_URI || 'mongodb://localhost:27017/yenidb2';
 
+mongoose.connect(dbURL)
+  .then(() => console.log('Veritabanı bağlantısı başarılı! 🚀'))
+  .catch((err) => console.error('MongoDB bağlantı hatası:', err));
 // ORTAK AYARLAR
 
 
@@ -383,7 +384,7 @@ const upload = multer({ storage: storage });
 
 
 
-app.get('/home', authMiddleware, async (req, res) => {
+app.get('/', authMiddleware, async (req, res) => {
   try {
     const user = await Kullanici.findById(req.session.userId);
     const now = new Date();
@@ -786,7 +787,7 @@ const suAn = new Date(); // Şu anki zaman
           IlanKapak, resimler,VIN,LOT
         }).save();
 
-      res.json({ redirectUrl: '/home' });
+      res.json({ redirectUrl: '/' });
 
     } catch (error) {
       console.error("İlan kaydetme hatası:", error);
@@ -1175,7 +1176,7 @@ app.get('/profile/:section', csrfProtection, async (req, res) => {
 
   } catch (error) {
       console.error("Profil Hatası:", error);
-      res.redirect('/home'); // veya hata sayfasına
+      res.redirect('/'); // veya hata sayfasına
   }
 });
 
