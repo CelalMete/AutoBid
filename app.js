@@ -1,3 +1,4 @@
+
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
@@ -127,7 +128,6 @@ const cors = require("cors");
 
 const fsExtra = require('fs-extra');
 const kategori = require('./public/models/kategori');
-const { console } = require('inspector');
 const { body } = require('express-validator');
 app.use(cors({
     origin: "http://localhost:3000", // veya frontend'in adresi
