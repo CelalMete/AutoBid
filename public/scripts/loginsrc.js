@@ -140,7 +140,7 @@ async function fut4Lower() {
 
     if (result.success) {
       sessionStorage.setItem("userId", result.userId);
-      window.location.href = "/home";
+      window.location.href = "/";
     } else {
       alert("Hata: " + result.message);
     }
