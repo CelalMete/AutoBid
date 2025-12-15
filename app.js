@@ -135,33 +135,23 @@ app.use(cors({
 }));
 
 // VERİTABANI BAĞLANTISI
-const dbURL = "mongodb://Cell_Meth:celalmete123@veritabani-shard-00-00.hux10.mongodb.net:27017,veritabani-shard-00-01.hux10.mongodb.net:27017,veritabani-shard-00-02.hux10.mongodb.net:27017/yenidb2?ssl=true&replicaSet=atlas-veritabani-shard-0&authSource=admin&retryWrites=true&w=majority";
+const dbURL = "mongodb+srv://Cell_Meth:celalmete123@veritabani.hux10.mongodb.net/yenidb2?retryWrites=true&w=majority&appName=veritabani";
+
 console.log("-------------------------------------------------");
-console.log("1. ADIM: Environment Değişkeni Kontrol ediliyor...");
-if (!dbURL) {
-    console.error("❌ HATA: MONGO_URI bulunamadı! Render Environment ayarları boş veya okunmuyor.");
-} else {
-    // Şifreyi gizleyerek linkin doğru gelip gelmediğini yazdıralım
-    const maskedURL = dbURL.replace(/:([^:@]{1,})@/, ':****@');
-    console.log("✅ MONGO_URI algılandı:", maskedURL);
-    
-    console.log("2. ADIM: Bağlantı deneniyor...");
-    mongoose.connect(dbURL, { 
-        serverSelectionTimeoutMS: 5000 
-    })
-    .then(() => {
-        console.log("🚀 BAŞARILI: Veritabanına bağlandık!");
-    })
-    .catch((err) => {
-        console.log("-------------------------------------------------");
-        console.error("❌ BAĞLANTI HATASI DETAYI:");
-        console.error("Hata Kodu (Code):", err.code);
-        console.error("Hata Adı (Name):", err.name);
-        console.error("Hata Mesajı:", err.message);
-        console.error("Hata Sebebi (Reason):", err.reason);
-        console.log("-------------------------------------------------");
-    });
-}
+console.log("🌍 SRV BAĞLANTISI DENENİYOR...");
+
+mongoose.connect(dbURL, {
+    // SRV (Kısa Link) için bu ayarlar bazen hayat kurtarır:
+    serverSelectionTimeoutMS: 5000, // 5 saniyede bulamazsan haber ver
+    family: 4 // Sadece IPv4 kullan (Render bazen IPv6'da takılır)
+})
+.then(() => {
+    console.log("✅✅✅ BAĞLANTI BAŞARILI! (SRV Çalıştı) 🚀");
+})
+.catch((err) => {
+    console.error("❌❌❌ BAĞLANTI HATASI! (IP İznini kontrol ettin mi?)");
+    console.error(err);
+});
 
 
 
