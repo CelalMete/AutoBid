@@ -325,13 +325,12 @@ app.get('/verify-code', csrfProtection, (req, res) => {
   res.render('email', { csrfToken: req.csrfToken() });
 });
 
-// POST verify-code (Burası zaten doğruydu, aynen kalsın)
 app.post('/verify-code', csrfProtection, async(req, res) => {
     const { code } = req.body;
     
-    // Session kontrolü (Hata almamak için)
+    // Oturum kontrolü
     if (!req.session.user1) {
-        return res.status(400).json({ message: "Oturum süresi dolmuş, tekrar kayıt olun." });
+        return res.status(400).json({ success: false, message: "Oturum süresi dolmuş." });
     }
 
     const email = req.session.user1.email;
@@ -353,9 +352,12 @@ app.post('/verify-code', csrfProtection, async(req, res) => {
         req.session.user = newUser;
         req.session.userId = newUser.id;
 
-        return res.json({ success: true });
+        // JS'e "Tamamdır" mesajı dönüyoruz
+        return res.json({ success: true }); 
+
     } else {
-        res.status(400).json({ message: "Geçersiz kod!" });
+        // JS'e "Hata" mesajı dönüyoruz
+        return res.status(400).json({ success: false, message: "Geçersiz kod!" });
     }
 });
 
