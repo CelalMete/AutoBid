@@ -281,6 +281,7 @@ async function sendEmail(toEmail, verificationCode) {
 app.post('/register', async (req, res) => {
     const { Ad, Soyad, email, sifre1, sifre2 } = req.body;
 
+    // Validasyonlar
     if (!Ad || !Soyad || !email || !sifre1 || !sifre2) {
         return res.status(400).json({ success: false, message: 'Tüm alanlar doldurulmalıdır' });
     }
@@ -290,59 +291,35 @@ app.post('/register', async (req, res) => {
     }
 
     try {
-        const existingUser = await Kullanici.findOne({ email }); // E-postaya göre kontrol daha mantıklı
+        const existingUser = await Kullanici.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ success: false, message: 'Bu kullanıcı zaten kayıtlı' });
         }
 
+        // Geçici kullanıcı bilgilerini session'a at
         req.session.user1 = { Ad, Soyad, email, sifre1 };
 
+        // Doğrulama kodu oluştur
         let verificationCode = Math.floor(100000 + Math.random() * 900000);
         verificationCodes[email] = verificationCode;
 
-        console.log("Mail gönderiliyor: ", email);
+        // === KRİTİK DEĞİŞİKLİK BURADA ===
+        // Mail gönderme kodunu YORUM SATIRINA aldık (Çalışmasın diye)
+        // await sendEmail(email, verificationCode); 
         
-        // Mail göndermeyi dene
-        await sendEmail(email, verificationCode);
-        
-        console.log("Mail başarıyla yollandı");
+        // Kodu mail yerine KONSOLA yazdırıyoruz
+        console.log("--------------------------------------------");
+        console.log("📧 MAIL SİSTEMİ GEÇİCİ OLARAK KAPALI");
+        console.log("🔑 DOĞRULAMA KODUNUZ (Loglardan Alın):", verificationCode);
+        console.log("--------------------------------------------");
+
+        // Frontend'e hemen "Başarılı" cevabı dönüyoruz (Bekletmeden)
         return res.json({ success: true });
 
     } catch (error) {
         console.error("Register Rotası Hatası:", error);
-        // Hata durumunda mutlaka JSON dönüyoruz
         return res.status(500).json({ success: false, message: "İşlem başarısız", error: error.message });
     }
-});
-app.get('/verify-code', (req, res) => {
-  console.log(process.env.EMAIL)
-  res.render('email');
-});
-
-app.post('/verify-code',csrfProtection, async(req, res) => {
-    const { code } = req.body;
-    const email = req.session.user1.email;
-  if (verificationCodes[email] == code) {
-
-      delete verificationCodes[email];
-      const newUser = new Kullanici({
-        Ad: req.session.user1.Ad,
-        Soyad: req.session.user1.Soyad,
-
-        sifre1: req.session.user1.sifre1,
-      email: req.session.user1.email ,
-      pp:'gecici'
-      });
-     
-      await newUser.save();
-  req.session.user = newUser;
-  req.session.userId=newUser.id;
-      return res.json({ success: true });
- 
-    }
-  else {
-    res.status(400).json({ message: "Geçersiz kod!" });
-  }
 });
 
 cron.schedule('* * * * *', async () => {
