@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script src="/scripts/email.js" defer></script>
+    <script src="/scripts/emailsrc.js" defer></script>
     <meta name="csrf-token" content="<%= csrfToken %>">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,12 +10,13 @@
     <title>Doğrulama</title>
 </head>
 <body>
-    <div class="form-group">
-         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+   <div class="form-group">
         <div class="verification">
-            <label for="verificationCode">Kod:</label>
-            <input type="text" id="verificationCode">
-            <button id="btn">Doğrula</button>
+            <label for="verificationCode">Doğrulama Kodu (Loglardan Bak):</label>
+            <input type="text" id="verificationCode" placeholder="Kodu buraya gir">
+            
+            <button id="btn" type="button">Doğrula</button>
+            
             <p id="verifyMessage"></p>
         </div>
     </div>

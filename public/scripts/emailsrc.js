@@ -1,52 +1,67 @@
-// Sayfa tamamen yüklendiğinde çalışsın
 document.addEventListener('DOMContentLoaded', () => {
-    
-    const btn = document.getElementById('btn');
-    
-    if (btn) {
-        btn.addEventListener('click', async () => {
-            const codeInput = document.getElementById('verificationCode');
-            const messageP = document.getElementById('verifyMessage');
-            const code = codeInput.value;
+            const btn = document.getElementById('btn');
+            
+            // Eğer buton sayfada yoksa kodu çalıştırma (Hata almamak için)
+            if (!btn) return;
 
-            // Meta etiketinden token'ı alıyoruz
-            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            btn.addEventListener('click', async (e) => {
+                e.preventDefault(); // Sayfanın yenilenmesini engeller
 
-            // Kullanıcıya bilgi ver (Butona tekrar basamasın)
-            messageP.innerText = "Kontrol ediliyor...";
-            messageP.style.color = "blue";
-            btn.disabled = true;
+                console.log("🖱️ Butona basıldı!");
 
-            try {
-                const response = await fetch('/verify-code', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'CSRF-Token': csrfToken // Token'ı başlıkta gönderiyoruz
-                    },
-                    body: JSON.stringify({ code: code })
-                });
+                const codeInput = document.getElementById('verificationCode');
+                const messageP = document.getElementById('verifyMessage');
+                const code = codeInput.value;
 
-                const data = await response.json();
+                // Meta etiketinden CSRF Token'ı çekiyoruz
+                const csrfTokenMeta = document.querySelector('meta[name="csrf-token"]');
+                const csrfToken = csrfTokenMeta ? csrfTokenMeta.getAttribute('content') : '';
 
-                if (data.success) {
-                    messageP.style.color = "green";
-                    messageP.innerText = "Başarılı! Giriş yapılıyor...";
-                    
-                    // 1 saniye sonra ana sayfaya at
-                    setTimeout(() => {
-                        window.location.href = '/'; 
-                    }, 1000);
-                } else {
+                if (!code) {
+                    messageP.innerText = "Lütfen kodu girin!";
                     messageP.style.color = "red";
-                    messageP.innerText = data.message || "Hatalı kod!";
-                    btn.disabled = false; // Tekrar deneyebilsin
+                    return;
                 }
-            } catch (error) {
-                console.error('Hata:', error);
-                messageP.innerText = "Sunucu hatası!";
-                btn.disabled = false;
-            }
+
+                // Butonu kilitle (Çift tıklamayı önle)
+                btn.disabled = true;
+                btn.innerText = "Kontrol ediliyor...";
+                messageP.innerText = "Bekleyiniz...";
+                messageP.style.color = "blue";
+
+                try {
+                    const response = await fetch('/verify-code', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'CSRF-Token': csrfToken // Token'ı header olarak ekle
+                        },
+                        body: JSON.stringify({ code: code })
+                    });
+
+                    const data = await response.json();
+
+                    console.log("Sunucu Cevabı:", data);
+
+                    if (data.success) {
+                        messageP.style.color = "green";
+                        messageP.innerText = "✅ Başarılı! Yönlendiriliyorsunuz...";
+                        
+                        setTimeout(() => {
+                            window.location.href = '/'; // Ana sayfaya git
+                        }, 1500);
+                    } else {
+                        messageP.style.color = "red";
+                        messageP.innerText = "❌ " + (data.message || "Hatalı kod!");
+                        btn.disabled = false;
+                        btn.innerText = "Doğrula";
+                    }
+                } catch (error) {
+                    console.error('Hata:', error);
+                    messageP.style.color = "red";
+                    messageP.innerText = "⚠️ Sunucu hatası!";
+                    btn.disabled = false;
+                    btn.innerText = "Doğrula";
+                }
+            });
         });
-    }
-});
