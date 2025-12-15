@@ -135,8 +135,7 @@ app.use(cors({
 }));
 
 // VERİTABANI BAĞLANTISI
-const dbURL = process.env.MONGO_URI;
-
+const dbURL = "mongodb://Cell_Meth:celalmete123@veritabani-shard-00-00.hux10.mongodb.net:27017,veritabani-shard-00-01.hux10.mongodb.net:27017,veritabani-shard-00-02.hux10.mongodb.net:27017/yenidb2?ssl=true&replicaSet=atlas-veritabani-shard-0&authSource=admin&retryWrites=true&w=majority";
 console.log("-------------------------------------------------");
 console.log("1. ADIM: Environment Değişkeni Kontrol ediliyor...");
 if (!dbURL) {
@@ -148,7 +147,7 @@ if (!dbURL) {
     
     console.log("2. ADIM: Bağlantı deneniyor...");
     mongoose.connect(dbURL, { 
-        serverSelectionTimeoutMS: 5000 // 5 saniye bekle, olmazsa hemen hata ver (30sn bekleme)
+        serverSelectionTimeoutMS: 5000 
     })
     .then(() => {
         console.log("🚀 BAŞARILI: Veritabanına bağlandık!");
