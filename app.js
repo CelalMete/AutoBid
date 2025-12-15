@@ -313,7 +313,6 @@ app.post('/register', async (req, res) => {
         console.log("🔑 DOĞRULAMA KODUNUZ (Loglardan Alın):", verificationCode);
         console.log("--------------------------------------------");
 
-        // Frontend'e hemen "Başarılı" cevabı dönüyoruz (Bekletmeden)
         return res.json({ success: true });
 
     } catch (error) {
@@ -321,6 +320,14 @@ app.post('/register', async (req, res) => {
         return res.status(500).json({ success: false, message: "İşlem başarısız", error: error.message });
     }
 });
+app.get('/verify-code', (req, res) => {
+  console.log(process.env.EMAIL)
+  res.render('email');
+});
+
+
+
+
 
 cron.schedule('* * * * *', async () => {
     console.log('⏳ Süresi dolan ilanlar kontrol ediliyor...');
