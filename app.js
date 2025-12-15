@@ -135,7 +135,7 @@ app.use(cors({
 }));
 
 // VERİTABANI BAĞLANTISI
-const dbURL = 'mongodb+srv://Cell_Meth:celalmete123@veritabani.hux10.mongodb.net/yenidb2?retryWrites=true&w=majority&appName=veritabani';
+const dbURL = process.env.MONGO_URI || 'mongodb://localhost:27017/yenidb2';
 
 mongoose.connect(dbURL)
   .then(() => console.log('Veritabanı bağlantısı başarılı! 🚀'))
