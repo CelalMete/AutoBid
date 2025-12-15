@@ -135,12 +135,34 @@ app.use(cors({
 }));
 
 // VERİTABANI BAĞLANTISI
-const dbURL = process.env.MONGO_URI || 'mongodb://localhost:27017/yenidb2';
+const dbURL = process.env.MONGO_URI;
 
-mongoose.connect(dbURL)
-  .then(() => console.log('Veritabanı bağlantısı başarılı! 🚀'))
-  .catch((err) => console.error('MongoDB bağlantı hatası:', err));
-// ORTAK AYARLAR
+console.log("-------------------------------------------------");
+console.log("1. ADIM: Environment Değişkeni Kontrol ediliyor...");
+if (!dbURL) {
+    console.error("❌ HATA: MONGO_URI bulunamadı! Render Environment ayarları boş veya okunmuyor.");
+} else {
+    // Şifreyi gizleyerek linkin doğru gelip gelmediğini yazdıralım
+    const maskedURL = dbURL.replace(/:([^:@]{1,})@/, ':****@');
+    console.log("✅ MONGO_URI algılandı:", maskedURL);
+    
+    console.log("2. ADIM: Bağlantı deneniyor...");
+    mongoose.connect(dbURL, { 
+        serverSelectionTimeoutMS: 5000 // 5 saniye bekle, olmazsa hemen hata ver (30sn bekleme)
+    })
+    .then(() => {
+        console.log("🚀 BAŞARILI: Veritabanına bağlandık!");
+    })
+    .catch((err) => {
+        console.log("-------------------------------------------------");
+        console.error("❌ BAĞLANTI HATASI DETAYI:");
+        console.error("Hata Kodu (Code):", err.code);
+        console.error("Hata Adı (Name):", err.name);
+        console.error("Hata Mesajı:", err.message);
+        console.error("Hata Sebebi (Reason):", err.reason);
+        console.log("-------------------------------------------------");
+    });
+}
 
 
 
