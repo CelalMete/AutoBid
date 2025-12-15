@@ -320,14 +320,44 @@ app.post('/register', async (req, res) => {
         return res.status(500).json({ success: false, message: "İşlem başarısız", error: error.message });
     }
 });
-app.get('/verify-code', (req, res) => {
-  console.log(process.env.EMAIL)
-  res.render('email');
+app.get('/verify-code', csrfProtection, (req, res) => {
+  // Token'ı oluşturup 'email.ejs' sayfasına paketliyoruz
+  res.render('email', { csrfToken: req.csrfToken() });
 });
 
+// POST verify-code (Burası zaten doğruydu, aynen kalsın)
+app.post('/verify-code', csrfProtection, async(req, res) => {
+    const { code } = req.body;
+    
+    // Session kontrolü (Hata almamak için)
+    if (!req.session.user1) {
+        return res.status(400).json({ message: "Oturum süresi dolmuş, tekrar kayıt olun." });
+    }
 
+    const email = req.session.user1.email;
 
+    if (verificationCodes[email] == code) {
+        delete verificationCodes[email];
 
+        const newUser = new Kullanici({
+            Ad: req.session.user1.Ad,
+            rutbe: 'admin',
+            Soyad: req.session.user1.Soyad,
+            sifre1: req.session.user1.sifre1,
+            email: req.session.user1.email,
+            pp: 'gecici'
+        });
+
+        await newUser.save();
+
+        req.session.user = newUser;
+        req.session.userId = newUser.id;
+
+        return res.json({ success: true });
+    } else {
+        res.status(400).json({ message: "Geçersiz kod!" });
+    }
+});
 
 cron.schedule('* * * * *', async () => {
     console.log('⏳ Süresi dolan ilanlar kontrol ediliyor...');
