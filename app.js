@@ -1180,43 +1180,35 @@ app.post('/altkategoriekle',csrfProtection, async (req, res) => {
 // ProfileUpload'ı yukarıda tanımladığını varsayıyorum
 // const { ProfileUpload } = require('./cloudinary');
 
-app.post('/update-profile', profileUpload.single('pp'), async (req, res) => {
-    
-    console.log("-------------------------------------------------");
-    console.log("🕵️‍♂️ DEBUG: Profil Güncelleme İsteği Geldi!");
-    
-    // 1. Session Kontrolü
-    console.log("🆔 Kullanıcı ID:", req.session.userId);
-    
-    // 2. Dosya Kontrolü (En Kritik Yer)
-    console.log("📂 Gelen Dosya (req.file):", req.file);
-
+app.post('/pp', ProfileUpload.single('pp'), async (req, res) => {
+  try {
+    // 1. Dosya Kontrolü (Multer'den geçti mi?)
     if (!req.file) {
-        console.log("❌ HATA: Dosya sunucuya ulaşmadı! Form ayarları hatalı olabilir.");
-        return res.send("Hata: Resim seçmediniz veya form bozuk.");
+      console.log("❌ Dosya gelmedi (req.file boş)");
+      return res.status(400).json({ message: 'Dosya seçilmedi veya format hatalı' });
     }
 
-    // 3. Cloudinary Linkini Yazdır
-    const resimLinki = req.file.path;
-    console.log("☁️ Cloudinary Linki:", resimLinki);
-
-    try {
-        // 4. Veritabanını Güncelle
-        const sonuc = await Kullanici.findByIdAndUpdate(
-            req.session.userId, 
-            { pp: resimLinki }, // pp alanını yeni linkle değiştir
-            { new: true }       // Güncellenmiş halini bize geri dön
-        );
-
-        console.log("✅ DB Güncelleme Sonucu:", sonuc); // Buraya bak: pp değişmiş mi?
-        
-        console.log("-------------------------------------------------");
-        res.redirect('/profile/Personal-Informaton');
-
-    } catch (error) {
-        console.error("❌ Veritabanı Hatası:", error);
-        res.send("Bir hata oluştu");
+    // 2. Kullanıcıyı Bul
+    const Kullanici2 = await Kullanici.findById(req.session.userId);
+    if (!Kullanici2) {
+      return res.status(404).json({ message: 'Kullanıcı bulunamadı' });
     }
+    const newPpPath = req.file.path; 
+    
+    // 4. Veritabanını Güncelle
+    Kullanici2.pp = newPpPath;
+    await Kullanici2.save();
+    req.session.user = Kullanici2;
+
+    console.log("✅ Profil resmi başarıyla güncellendi:", newPpPath);
+    
+    // Frontend'e başarı mesajı dön
+    res.json({ message: 'Başarılı', newPp: newPpPath });
+
+  } catch (err) {
+    console.error("❌ Sunucu Hatası:", err);
+    res.status(500).json({ message: 'Sunucu hatası' });
+  }
 });
 app.post("/profil/bio",csrfProtection,  async (req, res) => {
   console.log("Bio endpoint tetiklendi!", req.body);
