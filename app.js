@@ -1180,7 +1180,7 @@ app.post('/altkategoriekle',csrfProtection, async (req, res) => {
 // ProfileUpload'ı yukarıda tanımladığını varsayıyorum
 // const { ProfileUpload } = require('./cloudinary');
 
-app.post('/pp', ProfileUpload.single('pp'), async (req, res) => {
+app.post('/pp', profileUpload.single('pp'), async (req, res) => {
   try {
     // 1. Dosya Kontrolü (Multer'den geçti mi?)
     if (!req.file) {
