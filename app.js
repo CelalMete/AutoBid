@@ -8,7 +8,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 require("dotenv").config();
-const uploadİlan = require('./cloudinary');
+const uploadİlan = require('./public/scripts/clodinary');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
