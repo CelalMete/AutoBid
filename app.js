@@ -1177,25 +1177,47 @@ app.post('/altkategoriekle',csrfProtection, async (req, res) => {
     res.status(500).json({ error: 'DB hatası' });
   }
 });
-app.post('/pp',profileUpload.single('photo'),async(req,res)=>{
-  try{
-  const Kullanici2 = await Kullanici.findById(req.session.userId);
-  userId = Kullanici2.id;
-  if (!req.file) {
-    return res.status(400).json({message:'dosya seçilmedi'})
-  }
-  const newPpPath = '/profilepics'+ req.file.filename;
-  
-  Kullanici2.pp = newPpPath;
-  await Kullanici2.save()
+// ProfileUpload'ı yukarıda tanımladığını varsayıyorum
+// const { ProfileUpload } = require('./cloudinary');
+
+app.post('/update-profile', profileUpload.single('pp'), async (req, res) => {
     
+    console.log("-------------------------------------------------");
+    console.log("🕵️‍♂️ DEBUG: Profil Güncelleme İsteği Geldi!");
+    
+    // 1. Session Kontrolü
+    console.log("🆔 Kullanıcı ID:", req.session.userId);
+    
+    // 2. Dosya Kontrolü (En Kritik Yer)
+    console.log("📂 Gelen Dosya (req.file):", req.file);
 
+    if (!req.file) {
+        console.log("❌ HATA: Dosya sunucuya ulaşmadı! Form ayarları hatalı olabilir.");
+        return res.send("Hata: Resim seçmediniz veya form bozuk.");
+    }
 
-}
-  catch(err){console.error(err)
-    res.status(500).json({message:'sunucu hatası'})}
-})
+    // 3. Cloudinary Linkini Yazdır
+    const resimLinki = req.file.path;
+    console.log("☁️ Cloudinary Linki:", resimLinki);
 
+    try {
+        // 4. Veritabanını Güncelle
+        const sonuc = await Kullanici.findByIdAndUpdate(
+            req.session.userId, 
+            { pp: resimLinki }, // pp alanını yeni linkle değiştir
+            { new: true }       // Güncellenmiş halini bize geri dön
+        );
+
+        console.log("✅ DB Güncelleme Sonucu:", sonuc); // Buraya bak: pp değişmiş mi?
+        
+        console.log("-------------------------------------------------");
+        res.redirect('/profile/Personal-Informaton');
+
+    } catch (error) {
+        console.error("❌ Veritabanı Hatası:", error);
+        res.send("Bir hata oluştu");
+    }
+});
 app.post("/profil/bio",csrfProtection,  async (req, res) => {
   console.log("Bio endpoint tetiklendi!", req.body);
   const { bio } = req.body;
