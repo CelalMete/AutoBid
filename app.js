@@ -9,18 +9,19 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 require("dotenv").config();
 const { IlanUpload, profileUpload } = require('./cloudinary');
-app.use((req, res, next) => {
-    if (req.path === '/pp') {
-        console.log("🔥 İSTEK SUNUCUYA ULAŞTI! (Middleware öncesi)");
-    }
-    next();
-});
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
  app.use(express.static('public'));
 
 app.use(express.json()); 
+app.use((req, res, next) => {
+    if (req.path === '/pp') {
+        console.log("🔥 İSTEK SUNUCUYA ULAŞTI! (Middleware öncesi)");
+    }
+    next();
+});
 const csrf = require("csurf");
 const cookieParser = require("cookie-parser");
 app.use(cookieParser()); 
