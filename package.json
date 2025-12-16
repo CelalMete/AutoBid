@@ -43,5 +43,10 @@
     "socket.io": "^4.8.1",
     "stripe": "^18.5.0",
     "swiper": "^11.2.10"
+  },
+  "overrides": {
+    "multer-storage-cloudinary": {
+      "cloudinary": "$cloudinary"
+    }
   }
 }
