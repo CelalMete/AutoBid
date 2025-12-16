@@ -9,7 +9,12 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 require("dotenv").config();
 const { IlanUpload, profileUpload } = require('./cloudinary');
-
+app.use((req, res, next) => {
+    if (req.path === '/pp') {
+        console.log("🔥 İSTEK SUNUCUYA ULAŞTI! (Middleware öncesi)");
+    }
+    next();
+});
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -1187,14 +1192,11 @@ app.post('/pp', (req, res) => {
     console.log("-----------------------------------------");
     console.log("📡 İSTEK GELDİ: /pp rotası tetiklendi");
 
-    // 2. Bekçiyi (Multer) manuel çalıştırıyoruz
     resimYukleyici(req, res, async function (err) {
         
-        // A) EĞER KAPIDA HATA VARSA YAKALA
         if (err) {
             console.error("🚨 MULTER/YÜKLEME HATASI:", err);
             
-            // Hatayı JSON olarak dön ki tarayıcıda görelim
             return res.status(500).json({ 
                 message: 'Yükleme Hatası', 
                 error: err.message, // Hatanın asıl sebebi burada!
