@@ -1177,38 +1177,63 @@ app.post('/altkategoriekle',csrfProtection, async (req, res) => {
     res.status(500).json({ error: 'DB hatası' });
   }
 });
-// ProfileUpload'ı yukarıda tanımladığını varsayıyorum
-// const { ProfileUpload } = require('./cloudinary');
+// App.js dosyanın içinde:
 
-app.post('/pp', profileUpload.single('pp'), async (req, res) => {
-  try {
-    // 1. Dosya Kontrolü (Multer'den geçti mi?)
-    if (!req.file) {
-      console.log("❌ Dosya gelmedi (req.file boş)");
-      return res.status(400).json({ message: 'Dosya seçilmedi veya format hatalı' });
-    }
+// 1. Önce Middleware'i (Bekçiyi) bir değişkene al
+const resimYukleyici = ProfileUpload.single('pp');
 
-    // 2. Kullanıcıyı Bul
-    const Kullanici2 = await Kullanici.findById(req.session.userId);
-    if (!Kullanici2) {
-      return res.status(404).json({ message: 'Kullanıcı bulunamadı' });
-    }
-    const newPpPath = req.file.path; 
+app.post('/pp', (req, res) => {
     
-    // 4. Veritabanını Güncelle
-    Kullanici2.pp = newPpPath;
-    await Kullanici2.save();
-    req.session.user = Kullanici2;
+    console.log("-----------------------------------------");
+    console.log("📡 İSTEK GELDİ: /pp rotası tetiklendi");
 
-    console.log("✅ Profil resmi başarıyla güncellendi:", newPpPath);
-    
-    // Frontend'e başarı mesajı dön
-    res.json({ message: 'Başarılı', newPp: newPpPath });
+    // 2. Bekçiyi (Multer) manuel çalıştırıyoruz
+    resimYukleyici(req, res, async function (err) {
+        
+        // A) EĞER KAPIDA HATA VARSA YAKALA
+        if (err) {
+            console.error("🚨 MULTER/YÜKLEME HATASI:", err);
+            
+            // Hatayı JSON olarak dön ki tarayıcıda görelim
+            return res.status(500).json({ 
+                message: 'Yükleme Hatası', 
+                error: err.message, // Hatanın asıl sebebi burada!
+                code: err.code 
+            });
+        }
 
-  } catch (err) {
-    console.error("❌ Sunucu Hatası:", err);
-    res.status(500).json({ message: 'Sunucu hatası' });
-  }
+        // B) EĞER HATA YOKSA İÇERİ GİR
+        console.log("✅ Dosya Multer'den geçti. Dosya:", req.file);
+
+        // Session Kontrolü
+        if (!req.session || !req.session.userId) {
+            console.error("❌ OTURUM YOK: req.session.userId boş!");
+            return res.status(401).json({ message: 'Oturum süreniz dolmuş, lütfen tekrar giriş yapın.' });
+        }
+
+        if (!req.file) {
+            console.error("❌ DOSYA YOK: req.file undefined");
+            return res.status(400).json({ message: 'Dosya sunucuya ulaşmadı (Frontend hatası olabilir)' });
+        }
+
+        try {
+            const userId = req.session.userId;
+            const newPpPath = req.file.path; // Cloudinary Linki
+
+            // Veritabanı Kayıt
+            const guncelUser = await Kullanici.findByIdAndUpdate(userId, { pp: newPpPath }, { new: true });
+            
+            // Session Güncelle
+            req.session.user = guncelUser;
+
+            console.log("🎉 İŞLEM BAŞARILI! Yeni link:", newPpPath);
+            res.json({ message: 'Başarılı', newPp: newPpPath });
+
+        } catch (dbError) {
+            console.error("❌ VERİTABANI HATASI:", dbError);
+            res.status(500).json({ message: 'Veritabanı hatası' });
+        }
+    });
 });
 app.post("/profil/bio",csrfProtection,  async (req, res) => {
   console.log("Bio endpoint tetiklendi!", req.body);
