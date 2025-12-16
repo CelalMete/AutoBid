@@ -12,7 +12,7 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute
         }
     
         const formData = new FormData();
-        formData.append('photo', file);
+        formData.append('pp', file);
     
         try {
             const response = await fetch('/pp', {
