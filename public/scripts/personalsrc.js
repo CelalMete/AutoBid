@@ -17,8 +17,7 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute
         try {
             const response = await fetch('/pp', {
                 method: 'POST',
-              headers: {"X-CSRF-Token": csrfToken , 
-        "Content-Type": "application/json"
+              headers: {"X-CSRF-Token": csrfToken 
       },
                 body: formData
             });
