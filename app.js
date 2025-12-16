@@ -1180,7 +1180,7 @@ app.post('/altkategoriekle',csrfProtection, async (req, res) => {
 // App.js dosyanın içinde:
 
 // 1. Önce Middleware'i (Bekçiyi) bir değişkene al
-const resimYukleyici = ProfileUpload.single('pp');
+const resimYukleyici = profileUpload.single('pp');
 
 app.post('/pp', (req, res) => {
     
