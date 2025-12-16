@@ -30,6 +30,26 @@ const IlanStorage = new CloudinaryStorage({
     };
   },
 });
+const ProfileStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'autobid_profil', // Profil fotoları buraya gidecek
+    allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
+    
+    // Dosya ismini belirliyoruz (public_id)
+    public_id: (req, file) => {
+      // Eğer oturum yoksa "anonim" diye kaydeder (Hata vermemesi için)
+      if (!req.session || !req.session.userId) {
+          return `anonim_${Date.now()}`;
+      }
+      
+      // SENİN İSTEDİĞİN FORMAT: "userId_avatar"
+      // Örn: "654a3b..._avatar"
+      // Aynı kullanıcı yeni resim yüklerse eskisi otomatik silinir/üzerine yazılır!
+      return `${req.session.userId}_avatar`; 
+    }
+  }
+});
 const IlanUpload = multer({
   storage: IlanStorage,
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB Limit
@@ -38,5 +58,13 @@ const IlanUpload = multer({
     else cb(new Error("Sadece görsel dosyaları yükleyebilirsiniz"));
   }
 });
+const profileUpload = multer({
+  storage: ProfileStorage,
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB Limit
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) cb(null, true);
+    else cb(new Error("Sadece görsel dosyaları yükleyebilirsiniz"));
+  }
+});
 
-module.exports = IlanUpload;
+module.exports = {IlanUpload,profileUpload};

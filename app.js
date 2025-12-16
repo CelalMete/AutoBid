@@ -8,7 +8,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 require("dotenv").config();
-const uploadİlan = require('./cloudinary');
+const { IlanUpload, profileUpload } = require('./cloudinary');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -347,32 +347,6 @@ cron.schedule('* * * * *', async () => {
 app.get('/login', csrfProtection,(req, res) => {
   res.render('login',{csrfToken: req.csrfToken() });
 });
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'profilepics/'); 
-  },
-  filename: (req, file, cb) => {
-    if (!req.session.user) {
-      return cb(new Error("Kullanıcı oturumu yok!"), null);
-    }
-
-   const userId = req.session.userId;
-    const dosyaAdi = `/${userId}_avatar${path.extname(file.originalname)}`; // "kullaniciId_avatar.png" formatı
-    cb(null, dosyaAdi);
-  }
-});
-
-const upload = multer({ storage: storage });
-//////////
-//////////////////////// ////////                      ////////////////////////////////
-
-
-
-
-
-
-
 app.get('/', authMiddleware, async (req, res) => {
   try {
     const user = await Kullanici.findById(req.session.userId);
@@ -1203,7 +1177,7 @@ app.post('/altkategoriekle',csrfProtection, async (req, res) => {
     res.status(500).json({ error: 'DB hatası' });
   }
 });
-app.post('/pp',upload.single('photo'),async(req,res)=>{
+app.post('/pp',profileUpload.single('photo'),async(req,res)=>{
   try{
   const Kullanici2 = await Kullanici.findById(req.session.userId);
   userId = Kullanici2.id;
