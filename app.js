@@ -1,22 +1,26 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-const multer = require('multer');
+
 const session = require('express-session');
 const path = require('path');
 const fs = require('fs');
 const bodyParser = require('body-parser');
 
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const multer = require('multer');
 require("dotenv").config();
-
+cloudinary.config({ 
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET // Click 'View API Keys' above to copy your API secret
+    });
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
  app.use(express.static('public'));
-app.use('/mangas', express.static(path.join(__dirname, 'mangas')));
-app.use('/profilepics',express.static(path.join(__dirname,'profilepics')))
-
 
 app.use(express.json()); 
 const csrf = require("csurf");
@@ -188,36 +192,27 @@ function isAdmin2(req, res, next) {
 
   next(); // Admin ise route'a devam et
 };
-const IlanStorage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    try {
-      if (!req.ilanFolder) {
-        const timestamp = Date.now();
-
-        // tur, secilen2 ve secilen3 değerlerini al → klasör ismine ekle
-        const kategoriArray = [req.body.tur, req.body.secilen2, req.body.secilen3]
-          .filter(Boolean)
-          .map(s => s.trim().toLowerCase().replace(/\s+/g, '-'));
-
-        const klasorAdi = `${timestamp}-${kategoriArray.join('-')}`;
-        const ilanFolder = path.join(__dirname, 'public', 'uploads', 'Ilans', klasorAdi);
-
-        fsExtra.ensureDirSync(ilanFolder);
-
-        req.ilanFolder = ilanFolder;
-        req.ilanFolderName = klasorAdi;
-      }
-
-      cb(null, req.ilanFolder);
-    } catch (err) {
-      cb(err, null);
+const IlanStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    if (!req.uploadTimestamp) {
+        req.uploadTimestamp = Date.now();
     }
+    const kategoriArray = [req.body.tur, req.body.secilen2, req.body.secilen3]
+      .filter(Boolean) // Boş olanları at
+      .map(s => s.trim().toLowerCase().replace(/\s+/g, '-')); // Temizle
+
+    const klasorAdi = `${req.uploadTimestamp}-${kategoriArray.join('-')}`;
+    const sanitizedName = file.originalname.replace(/[^a-zA-Z0-9.\-_]/g, '').split('.')[0];
+    const fileName = `${Date.now()}-${sanitizedName}`;
+
+    return {
+      folder: `ilanlar/${klasorAdi}`, 
+      
+      public_id: fileName,
+      allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
+    };
   },
-  filename: (req, file, cb) => {
-    const timestamp = Date.now();
-    const sanitizedName = file.originalname.replace(/[^a-zA-Z0-9.\-_]/g, '');
-    cb(null, `${timestamp}-${sanitizedName}`);
-  }
 });
 
 const IlanUpload = multer({
