@@ -533,7 +533,7 @@ console.log("Bulunan durumDoc:", durumDoc);
 
 app.get('/how-it-works',async(req, res) => {
    const user = await Kullanici.findById(req.session.userId);
-      return res.render('layout', {
+      return res.render('Layout', {
           user,
           title: 'Before Purchase',
           content:'how',
@@ -589,7 +589,7 @@ app.post("/change-password", csrfProtection, async (req, res, next) => {
 
 app.get('/SSS',async(req, res) => {
    const user = await Kullanici.findById(req.session.userId);
-      return res.render('layout', {
+      return res.render('Layout', {
           user,
           title: 'SSS',
           content:'SSS',
@@ -600,7 +600,7 @@ app.get('/SSS',async(req, res) => {
 )
 app.get('/Schedule',async(req, res) => {
    const user = await Kullanici.findById(req.session.userId);
-      return res.render('layout', {
+      return res.render('Layout', {
           user,
           title: 'After Purchase',
           content:'schedule',
@@ -634,7 +634,7 @@ app.get('/yeni-ilan-olustur', csrfProtection, async(req, res) => {
         filtreler = [];
     }
 
-    return res.render('layout', {
+    return res.render('Layout', {
         csrfToken: req.csrfToken(),
         filtreler: filtreler, 
         user, txtinput,
@@ -664,7 +664,7 @@ app.get('/shipping/:kategori/:section', isAdmin1, csrfProtection, async (req, re
     }
     const lang = req.user?.lang || "tr";
      const durumlar = await durum.find({ kategori }).lean();
-    res.render('layout', {
+    res.render('Layout', {
       user,durumlar,
       section,lang,
       kategori,
@@ -833,7 +833,7 @@ app.get('/upload',csrfProtection, async (req, res) => {
   const user = await Kullanici.findById(req.session.userId);
   const AnakategoriList = await Marka.find({kategori:"arac"})
 
-  res.render('layout', {
+  res.render('Layout', {
     AL:AnakategoriList,
     csrfToken: req.csrfToken() ,
     content: 'upload',
@@ -882,7 +882,7 @@ app.get("/ilan/:ilanId", csrfProtection, async (req, res) => {
       durum = 'bitti'
     }
 
-    res.render("layout", {
+    res.render("Layout", {
       enYuksekTeklif,dd,
       ilansahibi,
       csrfToken: req.csrfToken(),
@@ -1084,7 +1084,7 @@ app.get('/arama', csrfProtection, async (req, res) => {
 
         const filtrelerJSON = JSON.stringify(filtreler);
 
-        res.render('layout', {
+        res.render('Layout', {
             user,
             csrfToken: req.csrfToken(),
             anaKategori,
@@ -1193,7 +1193,7 @@ app.get('/profile/:section', csrfProtection, async (req, res) => {
         }
       }
 
-      res.render('layout', {
+      res.render('Layout', {
         user,
         section, 
         csrfToken: req.csrfToken(),
