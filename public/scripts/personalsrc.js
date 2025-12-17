@@ -13,7 +13,10 @@ const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute
     
         const formData = new FormData();
         formData.append('pp', file);
-        console.log(formData)
+        console.log("--- FormData Kontrolü ---");
+for (let pair of formData.entries()) {
+    console.log(pair[0] + ': ' + pair[1].name); 
+}
         try {
             const response = await fetch('/pp', {
                 method: 'POST',
