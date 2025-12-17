@@ -722,11 +722,11 @@ app.post(
     try {
       const user = req.session.user;
 
-      // 1. Dosyaları al
+      const secilen1=req.params.secilen0;
+      const secilen2=req.params.secilen1;
+      const secilen3=req.params.secilen2;
       const kapakDosya = req.files?.IlanKapak?.[0];
       const sayfaDosyalari = req.files?.sayfalar || [];
-
-      // 2. Cloudinary Linklerini Ata (file.path kullanıyoruz)
       const IlanKapak = kapakDosya ? kapakDosya.path : null;
       const resimler = sayfaDosyalari.map(file => file.path);
 
@@ -737,7 +737,6 @@ app.post(
 
       // 4. Form Verilerini Parçala
       const {
-        secilen1, secilen2, secilen3,
         Baslik, km, yakit_tipi,
         hp, agir_hasar, motor_hacmi, kapi_sayisi,
         renk, garanti, kasa_tipi, VIN, LOT
