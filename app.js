@@ -707,7 +707,6 @@ app.post(
   '/yeni-ilan-olustur',
   csrfProtection,
   (req, res, next) => {
-    // Multer'i manuel çalıştırıp hata varsa yakalıyoruz
     IlanUpload.fields([
       { name: "IlanKapak", maxCount: 1 },
       { name: "sayfalar", maxCount: 20 }
@@ -722,9 +721,7 @@ app.post(
     try {
       const user = req.session.user;
 
-      const secilen1=req.params.secilen0;
-      const secilen2=req.params.secilen1;
-      const secilen3=req.params.secilen2;
+      
       const kapakDosya = req.files?.IlanKapak?.[0];
       const sayfaDosyalari = req.files?.sayfalar || [];
       const IlanKapak = kapakDosya ? kapakDosya.path : null;
@@ -734,15 +731,12 @@ app.post(
       const suAn = new Date();
       const bitisTarihi = new Date(suAn);
       bitisTarihi.setMonth(bitisTarihi.getMonth() + 1);
-
-      // 4. Form Verilerini Parçala
-      const {
+      const {secilen1, secilen2, secilen3,
         Baslik, km, yakit_tipi,
         hp, agir_hasar, motor_hacmi, kapi_sayisi,
         renk, garanti, kasa_tipi, VIN, LOT
       } = req.body;
 
-      // 5. Kayıt İşlemi
       await new Arac({
         bitisTarihi,
         IlanSahibi: user._id,
