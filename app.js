@@ -16,12 +16,7 @@ app.use(express.static(path.join(__dirname, 'public')));
  app.use(express.static('public'));
 
 app.use(express.json()); 
-app.use((req, res, next) => {
-    if (req.path === '/pp') {
-        console.log("🔥 İSTEK SUNUCUYA ULAŞTI! (Middleware öncesi)");
-    }
-    next();
-});
+
 const csrf = require("csurf");
 const cookieParser = require("cookie-parser");
 app.use(cookieParser()); 
@@ -709,13 +704,15 @@ app.post('/de', async (req, res, next) => {
     }
 });
 app.post(
-  '/yeni-ilan-olustur',/*ilanLimiter,*/csrfProtection,
+  '/yeni-ilan-olustur',
+  csrfProtection,
   (req, res, next) => {
+    // Multer'i manuel çalıştırıp hata varsa yakalıyoruz
     IlanUpload.fields([
       { name: "IlanKapak", maxCount: 1 },
       { name: "sayfalar", maxCount: 20 }
     ])(req, res, function (err) {
-     if (err) {
+      if (err) {
         return res.status(400).json({ redirectUrl: null, error: err.message });
       }
       next();
@@ -723,44 +720,49 @@ app.post(
   },
   async (req, res) => {
     try {
-      const user = req.session.user
-     
-      const klasorAdi = req.ilanFolderName;
+      const user = req.session.user;
 
+      // 1. Dosyaları al
       const kapakDosya = req.files?.IlanKapak?.[0];
       const sayfaDosyalari = req.files?.sayfalar || [];
 
-      const IlanKapak = kapakDosya
-        ? `/uploads/Ilans/${klasorAdi}/${kapakDosya.filename}`
-        : null;
-const suAn = new Date(); // Şu anki zaman
-        const bitisTarihi = new Date(suAn); // Kopyasını oluştur
-        bitisTarihi.setMonth(bitisTarihi.getMonth() + 1);
-      const resimler = sayfaDosyalari.map(file =>
-        `/uploads/Ilans/${klasorAdi}/${file.filename}`
-      );
+      // 2. Cloudinary Linklerini Ata (file.path kullanıyoruz)
+      const IlanKapak = kapakDosya ? kapakDosya.path : null;
+      const resimler = sayfaDosyalari.map(file => file.path);
 
-        const {secilen1, secilen2, secilen3,
-          Baslik,  km, yakit_tipi, vites,
-          hp, agir_hasar, motor_hacmi, kapi_sayisi,
-          renk, garanti, kasa_tipi, kimden,VIN,LOT
-        } = req.body;
+      // 3. Tarih İşlemleri
+      const suAn = new Date();
+      const bitisTarihi = new Date(suAn);
+      bitisTarihi.setMonth(bitisTarihi.getMonth() + 1);
 
-    await new Arac({
-          bitisTarihi,
-          IlanSahibi: user._id,
-           motor_hacmi, alttur:secilen1, marka:secilen2, model: secilen3,
-          Baslik,  yakit_tipi, kapi_sayisi,
-          hp,km,
-          renk, garanti,kasa_tipi, agir_hasar,
-          IlanKapak, resimler,VIN,LOT
-        }).save();
+      // 4. Form Verilerini Parçala
+      const {
+        secilen1, secilen2, secilen3,
+        Baslik, km, yakit_tipi,
+        hp, agir_hasar, motor_hacmi, kapi_sayisi,
+        renk, garanti, kasa_tipi, VIN, LOT
+      } = req.body;
+
+      // 5. Kayıt İşlemi
+      await new Arac({
+        bitisTarihi,
+        IlanSahibi: user._id,
+        alttur: secilen1,
+        marka: secilen2,
+        model: secilen3,
+        Baslik, yakit_tipi, kapi_sayisi,
+        hp, km, motor_hacmi,
+        renk, garanti, kasa_tipi, agir_hasar,
+        IlanKapak, // Direkt https://... linki
+        resimler,  // Linklerden oluşan dizi
+        VIN, LOT
+      }).save();
 
       res.json({ redirectUrl: '/' });
 
     } catch (error) {
       console.error("İlan kaydetme hatası:", error);
-      res.status(500).json({ success: false, message: `Bir hata oluştu.${error}` });
+      res.status(500).json({ success: false, message: `Bir hata oluştu: ${error.message}` });
     }
   }
 );

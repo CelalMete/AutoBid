@@ -42,10 +42,6 @@ const ProfileStorage = new CloudinaryStorage({
       if (!req.session || !req.session.userId) {
           return `anonim_${Date.now()}`;
       }
-      
-      // SENİN İSTEDİĞİN FORMAT: "userId_avatar"
-      // Örn: "654a3b..._avatar"
-      // Aynı kullanıcı yeni resim yüklerse eskisi otomatik silinir/üzerine yazılır!
       return `${req.session.userId}_avatar`; 
     }
   }
