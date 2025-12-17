@@ -83,7 +83,7 @@ app.use(
 
         "https://cdnjs.cloudflare.com" 
         ],
-      "img-src": ["'self'", "data:", "https://bid.cars"],
+      "img-src": ["'self'", "data:", "https://bid.cars", "blob:", "https://res.cloudinary.com"],
 
       // Media, frame vs. gerekmedikçe kapat
       "object-src": ["'none'"],
