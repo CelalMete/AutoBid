@@ -92,15 +92,15 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('form').addEventListener('submit', async function (e) {
         e.preventDefault();
         const formData = new FormData(this);
-        const kategoriSelect = document.getElementById('kategoriSelectId'); // ID'yi kontrol et
+        const kategoriSelect = document.getElementById('secilen1'); // ID'yi kontrol et
     formData.append('secilen1', kategoriSelect.value); 
     
     // Örnek: Marka (secilen2)
-    const markaSelect = document.getElementById('markaSelectId'); // ID'yi kontrol et
+    const markaSelect = document.getElementById('secilen2'); // ID'yi kontrol et
     formData.append('secilen2', markaSelect.value);
 
     // Örnek: Model (secilen3)
-    const modelSelect = document.getElementById('modelSelectId'); // ID'yi kontrol et
+    const modelSelect = document.getElementById('secilen3'); // ID'yi kontrol et
     formData.append('secilen3', modelSelect.value);
         try {
             const response = await fetch('/yeni-ilan-olustur', {
