@@ -133,7 +133,7 @@ app.use(cors({
 }));
 
 // VERİTABANI BAĞLANTISI
-const dbURL = "mongodb+srv://Cell_Meth:celalmete123@veritabani.hux10.mongodb.net/yenidb2?retryWrites=true&w=majority&appName=veritabani";
+const dbURL = process.env.MONGO_URI;
 
 console.log("-------------------------------------------------");
 console.log("🌍 SRV BAĞLANTISI DENENİYOR...");

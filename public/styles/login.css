@@ -233,6 +233,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+
         background-color: var(--r2);
         }
         .tus.inaktif{
@@ -258,13 +259,12 @@
             
         }
         .d1.inaktif{
-            border-bottom-right-radius: 0;
             width: 84vw;
             height:56vh ;
             background-color: var(--r1);
             margin-top: 2vh;
             opacity: 0;
-            border-radius: 0px 0px 0px 0px;
+            border-radius: 10px 10px 0 10px;
             
          }
         .d2{
@@ -273,7 +273,7 @@
             height:10vh ;
 
             align-self: start;
-            border-radius: 0px 0px 0px 0px;
+            border-radius: 0px 0px 0px 10px;
             margin-left: 3.1vw;
             z-index: 1;
             display: flex;
@@ -283,6 +283,7 @@
         }
         .d2.aktif{
             background-color: var(--r2);
+            border-bottom-right-radius: 10px;
         }
         .d2.inaktif{
            background-color:transparent;
@@ -300,7 +301,7 @@
             margin-right: 3vw;
             margin-top: -10vh;
             z-index: 1;
-            border-radius: 0px 0px 10px 10px;  
+            border-radius: 10px 0px 10px 10px;  
             display: flex;
             justify-content: center;
             flex-direction: column;
@@ -334,6 +335,7 @@
         }
         #orospucocugu.inaktif{
             display: none;
+            
             width: 45vw;
         }
         #yeni{
@@ -368,10 +370,11 @@
             justify-content: flex-start;
             align-items: center;
             border-radius: 10px;
+            border-bottom-left-radius: 0px;
             flex-direction: column;
             background-color: var(--r2);
         }
-       
+
 @media screen and (min-width: 768px) {
     #main {
         width: 690px;
