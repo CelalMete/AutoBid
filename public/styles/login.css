@@ -218,7 +218,7 @@
         transition: color .5s;
         }
         .kayit.aktif{
-        margin-left: 42vw;
+       
         color: var(--r0);
         position: relative;
         flex-shrink: 0;
@@ -258,12 +258,13 @@
             
         }
         .d1.inaktif{
+            border-bottom-right-radius: 0;
             width: 84vw;
             height:56vh ;
             background-color: var(--r1);
             margin-top: 2vh;
             opacity: 0;
-            border-radius: 10px 10px 0 10px;
+            border-radius: 0px 0px 0px 0px;
             
          }
         .d2{
@@ -272,7 +273,7 @@
             height:10vh ;
 
             align-self: start;
-            border-radius: 0px 10px 0px 10px;
+            border-radius: 0px 0px 0px 0px;
             margin-left: 3.1vw;
             z-index: 1;
             display: flex;
@@ -403,7 +404,7 @@
         margin-right: 23px; }
         
     .kayit.aktif{
-        margin-left: 322px;
+
         width: 230px;
     }
      .kayit.inaktif{

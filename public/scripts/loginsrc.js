@@ -1,4 +1,4 @@
-// Elemanları tek yerde topla
+// --- ELEMENT SEÇİMLERİ ---
 const el = {
   di1: document.getElementById("di1"),
   di2: document.getElementById("di2"),
@@ -10,9 +10,9 @@ const el = {
   d3: document.getElementById("d3"),
   main: document.getElementById("main"),
   yeni: document.getElementById("yeni"),
-  tus: document.getElementById("tus"),
-  kayit: document.getElementById("kayit"),
-  orospucocugu: document.getElementById("orospucocugu"),
+  tus: document.getElementById("tus"), // Giriş Yap butonu
+  kayit: document.getElementById("kayit"), // Kaydol butonu
+  orospucocugu: document.getElementById("orospucocugu"), // Overlay/Kaydıraç
   vis: document.getElementById("visib"),
   vis2: document.getElementById("visib2"),
   vis3: document.getElementById("visib3"),
@@ -23,7 +23,11 @@ const el = {
   soyadKayit: document.getElementById("i7"),
 };
 
-// Tekrarı azaltmak için yardımcı fonksiyon
+const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+// --- YARDIMCI FONKSİYONLAR ---
+
+// Class değiştirme fonksiyonu (Görünürlük ayarları için)
 function toggleAktifInaktif(...items) {
   items.forEach((x) => {
     if (x) {
@@ -32,8 +36,8 @@ function toggleAktifInaktif(...items) {
     }
   });
 }
-const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-// Şifre görünür/gizli yapma
+
+// Şifre Göster/Gizle Ayarı
 function setupPasswordToggle(button, input) {
   if (!button || !input) return;
   button.addEventListener("click", () => {
@@ -45,55 +49,57 @@ function setupPasswordToggle(button, input) {
   });
 }
 
+// Şifre ikonlarını başlat
 setupPasswordToggle(el.vis, el.sifre);
 setupPasswordToggle(el.vis2, el.sifre2);
 setupPasswordToggle(el.vis3, el.sifre3);
 
-// Kayıt butonu
+// --- ANA TIKLAMA MANTIĞI (DÜZELTİLEN KISIM) ---
+
+// 1. KAYIT BUTONU (Register)
 el.kayit?.addEventListener("click", () => {
+  // Eğer buton zaten 'aktif' ise (yani şu an Kayıt formundayız), SUBMIT yap.
   if (el.kayit.classList.contains("aktif")) {
     registerUser();
   } else {
+    // Eğer 'inaktif' ise, KAYIT EKRANINA GEÇİŞ yap.
+    // DİKKAT: el.d2 ve el.d3 listeden çıkarıldı ki butonlar kaybolmasın.
     toggleAktifInaktif(
-      el.kayit,
-      el.tus,
-      el.yeni,
-      el.d1,
-      el.d3,
-      el.orospucocugu,
+      el.kayit, // Butonun kendi durumu değişsin (Submit moduna geçsin)
+      el.tus,   // Diğer butonun durumu değişsin
+      el.yeni,  // Kayıt formu açılsın
+      el.d1,    // Giriş formu kapansın
+      el.orospucocugu, // Overlay kaysın
       el.main,
-      el.d2,
-      el.di1,
-      el.di2,
-      el.di3,
-      el.di4,
-      el.di7
+      el.di1, el.di2, el.di3, el.di4, el.di7 // Inputlar açılsın/kapansın
     );
   }
 });
 
-// Giriş butonu
+// 2. GİRİŞ BUTONU (Login)
 el.tus?.addEventListener("click", () => {
+  // Eğer Kayıt butonu 'aktif' ise, şu an Kayıt ekranındayız demektir.
+  // Bu durumda Giriş tuşu "GERİ DÖN" işlevi görmeli.
   if (el.kayit.classList.contains("aktif")) {
     toggleAktifInaktif(
-      el.kayit,
-      el.tus,
-      el.yeni,
-      el.d1,
-      el.d3,
-      el.orospucocugu,
+      el.kayit, // Eski haline dönsün
+      el.tus,   // Eski haline dönsün
+      el.yeni,  // Kayıt formu kapansın
+      el.d1,    // Giriş formu açılsın
+      el.orospucocugu, // Overlay geri kaysın
       el.main,
-      el.d2,
-      el.di1,
-      el.di2,
-      el.di3,
-      el.di4,
-      el.di7
+      el.di1, el.di2, el.di3, el.di4, el.di7
     );
+  } else {
+    // Eğer normal Giriş ekranındaysak, LOGIN yap.
+    fut4Lower();
   }
 });
 
-// Kullanıcı kayıt
+
+// --- SUNUCU İŞLEMLERİ (FETCH) ---
+
+// Kullanıcı Kayıt Fonksiyonu
 async function registerUser() {
   const Soyad = el.soyadKayit.value;
   const Ad = document.getElementById("i5").value;
@@ -105,8 +111,10 @@ async function registerUser() {
     const response = await fetch("/register", {
       method: "POST",
       credentials: "include",
-      headers: { "Content-Type": "application/json" ,"CSRF-Token": csrfToken },
-      
+      headers: { 
+        "Content-Type": "application/json",
+        "CSRF-Token": csrfToken 
+      },
       body: JSON.stringify({ Ad, Soyad, email, sifre1, sifre2 }),
     });
     const result = await response.json();
@@ -121,19 +129,20 @@ async function registerUser() {
   }
 }
 
-// Kullanıcı giriş
+// Kullanıcı Giriş Fonksiyonu
 async function fut4Lower() {
   const Ad = document.getElementById("i1").value;
   const sifre = el.sifre.value;
   const Soyad = el.soyadGiris.value;
 
   try {
-    console.log(Ad+sifre+Soyad)
     const response = await fetch("/auth", {
       method: "POST",
       credentials: "include",
-      headers: { "Content-Type": "application/json" , "CSRF-Token": csrfToken },
-     
+      headers: { 
+        "Content-Type": "application/json",
+        "CSRF-Token": csrfToken 
+      },
       body: JSON.stringify({ Ad, Soyad, sifre }),
     });
     const result = await response.json();
@@ -148,5 +157,3 @@ async function fut4Lower() {
     alert("Sunucu hatası: " + err.message);
   }
 }
-document.getElementById("kayit").addEventListener("click", registerUser);
-document.getElementById("tus").addEventListener("click", fut4Lower);
