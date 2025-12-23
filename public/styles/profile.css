@@ -53,7 +53,8 @@ width: 800px;
   color: #333;
 }
 .active{background-color: rgb(240, 240, 240);}
-#ppModal{display: none;width:300px;}
+#ppModal{display: none;width:300px;margin-top: 10px;}
 #close{margin-bottom: 10px;}
+#ppbas{margin-top: 10px;}
 #ppForm{clear: both;margin-top: 10px;}
 #bioFormAlani{display: none;}
