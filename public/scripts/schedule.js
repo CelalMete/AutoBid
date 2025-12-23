@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function initializePage() {
         // Tüm içerikleri gizle
         contentItems.forEach(item => item.classList.remove("active"));
-        // Tüm linklerin 'active' sınıfını kaldır
+        
         navLinks.forEach(link => link.classList.remove("active"));
         
         // İlk linki ve ilk içeriği aktif yap
