@@ -55,4 +55,5 @@ width: 800px;
 .active{background-color: rgb(240, 240, 240);}
 #ppModal{display: none;width:300px;}
 #close{margin-bottom: 10px;}
+#ppForm{clear: both;margin-top: 10px;}
 #bioFormAlani{display: none;}
