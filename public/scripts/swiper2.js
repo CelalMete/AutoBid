@@ -2,15 +2,20 @@
 
 
 
-  const swiper = new Swiper(".mySwiper", {
-    slidesPerView: "auto",
-    spaceBetween: 10,
-   preloadImages: true,    
+const swiper = new Swiper(".mySwiper", {
+  slidesPerView: "auto",
+  spaceBetween: 10,
+  allowTouchMove: true,
+  loop: true,
+  autoplay: false,
+  navigation: false,
+  pagination: false,
+  keyboard: false,
+  preloadImages: true,
   updateOnImagesReady: true,
-    allowTouchMove: true,
-    loop: true,
-    autoplay: false,
-    navigation: false,
-    pagination: false,
-    keyboard: false,
-  });
+  loopedSlides: 10,
+  loopAdditionalSlides: 2,
+  observer: true,
+  observeParents: true,
+  speed: 800, 
+});
