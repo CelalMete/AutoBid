@@ -420,11 +420,11 @@ async function sendEmail2(toEmail, subject, message) {
 app.put("/ilan/durum-guncelle/:id", csrfProtection, async (req, res) => {
   try {
    
-    await Arac.findById(req.params.id)
+   const ilan= await Arac.findById(req.params.id)
     
     if (!ilan) return res.status(404).json({ message: "İlan bulunamadı" });
 
-    const kategori = ilan.tur;a
+    const kategori = ilan.tur;
     let durumDoc;
     if (ilan.durum === "non") {
      
