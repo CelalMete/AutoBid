@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const toEsya = document.getElementById("toEsya");
 
   toArac.addEventListener("click", () => {
-    window.location.href = "/shipping/arac/vehicle-Payment";
+    window.location.href = "/shipping/Otomobil/vehicle-Payment";
   });
 
   toKonut.addEventListener("click", () => {
