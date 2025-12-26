@@ -424,7 +424,7 @@ app.put("/ilan/durum-guncelle/:id", csrfProtection, async (req, res) => {
     
     if (!ilan) return res.status(404).json({ message: "İlan bulunamadı" });
 
-    const kategori = ilan.tur;
+    const kategori = ilan.alttur;
     let durumDoc;
     if (ilan.durum === "non") {
      
@@ -581,18 +581,12 @@ app.get('/shipping/:kategori/:section', isAdmin1, csrfProtection, async (req, re
   try {
     const user = await Kullanici.findById(req.session.userId);
     const section = req.params.section || 'vehicle-Payment';
-    const kategori = req.params.kategori || 'arac';
+    const kategori = req.params.kategori || 'Otomobil';
 
     let items = [];
 
-    if (kategori === 'arac') {
+    if (kategori === 'Otomobil') {
       items = await Arac.find({ durum: section }).lean();
-    } else if (kategori === 'konut') {
-      items = await Konut.find({ durum: section }).lean();
-    } else if (kategori === 'esya') {
-      items = await Esya.find({ durum: section }).lean();
-    } else if (kategori === 'is') {
-      items = await Is.find({ durum: section }).lean();
     }
     const lang = req.user?.lang || "tr";
      const durumlar = await durum.find({ kategori }).lean();
