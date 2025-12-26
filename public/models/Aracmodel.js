@@ -8,17 +8,24 @@ const AracIlanSchema = new mongoose.Schema({
     LOT:String,
     IlanKapak:String,
     Ekspertiz:String,
-    IlanSahibi: String,
+    IlanSahibi: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'user',   
+        required: true 
+    },
     yapimYili:Date,
     durum:String,
-    alıcı: mongoose.Schema.Types.ObjectId,
+    alıcı: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'user'
+    },
     
     resimler: [String],
     yuklenmeTarihi: { type: Date, default: Date.now },
    teklif:{type :Number,default:0},
    vites:String,
     durum:String,
-    sell:{ type:String, default: 'Aktif' },
+    sell:{ type:String, default: 'aktif' },
     FastBuyPrice:Number,
     tur:String,
     alttur:String,

@@ -331,7 +331,7 @@ cron.schedule('* * * * *', async () => {
                bitisTarihi: { $lt: suAn }
             },
             { 
-                $set: { sell: 'pasif' } 
+                $set: { sell: 'pasif',durum:'vehicle-Payment'} 
             }
         );
 
