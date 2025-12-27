@@ -221,13 +221,11 @@ const sendEmail = async (req, res) => {
         });
 
         console.log("Mail gitti:", data);
-        res.status(200).json({ message: "Mail başarıyla gönderildi" });
 
-    } catch (error) {
-        console.error("Hata:", error);
-        res.status(400).json({ error: error.message });
-    }
-};
+} catch (err) {
+    console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
+    throw err; 
+}}
 
 app.post('/register', async (req, res) => {
     const { Ad, Soyad, email, sifre1, sifre2 } = req.body;
