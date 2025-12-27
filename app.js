@@ -214,7 +214,31 @@ app.post('/auth', csrfProtection, async (req, res) => {
 });
 
 let verificationCodes = {};
+async function sendEmail(toEmail, verificationCode) {
 
+  try{
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD
+    },
+    tls: { rejectUnauthorized: false },
+  });
+
+
+  let mailOptions = {
+    from: process.env.EMAIL,
+    to: toEmail,
+      subject: "E-posta Doğrulama Kodu",
+      text: `Doğrulama kodunuz: ${verificationCode}`
+  };
+  await transporter.sendMail(mailOptions);
+  
+} catch (err) {
+    console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
+    throw err; 
+}}
 
 
 app.post('/register', async (req, res) => {
@@ -284,31 +308,7 @@ app.post('/verify-code', csrfProtection, async(req, res) => {
         return res.status(400).json({ success: false, message: "Geçersiz kod!" });
     }
 });
-async function sendEmail(toEmail, verificationCode) {
 
-  try{
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD
-    },
-    tls: { rejectUnauthorized: false },
-  });
-
-
-  let mailOptions = {
-    from: process.env.EMAIL,
-    to: toEmail,
-      subject: "E-posta Doğrulama Kodu",
-      text: `Doğrulama kodunuz: ${verificationCode}`
-  };
-  await transporter.sendMail(mailOptions);
-  
-} catch (err) {
-    console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
-    throw err; 
-}}
 cron.schedule('* * * * *', async () => {
     console.log('⏳ Süresi dolan ilanlar kontrol ediliyor...');
 
