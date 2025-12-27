@@ -126,7 +126,7 @@ const fsExtra = require('fs-extra');
 const kategori = require('./public/models/kategori');
 const { body } = require('express-validator');
 const { Resend } = require('resend'); 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.Resend);
 
 
 
