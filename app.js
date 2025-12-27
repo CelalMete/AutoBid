@@ -125,6 +125,11 @@ const cors = require("cors");
 const fsExtra = require('fs-extra');
 const kategori = require('./public/models/kategori');
 const { body } = require('express-validator');
+const { Resend } = require('resend'); 
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+
+
 app.use(cors({
     origin: "http://localhost:3000", // veya frontend'in adresi
     credentials: true
@@ -137,9 +142,8 @@ console.log("-------------------------------------------------");
 console.log("🌍 SRV BAĞLANTISI DENENİYOR...");
 
 mongoose.connect(dbURL, {
-    // SRV (Kısa Link) için bu ayarlar bazen hayat kurtarır:
-    serverSelectionTimeoutMS: 5000, // 5 saniyede bulamazsan haber ver
-    family: 4 // Sadece IPv4 kullan (Render bazen IPv6'da takılır)
+    serverSelectionTimeoutMS: 5000, 
+    family: 4 
 })
 .then(() => {
     console.log("✅✅✅ BAĞLANTI BAŞARILI! (SRV Çalıştı) 🚀");
@@ -202,38 +206,28 @@ app.post('/auth', csrfProtection, async (req, res) => {
   }
 });
 
-
-
-
-// 📌 E-Posta Doğrulama
 let verificationCodes = {};
 
-async function sendEmail(toEmail, verificationCode) {
+const sendEmail = async (req, res) => {
+    
+    try {
+        const data = await resend.emails.send({
+            from: 'onboarding@resend.dev', 
+            
+            to: 'alici@ornek.com', 
+            
+            subject: 'Hoşgeldin! Doğrulama Kodun',
+            html: '<p>Merhaba, kodun: <strong>12345</strong></p>'
+        });
 
-  try{
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD
-    },
-    tls: { rejectUnauthorized: false },
-  });
+        console.log("Mail gitti:", data);
+        res.status(200).json({ message: "Mail başarıyla gönderildi" });
 
-    console.log(toEmail+"123")
-      console.log(verificationCode)
-  let mailOptions = {
-    from: process.env.EMAIL,
-    to: toEmail,
-      subject: "E-posta Doğrulama Kodu",
-      text: `Doğrulama kodunuz: ${verificationCode}`
-  };
-  await transporter.sendMail(mailOptions);
-  
-} catch (err) {
-    console.error("E-posta hatası:", err); 
-    throw err; 
-}}
+    } catch (error) {
+        console.error("Hata:", error);
+        res.status(400).json({ error: error.message });
+    }
+};
 
 app.post('/register', async (req, res) => {
     const { Ad, Soyad, email, sifre1, sifre2 } = req.body;
