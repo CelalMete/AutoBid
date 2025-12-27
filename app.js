@@ -220,7 +220,8 @@ async function sendEmail(toEmail, verificationCode) {
     tls: { rejectUnauthorized: false },
   });
 
-
+    console.log(toEmail+"123")
+      console.log(verificationCode)
   let mailOptions = {
     from: process.env.EMAIL,
     to: toEmail,
@@ -230,7 +231,7 @@ async function sendEmail(toEmail, verificationCode) {
   await transporter.sendMail(mailOptions);
   
 } catch (err) {
-    console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
+    console.error("E-posta hatası:", err); 
     throw err; 
 }}
 
@@ -256,6 +257,8 @@ app.post('/register', async (req, res) => {
         let verificationCode = Math.floor(100000 + Math.random() * 900000);
         verificationCodes[email] = verificationCode;
         req.session.verificationCode=verificationCodes[email]
+        console.log(email)
+        console.log(verificationCode)
         sendEmail(email,verificationCode)
         return res.json({ success: true });
 
