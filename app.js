@@ -125,9 +125,16 @@ const cors = require("cors");
 const fsExtra = require('fs-extra');
 const kategori = require('./public/models/kategori');
 const { body } = require('express-validator');
-const { Resend } = require('resend'); 
-const resend = new Resend(process.env.Resend);
-
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465, // Güvenli port (Hata alırsan 587 ve secure: false dene)
+  secure: true, 
+  auth: {
+    user: process.env.EMAIL_USER, // .env'deki mail adresin
+    pass: process.env.EMAIL_PASS, // .env'deki uygulama şifren
+  },
+});
 
 
 app.use(cors({
@@ -208,24 +215,7 @@ app.post('/auth', csrfProtection, async (req, res) => {
 
 let verificationCodes = {};
 
-const sendEmail = async (req, res) => {
-    
-    try {
-        const data = await resend.emails.send({
-            from: 'onboarding@resend.dev', 
-            
-            to: 'alici@ornek.com', 
-            
-            subject: 'Hoşgeldin! Doğrulama Kodun',
-            html: '<p>Merhaba, kodun: <strong>12345</strong></p>'
-        });
 
-        console.log("Mail gitti:", data);
-
-} catch (err) {
-    console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
-    throw err; 
-}}
 
 app.post('/register', async (req, res) => {
     const { Ad, Soyad, email, sifre1, sifre2 } = req.body;
@@ -294,7 +284,31 @@ app.post('/verify-code', csrfProtection, async(req, res) => {
         return res.status(400).json({ success: false, message: "Geçersiz kod!" });
     }
 });
+async function sendEmail(toEmail, verificationCode) {
 
+  try{
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD
+    },
+    tls: { rejectUnauthorized: false },
+  });
+
+
+  let mailOptions = {
+    from: process.env.EMAIL,
+    to: toEmail,
+      subject: "E-posta Doğrulama Kodu",
+      text: `Doğrulama kodunuz: ${verificationCode}`
+  };
+  await transporter.sendMail(mailOptions);
+  
+} catch (err) {
+    console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
+    throw err; 
+}}
 cron.schedule('* * * * *', async () => {
     console.log('⏳ Süresi dolan ilanlar kontrol ediliyor...');
 
@@ -368,14 +382,7 @@ app.get('/', authMiddleware, async (req, res) => {
 
 async function sendEmail2(toEmail, subject, message) {
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD,
-      },
-    });
-
+  
     const mailOptions = {
       from: `"BidCars" <${process.env.EMAIL}>`,
       to: toEmail,
