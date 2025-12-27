@@ -97,10 +97,8 @@ const server = http.createServer(app);
 
 const io = socketIo(server);
 
-app.set('socketio', io); // socket'i diğer dosyalardan da erişilebilir yap
+app.set('socketio', io);
 
-
-// MODELLER
 app.use(session({
   secret: 'gizliAnahtar',
   resave: false,
@@ -239,7 +237,6 @@ async function sendEmail(toEmail, verificationCode) {
 app.post('/register', async (req, res) => {
     const { Ad, Soyad, email, sifre1, sifre2 } = req.body;
 
-    // Validasyonlar
     if (!Ad || !Soyad || !email || !sifre1 || !sifre2) {
         return res.status(400).json({ success: false, message: 'Tüm alanlar doldurulmalıdır' });
     }
@@ -254,23 +251,12 @@ app.post('/register', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Bu kullanıcı zaten kayıtlı' });
         }
 
-        // Geçici kullanıcı bilgilerini session'a at
         req.session.user1 = { Ad, Soyad, email, sifre1 };
 
-        // Doğrulama kodu oluştur
         let verificationCode = Math.floor(100000 + Math.random() * 900000);
         verificationCodes[email] = verificationCode;
-
-        // === KRİTİK DEĞİŞİKLİK BURADA ===
-        // Mail gönderme kodunu YORUM SATIRINA aldık (Çalışmasın diye)
-        // await sendEmail(email, verificationCode); 
-        
-        // Kodu mail yerine KONSOLA yazdırıyoruz
-        console.log("--------------------------------------------");
-        console.log("📧 MAIL SİSTEMİ GEÇİCİ OLARAK KAPALI");
-        console.log("🔑 DOĞRULAMA KODUNUZ (Loglardan Alın):", verificationCode);
-        console.log("--------------------------------------------");
-
+        req.session.verificationCode=verificationCodes[email]
+        sendEmail(email,verificationCode)
         return res.json({ success: true });
 
     } catch (error) {
@@ -279,14 +265,11 @@ app.post('/register', async (req, res) => {
     }
 });
 app.get('/verify-code', csrfProtection, (req, res) => {
-  // Token'ı oluşturup 'email.ejs' sayfasına paketliyoruz
   res.render('email', { csrfToken: req.csrfToken() });
 });
 
 app.post('/verify-code', csrfProtection, async(req, res) => {
     const { code } = req.body;
-    
-    // Oturum kontrolü
     if (!req.session.user1) {
         return res.status(400).json({ success: false, message: "Oturum süresi dolmuş." });
     }
@@ -310,11 +293,9 @@ app.post('/verify-code', csrfProtection, async(req, res) => {
         req.session.user = newUser;
         req.session.userId = newUser.id;
 
-        // JS'e "Tamamdır" mesajı dönüyoruz
         return res.json({ success: true }); 
 
     } else {
-        // JS'e "Hata" mesajı dönüyoruz
         return res.status(400).json({ success: false, message: "Geçersiz kod!" });
     }
 });
