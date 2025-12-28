@@ -214,9 +214,9 @@ async function sendEmail(toEmail, verificationCode) {
   try{
  resend.emails.send({
   from: 'onboarding@resend.dev',
-  to: toEmail,
-  subject: 'Email Verification',
-  text:verificationCode
+  to: 'kocakoglucelalmete@gmail.com',
+  subject: verificationCode,
+  html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
 });
 
 } catch (err) {
