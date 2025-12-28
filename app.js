@@ -125,16 +125,10 @@ const cors = require("cors");
 const fsExtra = require('fs-extra');
 const kategori = require('./public/models/kategori');
 const { body } = require('express-validator');
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  host: "smtp.gmail.com",
-  port: 465, // Güvenli port (Hata alırsan 587 ve secure: false dene)
-  secure: true, 
-  auth: {
-    user: process.env.EMAIL_USER, // .env'deki mail adresin
-    pass: process.env.EMAIL_PASS, // .env'deki uygulama şifren
-  },
-});
+import { Resend } from 'resend';
+
+const resend = new Resend('re_KQs8qQYe_9D7d1o3mVqQ34XZeGAuEJU8e');
+
 
 
 app.use(cors({
@@ -214,27 +208,17 @@ app.post('/auth', csrfProtection, async (req, res) => {
 });
 
 let verificationCodes = {};
+
 async function sendEmail(toEmail, verificationCode) {
 
   try{
-  let transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-      user: process.env.EMAIL,
-      pass: process.env.PASSWORD
-    },
-    tls: { rejectUnauthorized: false },
-  });
+ resend.emails.send({
+  from: 'onboarding@resend.dev',
+  to: toEmail,
+  subject: 'Email Verification',
+  text:verificationCode
+});
 
-
-  let mailOptions = {
-    from: process.env.EMAIL,
-    to: toEmail,
-      subject: "E-posta Doğrulama Kodu",
-      text: `Doğrulama kodunuz: ${verificationCode}`
-  };
-  await transporter.sendMail(mailOptions);
-  
 } catch (err) {
     console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
     throw err; 
