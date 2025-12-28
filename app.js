@@ -125,7 +125,7 @@ const cors = require("cors");
 const fsExtra = require('fs-extra');
 const kategori = require('./public/models/kategori');
 const { body } = require('express-validator');
-import { Resend } from 'resend';
+const { Resend } = require('resend');
 
 const resend = new Resend('re_KQs8qQYe_9D7d1o3mVqQ34XZeGAuEJU8e');
 
