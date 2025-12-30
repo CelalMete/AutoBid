@@ -176,7 +176,7 @@ function isAdmin1(req, res, next) {
     return res.status(403).json({ message: `Bu sayfaya erişim yetkiniz yok. ${req.session.user.rutbe} ` });
   }
 
-  next(); // Admin ise route'a devam et
+  next(); 
 };
 function isAdmin2(req, res, next) {
   if (!req.session.user.rutbe) {
