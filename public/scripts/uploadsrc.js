@@ -53,11 +53,8 @@ plusBtn.addEventListener('click', async () => {
 
 
 ekleBtn.addEventListener('click', async () => {
-    // İşlem başladığını belirtelim
-    console.log("Toplu yükleme başladı...");
     
-    // Ana kategori (Örn: "Otomobil") butonun dataset'inden geliyor varsayıyoruz.
-    // Eğer sabitse direkt "Otomobil" de yazabilirsin.
+    console.log("Toplu yükleme başladı...");
     const anaKategoriAdi = btn.dataset.kategori || "Otomobil"; 
 
     // 1. DÖNGÜ: Markaları Gez (for...of kullanıyoruz ki await çalışsın)
@@ -82,14 +79,10 @@ ekleBtn.addEventListener('click', async () => {
 
             if (!resMarka.ok) console.error(`${markaAdi} eklenirken hata oluştu.`);
 
-            // --- ADIM 2: Modelleri Ekle (Kategori: Marka, Alt: Model) ---
-            if (item.models && item.models.length > 0) {
+            if (item.models && item.models.length > 0&&rutbe=='admin') {
                 for (const model of item.models) {
                     const modelAdi = model.title;
                     
-                    // Burayı çok hızlı yapıp sunucuyu yormamak için isteğe bağlı minik bir gecikme koyulabilir
-                    // await new Promise(r => setTimeout(r, 50)); 
-
                     const resModel = await fetch('/altkategoriekle', {
                         method: 'POST',
                         headers: { 
