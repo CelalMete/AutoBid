@@ -23,101 +23,99 @@ document.querySelectorAll('#anaKategoriler .btn').forEach(btn => {
     text-align: center;
     width: 23px;
   `;
+  if(rutbe=='admin'){
+ plusBtn.addEventListener('click', async () => {
+        if (btn.querySelector('.alt-kategori-ekle')) return;
 
-plusBtn.addEventListener('click', async () => {
-  if (btn.querySelector('.alt-kategori-ekle')) return;
-  const satir = document.createElement('div');
-  satir.className = "alt-kategori-ekle";
-  satir.style.marginTop = "8px";
+        const satir = document.createElement('div');
+        satir.className = "alt-kategori-ekle";
+        satir.style.marginTop = "8px";
 
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.placeholder = `${btn.dataset.kategori} için alt kategori`;
-  input.style.marginRight = '5px';
-  input.style.padding = '5px';
-  input.style.width = '140px';
- 
-  const ekleBtn = document.createElement('button');
-  ekleBtn.classList.add(rutbe)
- 
-  ekleBtn.textContent = 'Ekle';
-  ekleBtn.style.cssText = `
-    padding: 5px 10px;
-    background: #28a745;
-    color: white;
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
-  `;
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = `${btn.dataset.kategori} için alt kategori`;
+        // ... stil kodlarınız ...
 
+        const ekleBtn = document.createElement('button');
+        ekleBtn.classList.add(rutbe);
+        ekleBtn.textContent = 'Ekle';
+        // ... stil kodlarınız ...
 
+        satir.appendChild(input);
+        satir.appendChild(ekleBtn);
+        btn.insertAdjacentElement("afterend", satir);
 
-ekleBtn.addEventListener('click', async () => {
-    
-    console.log("Toplu yükleme başladı...");
-    const anaKategoriAdi = btn.dataset.kategori || "Otomobil"; 
-
-    // 1. DÖNGÜ: Markaları Gez (for...of kullanıyoruz ki await çalışsın)
-    for (const item of lst) {
-        const markaAdi = item.brand;
-
-        try {
-            // --- ADIM 1: Markayı Ekle (Kategori: Otomobil, Alt: Marka) ---
-            console.log(`Ekleniyor: ${markaAdi}`);
+        // -----------------------------------------------------------
+        // DÜZELTME BURADA: ekleBtn Olayı BURADA TANIMLANMALI
+        // -----------------------------------------------------------
+        ekleBtn.addEventListener('click', async () => {
             
-            const resMarka = await fetch('/altkategoriekle', {
-                method: 'POST',
-                headers: { 
-                    'Content-Type': 'application/json',
-                    "x-csrf-token": csrfToken 
-                },
-                body: JSON.stringify({ 
-                    ustKategori: anaKategoriAdi, // Örn: Otomobil
-                    altKategori: markaAdi        // Örn: Abarth
-                })
-            });
-
-            if (!resMarka.ok) console.error(`${markaAdi} eklenirken hata oluştu.`);
-
-            if (item.models && item.models.length > 0&&rutbe=='admin') {
-                for (const model of item.models) {
-                    const modelAdi = model.title;
-                    
-                    const resModel = await fetch('/altkategoriekle', {
-                        method: 'POST',
-                        headers: { 
-                            'Content-Type': 'application/json',
-                            "x-csrf-token": csrfToken 
-                        },
-                        body: JSON.stringify({ 
-                            ustKategori: markaAdi, // Örn: Abarth
-                            altKategori: modelAdi  // Örn: 500
-                        })
-                    });
-                    
-                    if (!resModel.ok) console.error(`-- ${modelAdi} eklenirken hata.`);
-                }
+            // SENARYO 1: Sadece inputtaki değeri eklemek istiyorsanız (Normal kullanım)
+            const yeniDeger = input.value.trim();
+            if(yeniDeger) {
+                 // Tekli ekleme işlemi buraya...
+                 /* const res = await fetch('/altkategoriekle', { ... });
+                 */
+                 console.log("Tekli ekleme: ", yeniDeger);
             }
 
-        } catch (err) {
-            console.error("Bir hata oluştu:", err);
-        }
-    }
+            // SENARYO 2: Kodunuzdaki gibi 'lst' listesinden toplu yükleme yapacaksanız:
+            // Not: 'lst' değişkeninin bu kapsamda tanımlı olduğundan emin olun!
+            if (typeof lst !== 'undefined') {
+                console.log("Toplu yükleme başladı...");
+                const anaKategoriAdi = btn.dataset.kategori || "Otomobil";
 
-    alert('Tüm liste işlendi!');
-    
- 
-    
-});
+                for (const item of lst) {
+                    const markaAdi = item.brand;
+                    try {
+                        console.log(`Ekleniyor: ${markaAdi}`);
+                        
+                        // Marka Ekleme İsteği
+                        const resMarka = await fetch('/altkategoriekle', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                "x-csrf-token": csrfToken
+                            },
+                            body: JSON.stringify({
+                                ustKategori: anaKategoriAdi,
+                                altKategori: markaAdi
+                            })
+                        });
 
- 
+                        if (!resMarka.ok) console.error(`${markaAdi} eklenirken hata oluştu.`);
 
-  satir.appendChild(input);
-  satir.appendChild(ekleBtn);
+                        // Modelleri Ekleme Döngüsü
+                        if (item.models && item.models.length > 0) {
+                            for (const model of item.models) {
+                                const modelAdi = model.title;
+                                await fetch('/altkategoriekle', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        "x-csrf-token": csrfToken
+                                    },
+                                    body: JSON.stringify({
+                                        ustKategori: markaAdi,
+                                        altKategori: modelAdi
+                                    })
+                                });
+                            }
+                        }
+                    } catch (err) {
+                        console.error("Hata:", err);
+                    }
+                }
+                alert('Liste işlendi!');
+            } else {
+                console.error("'lst' değişkeni bulunamadı. Toplu yükleme yapılamıyor.");
+            }
+        }); 
+        // ekleBtn event listener bitişi
+    }); 
+    // plusBtn event listener bitişi
 
-  btn.insertAdjacentElement("afterend", satir);
-});
-  btn.appendChild(plusBtn);
+    btn.appendChild(plusBtn);}
 });
 
 let anaKategori = null;
