@@ -30,7 +30,7 @@ butonlar.forEach(btn => {
             }
         } catch (err) {
             console.error("Ödeme hatası:", err);
-            alert("Bir hata oluştu.");
+            alert("Bir hata oluştu."+err);
             console.log(err);
         }
     });
