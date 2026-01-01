@@ -23,6 +23,7 @@ butonlar.forEach(btn => {
             if (data.success) {
                 if (data.redirectUrl) {
                     window.location.href = data.redirectUrl;
+                    console.log(miktar);
                 }
             } else {
                 alert("Hata: " + data.message);
@@ -30,6 +31,7 @@ butonlar.forEach(btn => {
         } catch (err) {
             console.error("Ödeme hatası:", err);
             alert("Bir hata oluştu.");
+            console.log(err);
         }
     });
 });
