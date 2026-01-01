@@ -1040,8 +1040,8 @@ app.get('/profile/:section', csrfProtection, async (req, res) => {
       if (section === 'change-password') {
           prof = 'password';
       }
-      if (section === 'shipping') {
-          prof = 'shipping';
+      if (section === 'deposito') {
+          prof = 'deposito';
       }
 
       if (user.rutbe === "admin" && section === 'adminPanel') {
