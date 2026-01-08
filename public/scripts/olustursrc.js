@@ -97,10 +97,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Örnek: Marka (secilen2)
     const markaSelect = document.getElementById('secilen2'); 
+    const Yil = document.getElementById('Yili'); 
     formData.append('secilen2', markaSelect.value);
     const modelSelect = document.getElementById('secilen3'); 
     formData.append('secilen3', modelSelect.value);
-    const Baslik=kategoriSelect.value+""+markaSelect.value+" ,"+modelSelect.value;
+    const Baslik=Yil.value+" "+ kategoriSelect.value+" "+markaSelect.value+" ,"+modelSelect.value;
     formData.append('Baslik', Baslik);
         try {
             const response = await fetch('/yeni-ilan-olustur', {

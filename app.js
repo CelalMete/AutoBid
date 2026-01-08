@@ -706,8 +706,8 @@ app.post(
         Baslik, yakit_tipi, kapi_sayisi,
         hp, km, motor_hacmi,
         renk, garanti, kasa_tipi, agir_hasar,
-        IlanKapak, // Direkt https://... linki
-        resimler,  // Linklerden oluşan dizi
+        IlanKapak,
+        resimler,  
         VIN, LOT
       }).save();
 
