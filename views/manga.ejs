@@ -30,7 +30,7 @@
     <div class="dateB"> Bitis Tarihine:</div>
     <div class="geri-sayim"data-bitis="<%= ilan.bitisTarihi %>"></div>
   </div>
-  <div class="watch RBtn" id="addWatchlist">Ekle</div>
+  <div class="watch finalDate RBtn" id="addWatchlist">Ekle</div>
  </div>
 </div>
    
@@ -58,9 +58,15 @@
     <div class="info"><div class="info-bas ">Lot: </div> <div class="info-txt hoverB"> <%= ilan.LOT %></div></div>
     <div class="info"><div class="info-bas ">VIN: </div> <div class="info-txt hoverB"> <%= ilan.VIN %></div></div>    
     <div class="info"><div class="info-bas">Satıcı: </div> <div class="info-txt box green"><%= ilansahibi.kullaniciAdi || 'Bilinmiyor' %></div></div>
-    <div class="info"><div class="info-bas">Oluşturulma Tarihi:</div> <div class="info-txt"><%= ilan.yuklenmeTarihi.toLocaleDateString("tr-TR") + " " + ilan.yuklenmeTarihi.toLocaleTimeString("tr-TR") %></div></div>  
+    <div class="info"><div class="info-bas">İlan Tarihi:</div> <div class="info-txt"><%= ilan.yuklenmeTarihi.toLocaleDateString("tr-TR") + " " %></div></div>  
   </div>
-    
+  <div class="expertiz">
+    <div class="show">
+    <p class="exptxt">Ekspertiz raporu</p> </div>
+    <div class="rapor">
+      <img class="raporfoto" src="/photos/genel/forksPors.jpg" alt="">
+    </div>
+  </div>
 <div id="downbarContainer" class="kutu" data-filtre="<%= filtreler %>"></div>
 </div>
         <div class="teklif" >
@@ -138,7 +144,6 @@
     <div class="info"><div class="info-bas"><div class="num">4</div>Shipping to: </div> <div id="shipping" class="info-txt"></div></div>
     <div class="info"><div class="info-bas"><div class="num">5</div>Our fee: </div> <div id="our-fee" class="info-txt"></div></div>
     <div class="total"><div class="calcbas">Subtotal:</div> <div id="subtotal" class="amount"></div>  </div>
-
 </div>
 <div class="final-price-calc">
     <div class="calcbas"><img class="sembol2" src="/photos/icons/carbon_calculator.svg" alt="">Customs Calculator</div>

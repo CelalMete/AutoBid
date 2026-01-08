@@ -688,7 +688,6 @@ app.post(
       const IlanKapak = kapakDosya ? kapakDosya.path : null;
       const resimler = sayfaDosyalari.map(file => file.path);
 
-      // 3. Tarih İşlemleri
       const suAn = new Date();
       const bitisTarihi = new Date(suAn);
       bitisTarihi.setMonth(bitisTarihi.getMonth() + 1);

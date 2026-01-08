@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 
 const AracIlanSchema = new mongoose.Schema({
     slide:{type:Boolean,default:false},
-
     Baslik: String,
     VIN:String,
     LOT:String,

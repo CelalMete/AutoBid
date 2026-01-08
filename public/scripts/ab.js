@@ -135,8 +135,8 @@ downbarData = JSON.parse(filtrelerData);
     const tax = subtotal * (10 / 100);
     const vat = subtotal * (21 / 100);
     const agency = 500;
-    const Clearance = 550;
-    const total = Custom + tax + vat + agency + Clearance;
+    
+    const total = Custom + tax + vat + agency ;
 
     // ekrana yaz
     lotElement.textContent = "$" + lotFiyati;
@@ -148,10 +148,10 @@ downbarData = JSON.parse(filtrelerData);
     customElement.textContent = "$" + Custom;
     taxElement.textContent = "$" + tax.toFixed(2);
     vatElement.textContent = "$" + vat.toFixed(2);
+    ClaerenceElement.textContent = "$" + (tax + vat + agency).toFixed(2);
     agencyElement.textContent = "$" + agency.toFixed(2);
     totalElement.textContent = "$" + total.toFixed(2);
 
-    // ✅ payment form hidden input doldur
     const priceInput = document.querySelector("#payment-form input[name='price1']");
     if (priceInput) {
       priceInput.value = total.toFixed(2);

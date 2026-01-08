@@ -29,7 +29,7 @@ body {
     align-items: center;
     border-radius: 8px; 
 }
-.basL{height: 90px;width: 800px;}
+.basL{height: 100px;width: 800px;}
 .LInfo{  margin-top: 15px; display: flex;width: 800px;
     margin-bottom: 13px;
     align-items: center;font-family: 'lato',sans-serif;
@@ -92,25 +92,22 @@ body {
     margin-bottom: 20px;
 }
 .finalDate {
-    display: flex;
-    flex-direction:row; gap: 10px;
+    display: flex;height: 50px;margin-top: 5px;
+    flex-direction:column; gap: 0px;
     justify-content: center; 
     align-items: flex-start;
-    padding: 8px 8px;
 }
 
 .dateB {
     font-size: 12px; 
-    color: #888; 
+    color: #7F8FA4; 
     margin-bottom: 0; 
     font-weight: normal;
 }
-
-/* Tarihin Kendisi */
 .geri-sayim {
-    font-size: 16px; /* Tarihi büyütelim */
+    font-size: 15px;
     font-weight: bold;
-    color: #d9534f; /* Kırmızımsı bir renk (Aciliyet hissi) */
+    color:#334150; margin-top: 0%;
 }
 .resim {
 flex: 4; 
@@ -285,35 +282,87 @@ top: 20px;
 
 .sayi {
     clear: both;
-    margin-left: 0; /* Kutu padding'inden geliyor */
-    margin-top: 5px; /* Üstteki başlıkla arasına boşluk */
+    margin-left: 0; 
+    margin-top: 5px; 
     color: #212529;
     font-weight: bold;
     font-family: 'lato', sans-serif;
-    font-size: 24px; /* Varsayılan font boyutu */
+    font-size: 24px; 
 }
-
-/* Teklif verme formu */
 .teklif-ver {
     background-color: #F4FAFF;
-    padding: 15px; /* İç boşluk */
+    padding: 15px; 
     border-radius: 8px;
-    margin-top: 15px; /* Üstteki teklif bilgileriyle arasına boşluk */
+    margin-top: 15px;
+}
+.show {
+    height: 40px;
+    width: 80%;
+    border: 1px solid #ccc;
+    margin: 0 auto; background-color: white;
+    display: flex;    border-radius: 8px;
+    justify-content: center; 
+    align-items: center;     
+    text-align: center;  
+    padding: 0;    
+    line-height: 1;     
 }
 
-.time-left { /* Bu divin içeriği yok gibi duruyor, gerekliyse doldurun */
-    /* stil verin */
+.expertiz {
+    position: relative; 
+    display: inline-block; 
+    width: 100%;
+    cursor: pointer;
+    margin-bottom: 20px;
 }
+
+.exptxt {border-radius: 8px;
+    margin: 0;padding-top: 10px;background-color: white;font-family: 'lato',sans-serif;
+    
+}
+
+.rapor {
+    position: absolute;
+    top: 100%;       
+    left: 50%;          
+    transform: translateX(-50%) translateY(-10px); 
+    z-index: 999;   
+    background-color: white; 
+    border: 1px solid #ddd; 
+    padding: 10px;        
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+   
+    width: 300px;  
+    max-width: 90vw; 
+    
+    border-radius: 4px;     
+    opacity: 0;         
+    visibility: hidden;  
+    transition: all 0.3s ease-in-out; 
+}
+
+.raporfoto {
+    width: 100%;    
+    height: auto;     
+    display: block;  
+}
+
+.expertiz:hover .rapor {
+    opacity: 1;          
+    visibility: visible; 
+    transform: translateX(-50%) translateY(0); 
+}
+
 .field-wr {
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 13px;
-    padding: 5px 0; /* Boşluk ekleyelim */
+    padding: 5px 0;
 }
 .field-wr .field-name {
     min-width: 80px;
-    padding-left: 0; /* Teklif-ver padding'inden geliyor */
+    padding-left: 0; 
     color: #334150;
 }
 .bid-input {
