@@ -1,3 +1,8 @@
+@font-face {
+font-family: 'lato'; /* piksel ??? tasuki çalıntı*/
+src: url('/fonts/Lato-Regular.ttf'); 
+}
+body{font-family: 'lato',sans-serif;}
 .filter-tags{height: 30px;}
 .filters {
     width: 200px;
@@ -7,12 +12,24 @@
     margin-top: 30px;
     height: auto; /* Sabit 1000px'i kaldırdık */
 }
-.sonuclar {float: left;
-  display: flex; 
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px; width:800px;
-}.sirala {
+.contAlt {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%; /* Sayfa genişliğini kapla */
+    padding-right: 100px; /* İstediğin sağdan 50px boşluk burada */
+    box-sizing: border-box; /* Padding'in taşma yapmasını engeller */
+}
+.filtreler{float: left; height: auto;width: auto;}
+.sonuclar {
+    display: flex; 
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px; 
+    flex: 1; 
+    min-width: 0; 
+}
+.sirala {
   position: relative;
   float: right;
   height: 30px;
@@ -63,26 +80,74 @@
 .sonuc {
   display: flex;
   border: 1px solid #ccc;
-width: 800px;
+width: 90%;
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   background-color: #fff;
-  height: 120px;
+  height: 260px;
 }
-
-.foto img {
-  
-  height: 100%;
+.yatay{display: flex;flex-direction: row;gap: 20px;}
+.ilanbaslik{height: 28px;width: 100%;}
+.ilanbaslik a{float: left;margin-left:10px ;}
+.ilanbaslik p{float: left;margin-left: 10px;}
+.foto img {margin-left: 15px;border-radius: 5px;
+  margin-top: 10%;aspect-ratio: 640 / 466;
+  height: 70%;
   object-fit: cover;
 }
+.itemSpecs{border-right: 1px solid #e6edf6;width: 70%;}
+.itemPrice{float: left;width: 30%;}
+.ozellikler-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    grid-template-rows: auto auto;         
+    gap: 10px;                             
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
-.infos {
+/* Her bir kutucuğun tasarımı */
+.grid-item {
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 13px; /* Yazılar çok büyük olmasın */
+    text-align: center; /* Yazıları ortala */
+    
+    /* İçerik taşarsa gizle veya alt satıra geç */
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+}
+
+.grid-item .label {
+    font-weight: bold;
+    color: #555;
+    display: block; /* Başlığı üstte göster */
+    font-size: 11px;
+}
+
+.grid-item .deger {
+    color: #000;
+    font-weight: 500;
+}
+.kck{display: flex;
+    gap: 9px;
+    margin-bottom: 10px;
+    padding-left: 1px;
+    font-size: 13px;}
+.acikgri{color: #7F8FA4;}
+.yesil{color:#16ad59;;}
+.koyugri{color: #334150;}
+.kutu{width: 94%;justify-self: center;border-radius: 8px;
+  background-color:#F5F6F8 ;text-align: center;padding: 8px;}
+.kutu div{color: #7F8FA4;font-size: 13px;clear: both;justify-self: center;margin-bottom: 2px;}
+.infos {width: 100%;
   padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
-
+.drm{width: 94%;justify-self: center;border-radius: 13px;height: 26px;text-align: center;
+line-height: 21px;font-size: 16px;background-color:#16AD59; color: white;margin-top: 10px;}
 .infos a {text-decoration: none;
   margin: 0;
   font-size: 1.2em;
@@ -90,7 +155,7 @@ width: 800px;
 }
 
 .infos p {
-  margin: 3px 0;
+  
   font-size: 0.95em;
   color: #555;
 }

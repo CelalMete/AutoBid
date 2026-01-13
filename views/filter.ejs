@@ -1,6 +1,7 @@
 <div class="container" >
     <link rel="stylesheet" href="/styles/filter.css">
   <div class="filter-tags"> <div id="breadcrumbContainer" class="breadcrumb"></div></div>
+  <div class="contAlt">
   <div class="filters">
     
    
@@ -32,9 +33,7 @@
 <div id="downbarContainer" data-filtre="<%= filtreler %>"></div>
   <button id="searchButton" >ARA</button>
 
-    </div >
-        
-    
+  </div>
 
   <div class="sonuclar">
     <div class="megabas">
@@ -54,15 +53,57 @@
         <div class="foto">
             <img src="<%= ilan.resimler[0] %>" alt="İlan Fotoğrafı" />
         </div>
+       
         <div class="infos">
-          <a href="/ilan/<%= ilan._id %>"><%= ilan.Baslik %></a>
-          <p>Fiyat: <%= ilan.fiyat || "Belirtilmemiş" %></p>
-          <p>Açıklama: <%= ilan.aciklama || "Açıklama yok" %></p>
+         <div class="ilanbaslik">
+          <a href="/ilan/<%= ilan._id %>"><%= ilan.Baslik+" " %></a>
+          <p><%= ilan.VIN +"  "%> </p><p> <%= ilan.LOT %></p>
+        </div>
+        <div class="yatay">
+        <div class="itemSpecs">
+        <div class="semboller"> </div>
+        <div class="ozellikler-grid">
+        <div class="grid-item">
+            <span class="label">Yıl:</span> 
+            <span class="deger"><%=  "-" %></span>
+        </div>
+        <div class="grid-item">
+            <span class="label">Km:</span> 
+            <span class="deger"><%= "-" %></span>
+        </div>
+        <div class="grid-item">
+            <span class="label">Yakıt:</span> 
+            <span class="deger"><%=  "-" %></span>
+        </div>
+
+        <div class="grid-item">
+            <span class="label">Vites:</span> 
+            <span class="deger"><%= "-" %></span>
+        </div>
+        <div class="grid-item">
+            <span class="label">Hasar:</span> 
+            <span class="deger"><%=  "Yok" %></span>
+        </div>
+        <div class="grid-item">
+            <span class="label">Konum:</span> 
+            <span class="deger"><%=  "USA" %></span>
+        </div>
+    </div>
+  </div>
+    <div class="itemPrice">
+      <div class="estimated kck acikgri">
+        <div class="flexInf">[Estimatedprice]</div>
+      </div>
+      <div class="date koyugri kck"><%= ilan.bitisTarihi %></div>
+      <div class="time kck yesil">[kalanzaman]</div>
+      <div class="currentPrice kutu"><div>Current Bid</div>[anlikfiyat]</div>
+      <div class="auctionType drm"><%= ilan.durum %></div>
+    </div></div>
         </div>
       </div>
     <% }) %>
   </div>
-
+</div>
 </div>
 <script src="/scripts/filtersrc.js" defer></script>
 
