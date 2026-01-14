@@ -25,6 +25,7 @@ const HİYERARŞİ_SIRASI = [
     'model',    
     'package'    
 ];
+
 const container = document.getElementById("downbarContainer");
 
     if (downbarData && downbarData.length) {
@@ -252,7 +253,24 @@ function ekleVeYonlendir(yeniKategori) {
 
     window.location.href = url.toString();
 }
+const socket = io();
 
+socket.on("teklifGuncelle", (data) => {
+    // 1. Gelen ilanın ID'sine sahip sayfadaki TÜM elementleri bul
+    // (Aynı ilan hem "Vitrindekiler" hem "Yeni Eklenenler" kısmında olabilir diye selectAll kullanıyoruz)
+    const fiyatKutulari = document.querySelectorAll(`.price[data-id="${data.ilanId}"]`);
+
+    if (fiyatKutulari.length > 0) {
+        fiyatKutulari.forEach(kutu => {
+            kutu.textContent = data.teklif + " ₺";
+            
+            kutu.classList.add("fiyat-guncellendi-animasyonu");
+            setTimeout(() => {
+                kutu.classList.remove("fiyat-guncellendi-animasyonu");
+            }, 1000);
+        });
+    }
+});
 
 
         applySortingFromURL()

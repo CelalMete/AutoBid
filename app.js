@@ -802,17 +802,6 @@ io.on('connection', (socket) => {
 
   socket.on('teklifGonder', async (data) => {
     try {
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-////////////////////////////////////
-
       const { ilanId, teklif, kullanici } = data;
       const oncekiEnYuksekTeklif = await Teklif.findOne({ ilanId })
       .sort({ fiyat: -1 });
@@ -891,16 +880,16 @@ app.get("/search",csrfProtection, async (req, res) => {
 app.get('/arama', csrfProtection, async (req, res) => {
     const HİYERARŞİ_SIRASI = ['category', 'marka', 'model', 'package'];
     const secilenler = [];
-    const filtre = {}; 
+    const filtre = {};
     let ilanlar = [];
 
-   const formatValue = (value) => {
+    const formatValue = (value) => {
         if (!value) return null;
-        let cleaned = value.trim(); 
-        
+        let cleaned = value.trim();
+
         if (cleaned.length === 0) return null;
         return cleaned.split(' ').map(word => {
-          if (word.includes('-')) {
+            if (word.includes('-')) {
                 return word.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase()).join('-');
             }
             return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
@@ -910,7 +899,7 @@ app.get('/arama', csrfProtection, async (req, res) => {
     let sonSecilenDeger = null;
 
     if (req.query.vin) {
-        filtre.VIN = req.query.vin.trim(); 
+        filtre.VIN = req.query.vin.trim();
         secilenler.push({ key: 'VIN', value: req.query.vin });
     }
     HİYERARŞİ_SIRASI.forEach(key => {
@@ -936,7 +925,6 @@ app.get('/arama', csrfProtection, async (req, res) => {
         if (sonSecilenDeger) {
             altKategoriler = await Marka.find({ kategori: sonSecilenDeger });
         } else {
-            
             altKategoriler = await Marka.find({ kategori: "arac" });
         }
 
@@ -957,7 +945,6 @@ app.get('/arama', csrfProtection, async (req, res) => {
         }
 
         Object.keys(req.query).forEach(key => {
-            // 'vin' parametresini de processedKey içine ekleyelim ki tekrar filtreye girmesin
             const isProcessedKey = HİYERARŞİ_SIRASI.includes(key) || key === 'vin' || key.includes('min') || key.includes('max') || key === 'sirala' || standartFiltreler.includes(key);
 
             if (!isProcessedKey) {
@@ -972,7 +959,25 @@ app.get('/arama', csrfProtection, async (req, res) => {
             }
         });
 
+        // 1. Önce araçları filtreye göre çekiyoruz
         ilanlar = await Arac.find(filtre).sort(sortOption).lean();
+
+        // 2. [YENİ KISIM] Her araç için Teklif tablosuna gidip en yüksek teklifi buluyoruz
+        ilanlar = await Promise.all(ilanlar.map(async (ilan) => {
+            // İlana ait en yüksek teklifi veritabanından sor
+            const enYuksekTeklif = await Teklif.findOne({ ilanId: ilan._id })
+                .sort({ fiyat: -1 }) // Fiyata göre tersten sırala (en büyük en üstte)
+                .lean();
+
+            // Eğer teklif varsa onu al, yoksa ilanın açılış fiyatını kullan
+            const guncelFiyat = enYuksekTeklif ? enYuksekTeklif.fiyat : ilan.fiyat;
+
+            // İlan objesine 'guncelFiyat' diye yeni bir özellik ekleyip döndür
+            return {
+                ...ilan,
+                guncelFiyat: guncelFiyat
+            };
+        }));
 
         const filtrelerJSON = JSON.stringify(filtreler);
 
@@ -984,7 +989,7 @@ app.get('/arama', csrfProtection, async (req, res) => {
             content: 'filter',
             extraStyles: 'profile.css',
             metaDescription: 'Arama Sonuçları.',
-            ilanlar,
+            ilanlar, // Artık içinde 'guncelFiyat' verisi de var
             filtreler: filtrelerJSON,
             altKategoriler,
             secilenler,

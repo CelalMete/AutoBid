@@ -49,7 +49,7 @@
     </div>
   </div>
     <% ilanlar.forEach(ilan => { %>
-      <div class="sonuc">
+      <div class="sonuc" >
         <div class="foto">
             <img src="<%= ilan.resimler[0] %>" alt="İlan Fotoğrafı" />
         </div>
@@ -96,7 +96,9 @@
       </div>
       <div class="date koyugri kck"><%= ilan.bitisTarihi %></div>
       <div class="time kck yesil">[kalanzaman]</div>
-      <div class="currentPrice kutu"><div>Current Bid</div>[anlikfiyat]</div>
+      <div class="currentPrice kutu"><div class="curr">Current Bid</div>
+      <div class="price"data-id="<%= ilan._id %>"><%= ilan.guncelFiyat %> ₺</div> 
+    </div>
       <div class="auctionType drm"><%= ilan.durum %></div>
     </div></div>
         </div>
@@ -106,6 +108,8 @@
 </div>
 </div>
 <script src="/scripts/filtersrc.js" defer></script>
+<script src="/socket.io/socket.io.js"></script>
+
 
 
 

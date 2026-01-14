@@ -140,7 +140,7 @@ width: 90%;
 .koyugri{color: #334150;}
 .kutu{width: 94%;justify-self: center;border-radius: 8px;
   background-color:#F5F6F8 ;text-align: center;padding: 8px;}
-.kutu div{color: #7F8FA4;font-size: 13px;clear: both;justify-self: center;margin-bottom: 2px;}
+.kutu .curr{color: #7F8FA4;font-size: 13px;clear: both;justify-self: center;margin-bottom: 2px;}
 .infos {width: 100%;
   padding: 10px;
   display: flex;

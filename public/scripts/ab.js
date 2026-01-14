@@ -282,15 +282,12 @@ teklifForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const teklif = parseFloat(teklifInput.value);
 console.log("📤 Gönderilen Teklif:", teklif, "ilanId:", ilanId, "kullanici:", kullaniciId);
-  
   if (!teklif || teklif <= 0) return;
-    
   socket.emit("teklifGonder", {
-    ilanId: ilanId, // bunu EJS'den alman lazım
+    ilanId: ilanId, 
     teklif: teklif,
-    kullanici: kullaniciId // bunu da EJS'den al
+    kullanici: kullaniciId 
   });
-
   teklifInput.value = "";
 });
 
