@@ -1,4 +1,27 @@
+function tarihiFormatla(isoTarihString) {
+    const tarih = new Date(isoTarihString);
+    const simdi = new Date();
+    if (tarih < simdi) {
+        return '<span style="color:red; font-weight:bold;">Süre Doldu</span>';
+    }
+    const formatli = new Intl.DateTimeFormat('en-GB', {
+        weekday: 'short', 
+        day: 'numeric',   
+        month: 'short',  
+        hour: '2-digit',  
+        minute: '2-digit',
+        hour12: false     
+    }).format(tarih);
+    return `${formatli}`; 
+}
 document.addEventListener("DOMContentLoaded", () => {
+    const tumZamanlar = document.querySelectorAll('.zaman-gostergesi');
+    tumZamanlar.forEach(kutu => {
+        const hamTarih = kutu.getAttribute('data-time');
+        if(hamTarih) {
+            kutu.innerHTML = tarihiFormatla(hamTarih);
+        }
+    });
     const toggles = document.getElementById("dropdownToggles");
 const menus = document.getElementById("dropdownMenus");
 const kategoriTxt = document.querySelector(".kategori1");
@@ -256,9 +279,7 @@ function ekleVeYonlendir(yeniKategori) {
 const socket = io();
 
 socket.on("teklifGuncelle", (data) => {
-    // 1. Gelen ilanın ID'sine sahip sayfadaki TÜM elementleri bul
-    // (Aynı ilan hem "Vitrindekiler" hem "Yeni Eklenenler" kısmında olabilir diye selectAll kullanıyoruz)
-    const fiyatKutulari = document.querySelectorAll(`.price[data-id="${data.ilanId}"]`);
+     const fiyatKutulari = document.querySelectorAll(`.price[data-id="${data.ilanId}"]`);
 
     if (fiyatKutulari.length > 0) {
         fiyatKutulari.forEach(kutu => {
@@ -271,7 +292,12 @@ socket.on("teklifGuncelle", (data) => {
         });
     }
 });
-
+const zamanKutulari = document.querySelectorAll(`.time[data-time="${data.bitisTarihi}"]`);
+ if (zamanKutulariKutulari.length > 0) {
+        zamanKutulari.forEach(kutu => {
+            
+        });
+    }
 
         applySortingFromURL()
   populateInputsFromURL();

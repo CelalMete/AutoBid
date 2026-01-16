@@ -946,7 +946,6 @@ app.get('/arama', csrfProtection, async (req, res) => {
 
         Object.keys(req.query).forEach(key => {
             const isProcessedKey = HİYERARŞİ_SIRASI.includes(key) || key === 'vin' || key.includes('min') || key.includes('max') || key === 'sirala' || standartFiltreler.includes(key);
-
             if (!isProcessedKey) {
                 let value = req.query[key];
                 if (Array.isArray(value)) {
@@ -958,21 +957,13 @@ app.get('/arama', csrfProtection, async (req, res) => {
                 }
             }
         });
-
-        // 1. Önce araçları filtreye göre çekiyoruz
         ilanlar = await Arac.find(filtre).sort(sortOption).lean();
 
-        // 2. [YENİ KISIM] Her araç için Teklif tablosuna gidip en yüksek teklifi buluyoruz
         ilanlar = await Promise.all(ilanlar.map(async (ilan) => {
-            // İlana ait en yüksek teklifi veritabanından sor
             const enYuksekTeklif = await Teklif.findOne({ ilanId: ilan._id })
-                .sort({ fiyat: -1 }) // Fiyata göre tersten sırala (en büyük en üstte)
+                .sort({ fiyat: -1 })
                 .lean();
-
-            // Eğer teklif varsa onu al, yoksa ilanın açılış fiyatını kullan
             const guncelFiyat = enYuksekTeklif ? enYuksekTeklif.fiyat : ilan.fiyat;
-
-            // İlan objesine 'guncelFiyat' diye yeni bir özellik ekleyip döndür
             return {
                 ...ilan,
                 guncelFiyat: guncelFiyat

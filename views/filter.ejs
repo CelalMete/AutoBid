@@ -95,7 +95,7 @@
         <div class="flexInf">[Estimatedprice]</div>
       </div>
       <div class="date koyugri kck"><%= ilan.bitisTarihi %></div>
-      <div class="time kck yesil">[kalanzaman]</div>
+      <div class="time kck yesil"data-id="<%= ilan._id %>" data-time="<% ilan.bitisTarihi %>"></div>
       <div class="currentPrice kutu"><div class="curr">Current Bid</div>
       <div class="price"data-id="<%= ilan._id %>"><%= ilan.guncelFiyat %> ₺</div> 
     </div>
