@@ -1,17 +1,10 @@
-// /scripts/kate.js
-
 document.addEventListener('DOMContentLoaded', function() {
     const kategoriContainer = document.querySelector('.kategori-secim-alani');
     const resultInput = document.getElementById('parentPath');
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     
-    // Form ve inputları DOMContentLoaded içinde tanımlayın
     const eklemeFormu = document.getElementById('kateInput'); 
     const yeniKategoriInput = document.getElementById('yeniKategoriAd'); 
-    
-    // NOT: ekleButonu değişkeni submit olayında kullanılmadığı için kaldırıldı.
-
-    // --- FETCH FONKSİYONU (Aynı Kalır) ---
     async function fetchChildren(parentPath) {
         const url = `/api/kategoriler/cocuk/${parentPath}`;
         try {
@@ -26,8 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return [];
         }
     }
-
-    // --- DİNAMİK DROPDOWN OLUŞTURMA FONKSİYONU (Aynı Kalır) ---
     function populateDropdown(kategoriler, currentLevel) {
         const nextLevel = currentLevel + 1;
         let nextLevelContainer = document.querySelector(`[data-level="${nextLevel}"]`);

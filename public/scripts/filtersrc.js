@@ -4,15 +4,21 @@ function tarihiFormatla(isoTarihString) {
     if (tarih < simdi) {
         return '<span style="color:red; font-weight:bold;">Süre Doldu</span>';
     }
-    const formatli = new Intl.DateTimeFormat('en-GB', {
+    let tarihKisimi = new Intl.DateTimeFormat('en-GB', {
         weekday: 'short', 
-        day: 'numeric',   
-        month: 'short',  
-        hour: '2-digit',  
+        day: '2-digit',  
+        month: 'short', 
+    }).format(tarih).replace(',', ''); 
+
+    let saatKisimi = new Intl.DateTimeFormat('en-GB', {
+        hour: '2-digit',
         minute: '2-digit',
-        hour12: false     
+        hour12: false
     }).format(tarih);
-    return `${formatli}`; 
+    const offsetSaat = -tarih.getTimezoneOffset() / 60;
+    const isaret = offsetSaat >= 0 ? '+' : '';
+    const gmt = `GMT${isaret}${offsetSaat}`;
+    return `${tarihKisimi}, ${saatKisimi} ${gmt}`;
 }
 document.addEventListener("DOMContentLoaded", () => {
     const tumZamanlar = document.querySelectorAll('.zaman-gostergesi');
@@ -97,7 +103,13 @@ const container = document.getElementById("downbarContainer");
         if (maxYear) document.getElementById("yearMax").value = maxYear;
     }
 
+const hedefKutular = document.querySelectorAll('.time');
 
+hedefKutular.forEach(kutu=>{
+    let tarihraw = kutu.dataset.time;
+    let tarih=tarihiFormatla(tarihraw)
+    kutu.innerHTML=`${tarih}`
+})
 menus.querySelectorAll(".sirala-item").forEach(item => {
     item.addEventListener("click", () => {
         menus.querySelectorAll(".sirala-item").forEach(i => i.classList.remove("active"));
@@ -132,8 +144,6 @@ function applySortingFromURL() {
         document.getElementById("1").classList.add("active");
     }
 }
-
-// Menü aç/kapa
 toggles.addEventListener("click", () => {
   menus.classList.toggle("show");
 });
@@ -143,7 +153,6 @@ window.addEventListener("click", e => {
     menus.classList.remove("show");
   }
 });
-
     function checkCheckboxesFromURL() {
         const selections = {};
         const url = new URL(window.location.href);
@@ -204,14 +213,11 @@ function renderBreadcrumb() {
                     url.searchParams.delete(keyToDelete);
                 }
                 
-                // Sayfayı yenile
                 window.location.href = url.toString();
             }
         });
 
         container.appendChild(span);
-
-        // Araya Ok İşareti Ekle
         if (index < selections.length - 1) {
             const sep = document.createElement("span");
             sep.className = "sep";
@@ -279,25 +285,19 @@ function ekleVeYonlendir(yeniKategori) {
 const socket = io();
 
 socket.on("teklifGuncelle", (data) => {
-     const fiyatKutulari = document.querySelectorAll(`.price[data-id="${data.ilanId}"]`);
+        const fiyatKutulari = document.querySelectorAll(`.price[data-id="${data.ilanId}"]`);
 
-    if (fiyatKutulari.length > 0) {
-        fiyatKutulari.forEach(kutu => {
-            kutu.textContent = data.teklif + " ₺";
+        if (fiyatKutulari.length > 0) {
+            fiyatKutulari.forEach(kutu => {
+                kutu.textContent = data.teklif + " ₺";
             
             kutu.classList.add("fiyat-guncellendi-animasyonu");
-            setTimeout(() => {
-                kutu.classList.remove("fiyat-guncellendi-animasyonu");
-            }, 1000);
-        });
-    }
+                setTimeout(() => {
+                    kutu.classList.remove("fiyat-guncellendi-animasyonu");
+                }, 1000);
+            });
+        }
 });
-const zamanKutulari = document.querySelectorAll(`.time[data-time="${data.bitisTarihi}"]`);
- if (zamanKutulariKutulari.length > 0) {
-        zamanKutulari.forEach(kutu => {
-            
-        });
-    }
 
         applySortingFromURL()
   populateInputsFromURL();

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // CSRF Token'ı al
+
     const csrfMeta = document.querySelector('meta[name="csrf-token"]');
     const csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '';
 
@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Başarılı Butonu
     const successBtn = document.getElementById('1');
     if (successBtn) {
         successBtn.addEventListener('click', function() {

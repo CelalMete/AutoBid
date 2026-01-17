@@ -351,7 +351,6 @@ socket.on("teklifReddedildi", (data) => {
         modalImage.src = imageUrls[currentIndex];
     });
 
-    // Sonraki resme geçiş
     nextBtn.addEventListener('click', function() {
         currentIndex = (currentIndex + 1) % imageUrls.length;
         modalImage.src = imageUrls[currentIndex];

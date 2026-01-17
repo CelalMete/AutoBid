@@ -6,6 +6,7 @@ const AracIlanSchema = new mongoose.Schema({
     VIN:String,
     LOT:String,
     Yili:String,
+    estimatedPrice:String,
     IlanKapak:String,
     Ekspertiz:String,
     IlanSahibi: {

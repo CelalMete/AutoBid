@@ -69,20 +69,20 @@
         </div>
         <div class="grid-item">
             <span class="label">Km:</span> 
-            <span class="deger"><%= "-" %></span>
+            <span class="deger"><%= ilan.km %></span>
         </div>
         <div class="grid-item">
             <span class="label">Yakıt:</span> 
-            <span class="deger"><%=  "-" %></span>
+            <span class="deger"><%=  ilan.yakit_tipi %></span>
         </div>
 
         <div class="grid-item">
             <span class="label">Vites:</span> 
-            <span class="deger"><%= "-" %></span>
+            <span class="deger"><%= 'ilan.vites' %></span>
         </div>
         <div class="grid-item">
             <span class="label">Hasar:</span> 
-            <span class="deger"><%=  "Yok" %></span>
+            <span class="deger"><%=  ilan.agir_hasar %></span>
         </div>
         <div class="grid-item">
             <span class="label">Konum:</span> 
@@ -91,13 +91,19 @@
     </div>
   </div>
     <div class="itemPrice">
-      <div class="estimated kck acikgri">
-        <div class="flexInf">[Estimatedprice]</div>
-      </div>
-      <div class="date koyugri kck"><%= ilan.bitisTarihi %></div>
-      <div class="time kck yesil"data-id="<%= ilan._id %>" data-time="<% ilan.bitisTarihi %>"></div>
+      <div class="flexInf ">
+        <div class=" kck acikgri estimated">[Estimatedprice]</div>
+    </div><div class="flexInf ">
+      <div class="time kck yesil"data-id="<%= ilan._id %>" data-time="<%= ilan.bitisTarihi %>"></div>
+       </div>
+       <div class="flexInf ">
+
+      <div class="timeleft kck"></div></div>
+
       <div class="currentPrice kutu"><div class="curr">Current Bid</div>
+
       <div class="price"data-id="<%= ilan._id %>"><%= ilan.guncelFiyat %> ₺</div> 
+     
     </div>
       <div class="auctionType drm"><%= ilan.durum %></div>
     </div></div>
