@@ -104,12 +104,52 @@ const container = document.getElementById("downbarContainer");
     }
 
 const hedefKutular = document.querySelectorAll('.time');
-
 hedefKutular.forEach(kutu=>{
     let tarihraw = kutu.dataset.time;
     let tarih=tarihiFormatla(tarihraw)
     kutu.innerHTML=`${tarih}`
 })
+const kalan=document.querySelectorAll('.kalanzaman');
+setInterval(updateCountdowns, 1000);
+    updateCountdowns();
+function updateCountdowns() {
+        const simdi = new Date().getTime();
+    kalan.forEach(sayac=>{
+            const bitisTarihiStr = sayac.getAttribute('data-bitis');
+            if (!bitisTarihiStr) return; 
+            const bitis = new Date(bitisTarihiStr).getTime();
+            const kalanSure = bitis - simdi; 
+            if (kalanSure < 0) {
+                sayac.innerHTML = "<span style='color:red; font-weight:bold;'>Süre Doldu</span>";
+                return;
+            }
+            const saniye = Math.floor((kalanSure / 1000) % 60);
+            const dakika = Math.floor((kalanSure / (1000 * 60)) % 60);
+            const saat = Math.floor((kalanSure / (1000 * 60 * 60)) % 24);
+            const gun = Math.floor(kalanSure / (1000 * 60 * 60 * 24));
+            const ay = Math.floor(gun / 30);
+            let gosterilecekMetin = "";
+            if (ay >= 1) {
+                gosterilecekMetin = `${ay} Ay Kaldı`;
+            } 
+            else if (gun >= 1) {
+                gosterilecekMetin = `${gun} Gün ${saat} Saat`; 
+            } 
+            else if (saat >= 1) {
+                gosterilecekMetin = `${saat} Saat ${dakika} Dk`;
+            } 
+            else {
+               
+                sayac.style.color = "#d9534f"; // Kırmızı tonu
+                sayac.style.fontWeight = "bold";
+                gosterilecekMetin = `${dakika} dk ${saniye} sn`;
+            }
+
+            sayac.innerText = gosterilecekMetin;
+            sayac.innerText=gosterilecekMetin;
+        
+})
+}
 menus.querySelectorAll(".sirala-item").forEach(item => {
     item.addEventListener("click", () => {
         menus.querySelectorAll(".sirala-item").forEach(i => i.classList.remove("active"));
@@ -298,6 +338,7 @@ socket.on("teklifGuncelle", (data) => {
             });
         }
 });
+
 
         applySortingFromURL()
   populateInputsFromURL();

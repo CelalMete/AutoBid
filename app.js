@@ -869,9 +869,7 @@ app.get("/search",csrfProtection, async (req, res) => {
       .select("Baslik")
       .lean()
       .then(results => results.map(r => ({ ...r, kategori: "Araç" })))
-
-  // Hepsini tek diziye topla, maksimum 5 tane gönder
-  const allResults = araclar.slice(0, 7); // toplamda 5 sonuç göster
+  const allResults = araclar.slice(0, 7); 
  
   res.json(allResults);
 });
@@ -897,7 +895,7 @@ app.get('/arama', csrfProtection, async (req, res) => {
     };
 
     let sonSecilenDeger = null;
-
+    filtre.sell='aktif'
     if (req.query.vin) {
         filtre.VIN = req.query.vin.trim();
         secilenler.push({ key: 'VIN', value: req.query.vin });
@@ -919,20 +917,15 @@ app.get('/arama', csrfProtection, async (req, res) => {
     try {
         const user = await Kullanici.findById(req.session.userId);
         const anaKategori = req.query.category;
-
         let altKategoriler = [];
-
         if (sonSecilenDeger) {
             altKategoriler = await Marka.find({ kategori: sonSecilenDeger });
         } else {
             altKategoriler = await Marka.find({ kategori: "arac" });
         }
-
         const filtreler = await Kategori.find({ parent: `${anaKategori}` });
-
         const sirala = req.query.sirala;
         let sortOption = sirala === "pahali" ? { fiyat: -1 } : sirala === "ucuz" ? { fiyat: 1 } : {};
-
         const standartFiltreler = ['yakit_tipi', 'hp', 'renk', 'kimden', 'vites', 'agir_hasar', 'Tipi', 'cekis', 'garanti', 'motor_hacmi'];
         standartFiltreler.forEach(f => {
             if (req.query[f]) filtre[f] = req.query[f];
