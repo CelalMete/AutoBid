@@ -159,7 +159,7 @@ function olusturKutu(seviye, kategoriler) {
     });
 
     const plus = document.createElement('div');
-    
+    if(rutbe=='admin'){
     plus.textContent = '+';
     plus.style.cursor = 'pointer';
     plus.style.fontSize = '15px';
@@ -168,7 +168,7 @@ function olusturKutu(seviye, kategoriler) {
     plus.style.color = 'white';
     plus.style.borderRadius = '4px';
     plus.style.height = '20px';
-    if(rutbe=='admin'){
+    
    plus.addEventListener('click', () => {
   if (wrapperDiv.nextElementSibling?.classList.contains('alt-kategori-ekle')) return;
 

@@ -4,30 +4,52 @@
     <input type="hidden" id="secilen1" name="secilen1" value="<%= secilen1 %>">
     <input type="hidden" id="secilen2" name="secilen2" value="<%= secilen2  %>">
     <input type="hidden" id="secilen3" name="secilen3" value="<%= secilen3  %>">
+    <input type="hidden" id="rutbe" name="rutbe" value="<%= user.rutbe  %>">
+    <% if(user.rutbe=='admin'){ %>
 <div id="down">
       <label for="down" >Downbar ekle</label>
       <input type="text" name="downName" id="downName">
       <input type="checkbox" name="checktype" id="checktype">
       <button id="but">bas</button>
 </div>
+<% } %>
     <h2 class="mb-4">İlan Ekle</h2>
+    <h2 class="h2">Temel Bilgiler</h2>
     <form id="ilanForm" enctype="multipart/form-data">
+    <div class="temel">
+      <div class="yarim">
       <div class="mb-3">
         <label for="VIN" class="form-label ">VIN:</label>
         <input type="text" class="form-control" id="VIN" name="VIN" required>
       </div>
+       <div class="mb-3">
+      <label for="Kapak" class="Kapak">Kapak fotosu seçin:</label>
+      <div class="fotoinp">
+        <img class="simg"  src="/photos/icons/konut.svg" alt="">
+        <img class="r" src="/photos/audiyarım.jpg" alt="">
+        <img class="r" src="/photos/porc.jpg" alt="">
+      <input class="inpR" type="file" name="IlanKapak" accept="image/*"><br><br>
+      </div>
+    </div>
+    </div><div class="yarim">
       <div class="mb-3">
         <label for="LOT" class="form-label ">LOT:</label>
         <input type="text" class="form-control" id="LOT" name="LOT" required>
       </div>
-    <div class="mb-3">
-      <label for="Kapak" class="Kapak">Kapak fotosu seçin:</label>
-      <input type="file" name="IlanKapak" accept="image/*"><br><br>
-    </div>
       <div class="mb-3">
         <label for="resimler" class="form-label">Resimler:</label>
-        <input type="file" class="form-control" id="sayfalar" name="sayfalar" multiple accept="image/*" >
+         <div class="fotoinp">
+          <img class="simg"  src="/photos/icons/konut.svg" alt="">
+        <img class="r" src="/photos/audiyarım.jpg" alt="">
+        <img class="r" src="/photos/porc.jpg" alt="">
+        <input type="file" class="inpR form-control" id="sayfalar" name="sayfalar" multiple accept="image/*" >
       </div>
+      </div>
+      </div>
+      </div>
+
+
+
     <br><br>
      <h2 id="h2" >EKSTRALAR</h2>
      <% txtinput.forEach(te => {%>

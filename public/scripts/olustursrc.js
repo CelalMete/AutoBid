@@ -1,7 +1,7 @@
+const rutbe=document.getElementById('rutbe').value
 function createDownbars(data) {
     const container = document.getElementById('downbarContainer');
     container.innerHTML = ''; 
-
     data.forEach(f => {
         const wrapperDiv = document.createElement('div');
         wrapperDiv.classList.add('downbar');
@@ -9,12 +9,9 @@ function createDownbars(data) {
         
         const headerDiv = document.createElement('div');
         headerDiv.classList.add('downbar-header');
-        
+        if(rutbe=='admin'){
         const ekleWrapper = document.createElement('div');
         ekleWrapper.classList.add('check-ekle-wrapper');
-        // ❌ HATA BURADAYDI: ekleWrapper.onclick = (e) => e.stopPropagation(); KODUNU SİLDİM.
-        // Artık tıklama yukarı çıkabiliyor.
-        
         const ekleLabel = document.createElement('label');
         ekleLabel.textContent = 'checkbox ekle';
         const ekleInput = document.createElement('input');
@@ -29,16 +26,16 @@ function createDownbars(data) {
         ekleWrapper.appendChild(ekleLabel);
         ekleWrapper.appendChild(ekleInput);
         ekleWrapper.appendChild(ekleBtn);
-
+ headerDiv.appendChild(ekleWrapper);}
         const titleSpan = document.createElement('span');
         titleSpan.textContent = f.name;
         const icon = document.createElement('i');
         icon.classList.add('fas', 'fa-chevron-down', 'arrow');
 
-        headerDiv.appendChild(ekleWrapper);
+       
         headerDiv.appendChild(titleSpan);
         headerDiv.appendChild(icon);
-
+        
         const contentDiv = document.createElement('div');
         contentDiv.classList.add('downbar-content');
 
@@ -55,10 +52,7 @@ function createDownbars(data) {
                 contentDiv.appendChild(chLabel);
             });
         }
-
-        // Header Tıklama Olayı (DÜZELTİLDİ)
         headerDiv.addEventListener('click', (e) => {
-            // Eğer tıklanan yer bizim input veya buton ise, MENÜYÜ KAPATMA
             if (e.target.closest('.check-ekle-wrapper')) {
                 return; 
             }

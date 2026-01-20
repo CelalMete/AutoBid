@@ -730,7 +730,6 @@ app.get('/upload',csrfProtection, async (req, res) => {
     csrfToken: req.csrfToken() ,
     content: 'upload',
     extraStyles: '/styles/left.css',
-      
     user,
     title: 'İlan Ver',
     metaDescription: 'İlan ekleyin ve satışa başlayın.'
