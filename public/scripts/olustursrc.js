@@ -1,77 +1,27 @@
 const rutbe=document.getElementById('rutbe').value
-function createDownbars(data) {
-    const container = document.getElementById('downbarContainer');
-    container.innerHTML = ''; 
-    data.forEach(f => {
-        const wrapperDiv = document.createElement('div');
-        wrapperDiv.classList.add('downbar');
-        wrapperDiv.id = f.id; 
-        
-        const headerDiv = document.createElement('div');
-        headerDiv.classList.add('downbar-header');
-        if(rutbe=='admin'){
-        const ekleWrapper = document.createElement('div');
-        ekleWrapper.classList.add('check-ekle-wrapper');
-        const ekleLabel = document.createElement('label');
-        ekleLabel.textContent = 'checkbox ekle';
-        const ekleInput = document.createElement('input');
-        ekleInput.type = 'text';
-        ekleInput.classList.add('checkNameInput');
-        ekleInput.placeholder = 'Yeni özellik adı';
-        const ekleBtn = document.createElement('button');
-        ekleBtn.type = 'button';
-        ekleBtn.classList.add('checkEkleBtn');
-        ekleBtn.textContent = 'Ekle';
-        
-        ekleWrapper.appendChild(ekleLabel);
-        ekleWrapper.appendChild(ekleInput);
-        ekleWrapper.appendChild(ekleBtn);
- headerDiv.appendChild(ekleWrapper);}
-        const titleSpan = document.createElement('span');
-        titleSpan.textContent = f.name;
-        const icon = document.createElement('i');
-        icon.classList.add('fas', 'fa-chevron-down', 'arrow');
+const headerDiv=document.querySelectorAll( '.downbar-header')
+const headers = document.querySelectorAll('.downbar-header');
 
-       
-        headerDiv.appendChild(titleSpan);
-        headerDiv.appendChild(icon);
-        
-        const contentDiv = document.createElement('div');
-        contentDiv.classList.add('downbar-content');
-
-        if (f.checkboxes && Array.isArray(f.checkboxes)) {
-            f.checkboxes.forEach(ch => {
-                const chLabel = document.createElement('label');
-                const chInput = document.createElement('input');
-                chInput.type = 'checkbox';
-                chInput.name = f.id; 
-                chInput.value = ch.title; 
-
-                chLabel.appendChild(chInput);
-                chLabel.appendChild(document.createTextNode(' ' + ch.title));
-                contentDiv.appendChild(chLabel);
-            });
-        }
-        headerDiv.addEventListener('click', (e) => {
+    headers.forEach(header => {
+        header.addEventListener('click', function(e) {
+            
             if (e.target.closest('.check-ekle-wrapper')) {
-                return; 
+                return;
             }
-
-            contentDiv.classList.toggle('active'); 
-            icon.classList.toggle('rotate'); 
+            const contentDiv = this.nextElementSibling; 
+            // Başlığın içindeki oku buluyoruz
+            const icon = this.querySelector('.arrow');
             if (contentDiv.style.display === 'block') {
                 contentDiv.style.display = 'none';
-            } else {
+                icon.classList.remove('rotate'); 
+            } 
+            // Kapalıysa aç
+            else {
                 contentDiv.style.display = 'block';
+                icon.classList.add('rotate'); 
             }
         });
-
-        wrapperDiv.appendChild(headerDiv);
-        wrapperDiv.appendChild(contentDiv);
-        container.appendChild(wrapperDiv);
     });
-}
-
 document.addEventListener('DOMContentLoaded', function() {
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     const container = document.getElementById('downbarContainer');

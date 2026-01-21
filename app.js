@@ -532,10 +532,16 @@ app.get('/yeni-ilan-olustur', csrfProtection, async(req, res) => {
         console.error("Kategori filtreleme hatası:", error);
         filtreler = [];
     }
+    const toplam = filtreler.length;
+const parcaBoyutu = Math.ceil(toplam / 3); // Her kolona kaç tane düşecek? (Yukarı yuvarla)
 
+    
+    const kolon1 = filtreler.slice(0, parcaBoyutu);
+    const kolon2 = filtreler.slice(parcaBoyutu, parcaBoyutu * 2);
+    const kolon3 = filtreler.slice(parcaBoyutu * 2);
     return res.render('Layout', {
         csrfToken: req.csrfToken(),
-        filtreler: filtreler, 
+        kolon1,kolon2,kolon3,
         user, txtinput,
         secilen1,secilen2,secilen3,
         title: 'İlan Ver',
@@ -1006,6 +1012,17 @@ app.get('/profile/:section', csrfProtection, async (req, res) => {
       if (section === 'Personal-Information') {
         prof = 'profpersonal';
       }
+     if (section === 'logout') {
+    req.session.destroy((err) => {
+        if (err) {
+            console.log(err);
+            return res.redirect('/');
+        }
+        res.clearCookie('connect.sid');
+        res.redirect('/login');
+    });
+    return; // <--- BU SATIRI EKLE. Bu, kodun aşağı devam etmesini engeller.
+}
 
       if (section === 'profwatchlist' || section === 'archived') {
         prof = 'profWatchlist';

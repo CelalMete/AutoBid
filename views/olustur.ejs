@@ -25,7 +25,7 @@
        <div class="mb-3">
       <label for="Kapak" class="Kapak">Kapak fotosu seçin:</label>
       <div class="fotoinp">
-        <img class="simg"  src="/photos/icons/konut.svg" alt="">
+        <img class="simg"  src="/photos/icons/upload.svg" alt="">
         <img class="r" src="/photos/audiyarım.jpg" alt="">
         <img class="r" src="/photos/porc.jpg" alt="">
       <input class="inpR" type="file" name="IlanKapak" accept="image/*"><br><br>
@@ -39,8 +39,8 @@
       <div class="mb-3">
         <label for="resimler" class="form-label">Resimler:</label>
          <div class="fotoinp">
-          <img class="simg"  src="/photos/icons/konut.svg" alt="">
-        <img class="r" src="/photos/audiyarım.jpg" alt="">
+          <img class="simg"  src="/photos/icons/upload.svg" alt="">
+        <img class="r" src="/photos/galery.jpg" alt="">
         <img class="r" src="/photos/porc.jpg" alt="">
         <input type="file" class="inpR form-control" id="sayfalar" name="sayfalar" multiple accept="image/*" >
       </div>
@@ -60,7 +60,80 @@
      <%}); %>
      <br>
 
-<div id="downbarContainer" data-filtre='<%- JSON.stringify(filtreler) %>'>
+  <div id="downbarContainer">
+    <div class="col col1">
+      <% kolon1.forEach(f => {%>
+        <div class="downbar" id="<%= f.id %>">
+          <div class="downbar-header">
+            <% if(user.rutbe=='admin'){ %>
+              <div class="check-ekle-wrapper">
+                <label for="">checkbox ekle</label>
+                <input type="text" class="checkNameInput" placeholder="Yeni özellik adı" >
+                <button class="checkEkleBtn">ekle</button>
+              </div>
+              <% } %>
+            <span><%= f.name %></span><i class="fas fa-chevron-down arrow'"> </i></div>        
+        <div class="downbar-content">
+          <% f.checkboxes.forEach(ch => {%>
+            <div class="check">
+            <input type="checkbox" name="<%=f.id  %>" value="<%=ch.name%>">
+            <label for="<%=f.id  %>"><%= ch.title %></label>
+          </div>
+          <%}); %>
+        </div>
+        </div>
+      <%}); %>
+      
+    </div>
+    <div class=" col col2">
+      <% kolon2.forEach(f => {%>
+        <div class="downbar" id="<%= f.id %>">
+          <div class="downbar-header">
+            <% if(user.rutbe=='admin'){ %>
+              <div class="check-ekle-wrapper">
+                <label for="">checkbox ekle</label>
+                <input type="text" class="checkNameInput" placeholder="Yeni özellik adı" >
+                <button class="checkEkleBtn">ekle</button>
+              </div>
+              <% } %>
+            <span><%= f.name %></span><i class="fas fa-chevron-down arrow'"> </i></div>        
+        <div class="downbar-content">
+          <% f.checkboxes.forEach(ch => {%>
+            <div class="check">
+            <input type="checkbox" name="<%=f.id  %>" value="<%=ch.name%>">
+            <label for="<%=f.id  %>"><%= ch.title %></label>
+          </div>
+          <%}); %>
+        </div>
+        </div>
+      <%}); %>
+      
+    </div>
+    <div class=" col col3">
+      <% kolon3.forEach(f => {%>
+        <div class="downbar" id="<%= f.id %>">
+          <div class="downbar-header">
+            <% if(user.rutbe=='admin'){ %>
+              <div class="check-ekle-wrapper">
+                <label for="">checkbox ekle</label>
+                <input type="text" class="checkNameInput" placeholder="Yeni özellik adı" >
+                <button class="checkEkleBtn">ekle</button>
+              </div>
+              <% } %>
+            <span><%= f.name %></span><i class="fas fa-chevron-down arrow'"> </i></div>        
+        <div class="downbar-content">
+          <% f.checkboxes.forEach(ch => {%>
+            <div class="check">
+            <input type="checkbox" name="<%=f.id  %>" value="<%=ch.name%>">
+            <label for="<%=f.id  %>"><%= ch.title %></label>
+          </div>
+          <%}); %>
+        </div>
+        </div>
+      <%}); %>
+      
+    </div>
+  </div>
 </div>
    
       
