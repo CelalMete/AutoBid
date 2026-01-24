@@ -19,7 +19,7 @@
 <body >
   <header>
 
-    <div class="navbar">
+    <div class="navbar nav-aktif" id="navbar">
       <div class="nav-top">
      
         <a class="nav-el-top logo"href="/"><img id="logo" src="/photos/logo.svg" alt="logo"></a>
@@ -36,30 +36,30 @@
     </div></a> 
      
           <% const a = "#" %>
-          <a href="/profile/Personal-Informaton">
+          <a id="pp" href="/profile/Personal-Informaton">
             <div class=" profilediv"  >
             <img class="profilePic" src="<%= user.pp || a %> ">
           </div>
         </a>
-    </div>
+        </div>
+    <div id="hamburg" class="aktif" >a</div>    
 </div>
-    <div class="nav-bottom">
+    <div class="nav-bottom" id="nav-bottom">
       <div class="sol">
-      
-          <div class="dropdown">
-          <div class="nav-el-bottom " id="dropdownTogglehow"><img class="navSem" src="/photos/icons/info.svg" alt="">Nasıl İşliyor<img class="navSemL" src="/photos/icons/arr-down.svg" alt=""></div>
-           <div class="dropdown-content" id="dropdownMenuhow">
-            <a href="/how-it-works">Before Purchase</a>
+          <div class="dropdown fd">
+          <div class="nav-el-bottom ddb" id="dropdownTogglehow"><img class="navSem" src="/photos/icons/info.svg" alt="">Nasıl İşliyor<img class="navSemL" src="/photos/icons/arr-down.svg" alt=""></div>
+           <div class="dropdown-content" id="dropdownMenuhow"><a href="/how-it-works">Before Purchase</a>
             <hr class="cizik" >
             <a href="/schedule">After Purchase</a>
             
-    </div></div>
+    </div>
+  </div>
           <a href="/SSS"><div class=" nav-el-bottom link"><img class="navSem" src="/photos/icons/question.svg" alt="">SSS</div></a>
           <a href="/upload"><div class="nav-el-bottom link"><img class="navSem" src="/photos/icons/plus.svg" alt="">İlan Ver</div></a>
           </div>
           <div class="sag">
             <div class="dropdown bottom-right">
-          <div class="nav-el-bottom " id="dropdownToggleDays">Açık gunler<img class="navSemL" src="/photos/icons/arr-down.svg" alt=""></div>
+          <div class="nav-el-bottom ddb " id="dropdownToggleDays">Açık gunler<img class="navSemL" src="/photos/icons/arr-down.svg" alt=""></div>
            <div class="dropdown-content" id="dropdownMenuDays">
             <a href="#">Pzt</a>
             <a href="#">Sali</a>
@@ -73,7 +73,7 @@
     </div>
         </div>
         <div class="dropdown bottom-right f">
-          <div class="nav-el-bottom " id="dropdownToggleContact"><img class="navSem" src="/photos/icons/message.svg" alt="">İletişim<img class="navSemL" src="/photos/icons/arr-down.svg" alt=""></div>
+          <div class="nav-el-bottom ddb" id="dropdownToggleContact"><img class="navSem" src="/photos/icons/message.svg" alt="">İletişim<img class="navSemL" src="/photos/icons/arr-down.svg" alt=""></div>
            <div class="dropdown-content" id="dropdownMenuContact">
             <a href="#"><div class="navSem"></div>İnstagram</a>
             <a href="#"><div class="navSem"></div>Facebook</a>
@@ -92,7 +92,7 @@
 
   <main>
     
-     <div class="content" ><%- include(content) %> </div>
+     <div class="content" id="content" ><%- include(content) %> </div>
     
   </main>
  

@@ -184,7 +184,9 @@ padding-top:10px;padding-left: 10px;padding-right: 10px;padding-bottom: 3px;}
 }
 .container1{height: 500px;
   width: 100%;background-size: cover;}
-.filter{ position: relative;width: 800px;aspect-ratio: 7/2;border-radius: 20px;
+.filter{ position: relative;width: 95%;          
+  max-width: 800px;   
+  height: 228px;border-radius: 20px;
    margin-top: 100px;background-color: white;justify-self: center;}
 #kategoriContainer{height: 100%;width: 95%;margin-left: 5%;color: #000;}
 #anaKategoriler {
@@ -299,12 +301,13 @@ padding: 0 5px 0 10px;
   display: inline-block;
 }
 .search1{font-size: 30px; color:#3fa7f7a0;float: left;padding-top: 10px;}
-#vinLot{height: 47px; width:480px; margin-top: 30px; margin-bottom: 10px;margin-right: 57px;
+#vinLot{height: 47px;width: 100%;        
+  max-width: 480px; margin-top: 30px; margin-bottom: 10px;margin-right: 57px;
   border-radius: 5px;color: #fff;border: 1px solid #E6EDF6; float: left;}
 .a{margin-right: 20px;margin-left: 10px;margin-bottom: 10px; margin-top: 20px;
 
 padding: 11px 10px;}
-#vinLotInput{height: 100%;outline: none; font-size: 16px; border: none; width: 430px;float: left;padding-left: 10px;}
+#vinLotInput{height: 100%;outline: none; font-size: 16px; border: none;width: 90%;float: left;padding-left: 10px;}
 #vinLotInput:focus {
   border: none; /* Aynı renk kalır, değişmez */
 }
@@ -331,23 +334,46 @@ padding: 11px 10px;}
    .home-main{justify-self: center;width: 98%; }
    .home-main-grid{grid-template-columns: 1fr 1fr 1fr 1fr 1fr;}
 }
-@media (min-width: 851px) and (max-width: 1200px) {
-   .home-main{width: 98%; justify-self: center; justify-self: center;
+@media (min-width: 850px) and (max-width: 1200px) {
+  
+   .home-main{width: 100%; justify-self: center; justify-self: center;
   }
   .home-main-grid{ grid-template-columns: 1fr 1fr 1fr 1fr ;}
 }
+@media (max-width: 850px){
+  .filter{
+    margin-top: 60px;}
+    #anaKategoriler, .side {
+    height: auto;  flex-wrap: wrap;  justify-content: center; 
+    gap: 15px;        
+    padding: 10px;
+  }
+  #vinLot {
+    width: 100%; margin: 10px 0;    
+    float: none;       
+  }
+  #vinLotInput {
+    width: 100%;
+  }
+  .btnrd {
+    width: auto;  padding: 0 15px;
+    min-width: 100px;
+  }
+
+
+}
 @media(min-width: 580px) and (max-width: 850px) {
-  .home-main{width: 98%; justify-self: center; 
+  .home-main{width: 100%; justify-self: center; 
   }
   .home-main-grid{ grid-template-columns: 1fr 1fr 1fr  ;}
 }
 @media(max-width: 580px) {
-  .home-main{width: 98%; justify-self: center; 
+  .home-main{width: 100%; justify-self: center; 
   }
   .home-main-grid{ grid-template-columns: 1fr 1fr ;}
 }
 @media(max-width: 300px) {
-  .home-main{width: 98%; justify-self: center; 
+  .home-main{width: 100%; justify-self: center; 
   }
   .home-main-grid{ grid-template-columns: 1fr  ;}
 }

@@ -56,9 +56,6 @@ searchInput.addEventListener("input", async function () {
       ContMenu.classList.toggle('show');
       
     });
-   
-
-    // Menü dışına tıklanırsa kapat
     window.addEventListener('click', (e) => {
       
     if (!e.target.matches('#dropdownToggleDays')) {
@@ -75,20 +72,15 @@ searchInput.addEventListener("input", async function () {
     }}
 });
 
-    // Sadece data-filter niteliği olan linkleri seç
     const navFilterLinks = document.querySelectorAll('.has-submenu .submenu a[data-filter]');
 
-    // Her bir linke tıklama olay dinleyicisi ekle
     navFilterLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault(); // Varsayılan link davranışını engelle
-
-            // Linkin data-filter ve data-value değerlerini al
+            e.preventDefault();
             const filterName = link.getAttribute('data-filter');
             const filterValue = link.getAttribute('data-value');
 
             if (filterName && filterValue) {
-                // Yeni bir URL nesnesi oluştur. Temel yol '/arama' olacak.
                 const url = new URL(window.location.origin + '/arama');
                 
                 // URL'ye filtre parametresini ekle
@@ -114,29 +106,48 @@ const headerHeight = 140; // Body padding-top değerinle aynı olsun
 
 window.addEventListener('scroll', function() {
   let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-  // Negatif scroll hatasını önle (Mobil için)
   if (scrollTop < 0) {
     scrollTop = 0;
   }
 
-  // --- DÜZELTME BURADA ---
-  // Eğer sayfanın en tepesindeysek (ilk 140px içinde), menüyü ASLA gizleme.
   if (scrollTop < headerHeight) {
       header.classList.remove('nav-hidden');
   } 
   else {
-      // 140px'den fazla aşağı indiysek normal mantığı çalıştır
       if (scrollTop > lastScrollTop) {
-        // AŞAĞI İNİYOR -> Gizle
         header.classList.add('nav-hidden');
       } else {
-        // YUKARI ÇIKIYOR -> Göster
         header.classList.remove('nav-hidden');
       }
   }
-
   lastScrollTop = scrollTop;
 });
-    
+    const a= document.getElementById('hamburg');
+        const nav= document.getElementById('navbar');
+
+    const bottom =document.getElementById('nav-bottom')
+ const b=document.getElementById('content')
+a.addEventListener('click', ()=>{  
+  if (a.classList.contains('aktif')) {
+    nav.classList.add('nav-pasif');
+    nav.classList.remove('nav-aktif')
+       a.classList.remove('aktif');
+        a.classList.add('pasif');
+     bottom.classList.add('bottom-pasif')
+    bottom.classList.remove('nav-bottom')
+   b.classList.add('content-pasif');
+   b.classList.remove('content')
+    } else {    
+      bottom.classList.remove('bottom-pasif')
+    bottom.classList.add('nav-bottom')
+   b.classList.remove('content-pasif');
+   b.classList.add('content')
+       nav.classList.remove('nav-pasif');
+    nav.classList.add('nav-aktif')
+        a.classList.remove('pasif');
+        a.classList.add('aktif');
+
+    }
+});
+
 });
