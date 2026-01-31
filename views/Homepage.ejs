@@ -23,8 +23,8 @@
         <button id="how" class="btn loginbtn" > How It Works</button>
       </div>
       
-      <div class="filter">
-        <div class="container" id="kategoriContainer" >
+      <div class="filter " id="kategoriContainer" >
+        
           <div id="anaKategoriler">
             <% AnakategoriList.forEach((al)=>{%>
               <label class="btn btnrd">
@@ -33,9 +33,8 @@
             </label>
               <%}) %>
           </div>
-          
-          <div class="kate " >
-          <div id="altKategorilerWrapper" class="alt-kategori-wrapper">
+          <div class="flexbtm">
+          <div class="kate " id="altKategorilerWrapper">
             
             <div class="dropdown1 a">
               <div class="dropdown-toggle1 w" id="dropdownToggle1">
@@ -57,7 +56,9 @@
                 <li>marka seç önce</li>
               </ul>
             </div>
-          </div></div>
+          
+        </div>
+          <div class="flexlft">
           <div id="vinLot">
             <input type="text" id="vinLotInput" placeholder="Search by VIN or lot number">
             <i class="search1 fa-solid fa-magnifying-glass"></i>
@@ -76,15 +77,17 @@
               <ul class="dropdown-menu1 ds ddm2" id="dropdownMenu6"></ul>
 </div>
 
-</div>
+        </div>
           <div id="ilerleDiv">
             <button id="ilerleBtn" >
               İlerle
             </button>
           </div>
+          </div>
+          </div>
         </div>
       </div>
-    </div>
+    
 
     <div class="home-main">
       

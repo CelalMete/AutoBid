@@ -50,9 +50,9 @@ src: url('/fonts/Lato-Regular.ttf');
 }
 
 .swiper-slide {
-  width: 270px !important;   /* Her slayt sabit genişlik */
+  width: 270px !important; 
   height: 450px;
-  margin: 0 10px;            /* Kenarlarda boşluk */
+  margin: 0 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,7 +66,7 @@ src: url('/fonts/Lato-Regular.ttf');
 #ilerleDiv{text-align: center; margin-top: 30px;}
 #ilerleBtn{position: absolute; bottom: 20px; right: 40px; 
               color: white; padding: 10px 20px; font-size: 16px; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer;}
-.date{float: left; width: 260px;height: 60px;}
+.date{float: left; width: 260px;height: 60px;display: flex;flex-direction: row;gap: 30px;}
 .fl{float: left;}
 .fr{float: right;}
 .time{margin-top: 10px;float: left;clear: both;}
@@ -75,7 +75,7 @@ src: url('/fonts/Lato-Regular.ttf');
 .swiper-slide img {
   width: 270px;
   height: 450px;
-  object-fit: cover;   /* Resim sabit boyda, taşanı kırpar */
+  object-fit: cover;   
 }
 .ilan:hover {
   transform: scale(1.03);
@@ -99,13 +99,11 @@ src: url('/fonts/Lato-Regular.ttf');
 }
 
 .info {
-  /* Flexbox ile dikeyde otomatik büyümesini sağla */
   flex-grow: 1; 
   padding: 10px;
-  /* padding-bottom: 25px; Bu kuralı istersen koru */
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* İçeriği dikeyde yayar */
+  justify-content: space-between;
 }
 
 .baslik {
@@ -188,13 +186,15 @@ padding-top:10px;padding-left: 10px;padding-right: 10px;padding-bottom: 3px;}
   max-width: 800px;   
   height: 228px;border-radius: 20px;
    margin-top: 100px;background-color: white;justify-self: center;}
-#kategoriContainer{height: 100%;width: 95%;margin-left: 5%;color: #000;}
+#kategoriContainer{width: 95%;margin-left: 5%;color: #000;display: flex; flex-direction: column;}
 #anaKategoriler {
   height: 35px; border-bottom: 2px solid #ccc; 
   width: 100%;font-family: 'lato',sans-serif;
   display: flex;
   gap: 20px;
 }
+.flexbtm{display: flex;flex-direction: row;}
+.flexlft{display: flex;flex-direction: column;width: 100%;}
 .abuzittin{color: rgb(28, 28, 28);border-color: #000;
   box-shadow: 0 0 5px #00000055;}
 .side{height: 35px; border-bottom: 1px solid #dadada; 
@@ -204,7 +204,7 @@ padding-top:10px;padding-left: 10px;padding-right: 10px;padding-bottom: 3px;}
 
 .kategori1{width: 110px;float: left;}
 
-.kate{float: left;}
+.kate{float: left;display: flex;flex-direction: column;margin-top: 20px;}
 .btnrd {
   width: 110px;
   height: auto;
@@ -302,11 +302,12 @@ padding: 0 5px 0 10px;
 }
 .search1{font-size: 30px; color:#3fa7f7a0;float: left;padding-top: 10px;}
 #vinLot{height: 47px;width: 100%;        
-  max-width: 480px; margin-top: 30px; margin-bottom: 10px;margin-right: 57px;
+  max-width: 530px; margin-top: 30px; margin-bottom: 10px;
   border-radius: 5px;color: #fff;border: 1px solid #E6EDF6; float: left;}
-.a{margin-right: 20px;margin-left: 10px;margin-bottom: 10px; margin-top: 20px;
 
-padding: 11px 10px;}
+.a{margin-right: 20px;margin-left: 10px;
+
+padding-top: 10px;}
 #vinLotInput{height: 100%;outline: none; font-size: 16px; border: none;width: 90%;float: left;padding-left: 10px;}
 #vinLotInput:focus {
   border: none; /* Aynı renk kalır, değişmez */
@@ -324,7 +325,7 @@ padding: 11px 10px;}
 .dropdown1 {
   position: relative;
   display: block; /* ALT ALTA DİZİLMEYİ SAĞLAR */
-  margin-bottom: 16px; /* Araya boşluk */
+  
 }
 @media (min-width: 1301px){
    .home-main{justify-self: center; }
@@ -341,39 +342,46 @@ padding: 11px 10px;}
   .home-main-grid{ grid-template-columns: 1fr 1fr 1fr 1fr ;}
 }
 @media (max-width: 850px){
-  .filter{
+  .home-main{margin-top: 120px;}
+  .kate{flex-direction: row;}
+  .flexbtm{flex-direction: column;}
+  .filter{height: auto;
+    margin-bottom: 50px; 
+    padding-bottom: 20px;
     margin-top: 60px;}
     #anaKategoriler, .side {
-    height: auto;  flex-wrap: wrap;  justify-content: center; 
+     flex-wrap: wrap;  justify-content: center; 
     gap: 15px;        
     padding: 10px;
   }
-  #vinLot {
-    width: 100%; margin: 10px 0;    
+  #vinLot {max-width: 630px;
+    width: 100%; margin: 10px 10px;    
     float: none;       
   }
   #vinLotInput {
-    width: 100%;
+    width: 90%;
   }
   .btnrd {
     width: auto;  padding: 0 15px;
     min-width: 100px;
   }
-
-
 }
+
 @media(min-width: 580px) and (max-width: 850px) {
   .home-main{width: 100%; justify-self: center; 
   }
   .home-main-grid{ grid-template-columns: 1fr 1fr 1fr  ;}
 }
 @media(max-width: 580px) {
-  .home-main{width: 100%; justify-self: center; 
+  .home-main{width: 100%; justify-self: center; margin-top: 180px;
   }
   .home-main-grid{ grid-template-columns: 1fr 1fr ;}
 }
-@media(max-width: 300px) {
+@media(max-width: 400px) {
   .home-main{width: 100%; justify-self: center; 
+  }
+  #vinLotInput {
+    width: 80%;
   }
   .home-main-grid{ grid-template-columns: 1fr  ;}
 }
