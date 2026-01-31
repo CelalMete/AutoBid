@@ -76,7 +76,7 @@ header.nav-hidden {
 }
 .a{text-decoration: none;color: #000;}
 .d{text-decoration: none;color: #d4d5dd;font-weight:300;margin-top: 10px;}
-.link{height:50px;width: auto; float: left;}
+.link{height:50px;width: auto; float: left;margin-left: 20px;}
 
 .sol .dropdown{height: 100%;  padding:13px 10px;float: left;
       cursor: pointer;position: relative; margin: 0%;
@@ -112,23 +112,25 @@ header.nav-hidden {
 clear: both;position: fixed;display: block;border-left: none;
 }
 .bottom-pasif .dropdown-content {
-    width: 100%;
-    position: relative;      
+    width: 100%;border-radius: 0px;
+    position: absolute;      
     box-shadow: none;       
-    border-top: 1px solid #eee;
 }
-.bottom-pasif .navSemL{margin-left: 600px;}
-
+.bottom-pasif .dropdown-content a{
+   padding-left: 30px;margin-bottom: 5px;margin-top: 5px;
+}
+.bottom-pasif .navSemL{float: right;}
+.bottom-pasif .ddtxt{width: 200px;}
 .bottom-pasif .dropdown{padding: 0;width: 100% !important;  border-right:none;}
 .bottom-pasif .bottom-right{border: none;}
-.bottom-pasif .nav-el-bottom{font-size: 16px;font-weight: 600;height: 60px;margin-left: 100px;}
-.bottom-pasif .fd{border-bottom:1px solid #435061 ;}
+.bottom-pasif .nav-el-bottom{font-size: 16px;font-weight: 600;height: 60px;margin-left: 30px;}
+.bottom-pasif .fd{border-bottom:1px solid #435061 ;height: 60px;}
 #searchInput{
     width: 80%;height: 42px;float: left;margin-left: 10px;margin-top: 10px; border-radius: 21px;
     padding: 0px 20px;
 }
 .search{height: 30px;float: left;margin-left: 5px; 
-    font-size: 30px;margin-top: 23px; }
+    font-size: 30px;margin-top: 10px; }
 .search-box {position: relative;
   color: #000;
   height: 70px;
@@ -152,7 +154,6 @@ margin-top: 20px;height: 45px;width: 192px; }
  .dropdown-content {
       display: none;
       position: absolute;
-
       top: 100%;
       left: 0;
       background-color: #1c2431;
@@ -164,7 +165,7 @@ margin-top: 20px;height: 45px;width: 192px; }
 
     .dropdown-content a {
       color: white;
-      padding: 10px 16px;
+      padding: 10px 16px;height: 36px;
       text-decoration: none;
       display: block;
     }
@@ -241,4 +242,33 @@ z-index: 3131;background-color: #2B3541;height: 100%;width: 100%;}
 }
 @media(max-width: 300px) {
 .name{display: none; width: 0%;}
+}
+@media (max-width: 768px) { /* 768px altındaki ekranlarda çalışır */
+      body{padding-top: 150px;}
+    /* 1. Kapsayıcıya satır atlama izni ver */
+    .nav-top {
+        flex-wrap: wrap; height: 150px;
+        justify-content: space-between; 
+        padding-bottom: 10px; 
+    }
+
+    .nav-el-top.logo {
+        order: 1; 
+    }
+.search{margin-top: 0px;}
+    #hamburg {
+        order: 2; 
+    }
+    .search-box {
+        order: 3;          
+        width: 98%;       
+        margin-top: 15px;   
+        margin-left: 0;     
+        display: flex;     
+        justify-content: center;
+    }
+    #searchInput {
+        width: 100%;        
+        margin: 0;        
+    }
 }
