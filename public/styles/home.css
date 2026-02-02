@@ -342,9 +342,9 @@ padding-top: 10px;}
   .home-main-grid{ grid-template-columns: 1fr 1fr 1fr 1fr ;}
 }
 @media (max-width: 850px){
-  
+ 
   .motto{font-size: 32px;margin-top: 15px;}
-  .home-main{margin-top: 120px;}
+  .home-main{margin-top: 60px;}
   .kate{flex-direction: row;}
   .flexbtm{flex-direction: column;}
   .filter{height: auto;
@@ -375,12 +375,12 @@ padding-top: 10px;}
   .home-main-grid{ grid-template-columns: 1fr 1fr 1fr  ;}
 }
 @media(max-width: 580px) {
-  .home-main{width: 100%; justify-self: center; margin-top: 180px;
+  .home-main{width: 100%; justify-self: center; margin-top: 80px;
   }
   .home-main-grid{ grid-template-columns: 1fr 1fr ;}
 }
 @media(max-width: 400px) {
-  .home-main{width: 100%; justify-self: center; 
+  .home-main{width: 100%; justify-self: center; margin-top: 120px;
   }
   #vinLotInput {
     width: 80%;

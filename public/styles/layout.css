@@ -224,6 +224,7 @@ z-index: 3131;background-color: #2B3541;height: 100%;width: 100%;}
   .top-right{display:block ;}
 }
 @media(max-width: 850px) {
+  #logo{height: 41px;width: 162px;}
   body{padding-top: 80px;}
   #hamburg{display: block;}
   .top-right{display: none;}
@@ -237,13 +238,15 @@ z-index: 3131;background-color: #2B3541;height: 100%;width: 100%;}
 .top-right{width: 70px;}
 }
 @media(max-width: 580px) {
+  #logo{height: 38px;width: 142px;}
 .name{display: none; width: 0%;}
 .top-right{width: 70px;}
 }
 @media(max-width: 300px) {
+  #logo{height: 35px;width: 122px;}
 .name{display: none; width: 0%;}
 }
-@media (max-width: 768px) { /* 768px altındaki ekranlarda çalışır */
+@media (max-width: 768px) { 
       body{padding-top: 150px;}
     /* 1. Kapsayıcıya satır atlama izni ver */
     .nav-top {

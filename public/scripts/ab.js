@@ -2,25 +2,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
   console.log("payment.js başarıyla yüklendi🚀");
 
-  // ✅ app-data elementini al
   const teklifForm = document.getElementById("teklifForm");
 const plus = document.getElementById("plus-five");
 const minus = document.getElementById("minus-five");
 const enYuksekTeklifSpan = document.getElementById("enYuksekTeklif");
   const appData = document.getElementById("app-data");
-console.log("📦 appData:", appData);
-
 const ilanDataRaw = appData?.getAttribute("data-ilan-data");
-console.log("📦 ilanDataRaw:", ilanDataRaw);
-
 const ilanData = ilanDataRaw ? JSON.parse(ilanDataRaw) : null;
-console.log("📦 ilanData:", ilanData);
-
 const ilanId = ilanData?._id;
-console.log("📦 ilanId:", ilanId);
-
 const kullaniciId = appData?.getAttribute("data-kullanici-id") || "Anonim";
-console.log("📦 kullaniciId:", kullaniciId);
   const appDataElement = document.getElementById("app-data");
   const ilanDataString = appDataElement.getAttribute("data-ilan-data");
   const filtrelerData = downbarContainer.dataset.filtre;
@@ -345,7 +335,6 @@ socket.on("teklifReddedildi", (data) => {
         }
     });
 
-    // Önceki resme geçiş
     prevBtn.addEventListener('click', function() {
         currentIndex = (currentIndex - 1 + imageUrls.length) % imageUrls.length;
         modalImage.src = imageUrls[currentIndex];
@@ -355,5 +344,20 @@ socket.on("teklifReddedildi", (data) => {
         currentIndex = (currentIndex + 1) % imageUrls.length;
         modalImage.src = imageUrls[currentIndex];
     });
+    
+    const inf =document.getElementById('info-cont')
+    const teklif =document.getElementById('teklif')
+    const sleft =document.getElementById('left')
+    const sright =document.getElementById('right')
+    sright.addEventListener('click', function() {
+     teklif.style.display='none';
+     inf.style.display='block';
+    })
+     sleft.addEventListener('click', function() {
+     teklif.style.display='block';
+     inf.style.display='none';
+    })
+
+
 });
 
