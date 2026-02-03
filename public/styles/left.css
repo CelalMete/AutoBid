@@ -30,10 +30,10 @@
       cursor: pointer;border-radius: 0%;
       transition: all 0.2s ease;
     }
-#anaKategoriler{height: auto;width: 240px;/*background-color: #C2DFFF;*/
-  float: left;margin-top: 40px;height: 150px; margin-right: 50px;}
+#anaKategoriler{height: auto;width: 240px;
+  float: left;margin-top: 40px;height: 50px; margin-right: 50px;}
 
-#altKategorilerWrapper{height: auto;float: left;width: 60%;justify-self: center;}
+#altKategorilerWrapper{height: auto;float: left;width: 60%;}
 #ilerleBtn{padding: 10px 20px;
     font-size: 16px;
     background-color: #007bff;
@@ -80,7 +80,7 @@
   display: flex;
   flex-direction: row;
   margin-top: 30px;
-  gap:80px;
+  gap:20px;
   flex-wrap: nowrap;
   
   align-items: flex-start;
@@ -125,17 +125,19 @@
    #altKategorilerWrapper {float: right; }
 }
 
-@media (min-width: 1200px) and (max-width: 1300px) {
+@media (max-width: 1300px) {
  .container{width: 98%;}
- #altKategorilerWrapper {gap: 40px;margin-right: 5%;}
+ #altKategorilerWrapper {gap: 10px;margin-right: 3%;}
 }
-@media (min-width: 1100px) and (max-width: 1200px) {
- #altKategorilerWrapper {gap: 30px;margin-right: 8%; }
-}
-@media (min-width: 1100px) and (max-width: 1200px) {
- #altKategorilerWrapper {gap: 20px;margin-right: 2%; }
-}
-@media(min-width: 580px) and (max-width: 850px) {
+
+
+@media (max-width: 970px) {
+  .alt-kategori-wrapper{flex-direction: column;clear: both;float: none;justify-self: center;
+    align-items:center}
+  #anaKategoriler{margin-right: 0;float: none; justify-self: center;}
+  #altKategorilerWrapper{float: none;justify-self: center;justify-items: center;}
+  .alt-kutu{float: none;justify-self: center;}
+
 }
 @media(max-width: 580px) {
  

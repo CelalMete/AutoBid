@@ -69,6 +69,7 @@ header.nav-hidden {
   flex-shrink: 0; /* Küçülmesini engelle */
 }
 .nav-el-bottom{float: left; text-decoration: none; height: auto; width: auto;color: white;
+  
      list-style: none;font-family: 'lato' , sans-serif;font-size: 16px;display: flex;
     justify-content: center;
     align-items: center;      
@@ -81,9 +82,12 @@ header.nav-hidden {
 .sol .dropdown{height: 100%;  padding:13px 10px;float: left;
       cursor: pointer;position: relative; margin: 0%;
       display:inline-block; border-right:1px solid #435061 ;}
+.sag{margin-right: 10px;}
+
 .sag .dropdown{height: 100%;  padding:13px 10px;float: right;
       cursor: pointer;position: relative; margin: 0%;
-      display:inline-block; border-left:1px solid #435061 ;}
+       border-left:1px solid #435061 ;}
+.sag :last-child .dropdown-content{float: left;}
 .top-right{  float: right; width: 220px;height: 70px;}
 .profilediv{float: right;}
 .name{float: left;margin-right: 10px; border-radius: 19px; background-color: #2B3541; padding: 10px; margin-top: 26px; font-family: 'lato',sans-serif;font-size: 18px;color: white;}
@@ -119,6 +123,7 @@ clear: both;position: fixed;display: block;border-left: none;
 .bottom-pasif .dropdown-content a{
    padding-left: 30px;margin-bottom: 5px;margin-top: 5px;
 }
+.ddtxt{user-select: none;} 
 .bottom-pasif .navSemL{float: right;}
 .bottom-pasif .ddtxt{width: 200px;}
 .bottom-pasif .dropdown{padding: 0;width: 100% !important;  border-right:none;}
@@ -155,9 +160,9 @@ margin-top: 20px;height: 45px;width: 192px; }
       display: none;
       position: absolute;
       top: 100%;
-      left: 0;
+     left: 3px;
       background-color: #1c2431;
-      min-width: 150px;
+      min-width: 130px;
       border-radius: 5px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       z-index: 9999;

@@ -143,10 +143,12 @@ src: url('/fonts/Lato-Regular.ttf');
 .slide-about{margin-left: 50px;margin-top: 10px; font-size: 14px;font-family: sans-serif;}
 
 .tags li{float: left; margin-left: 10px;list-style: none;text-decoration: none;padding-top: 7px ; 
-  padding-left: 7px;padding-right: 7px;padding-bottom:7px;
-  background-color:  rgba(0, 0, 0, 0.3);border-radius: 5px;margin-top: 20px;color: white;
-height: 29px;}
-  .tags{display: grid;grid-template-columns: 1fr 1fr 1fr 1fr; justify-content: center;clear: both;}
+  padding-left: 12px;padding-right: 12px;padding-bottom:7px;
+  background-color:  rgba(0, 0, 0, 0.3);
+  border-radius: 5px;margin-top: 20px;color: white;
+height: auto;justify-self: center;}
+  .tags{width: 50%;justify-self: center;
+    display: grid;grid-template-columns: 1fr 1fr 1fr 1fr; justify-content: center;clear: both;}
 .motto{clear: both; font:44px sans-serif; color: white;margin-top: 40px;
 display: flex; justify-content: center;}
 .background-overlay {
@@ -375,12 +377,12 @@ padding-top: 10px;}
   .home-main-grid{ grid-template-columns: 1fr 1fr 1fr  ;}
 }
 @media(max-width: 580px) {
-  .home-main{width: 100%; justify-self: center; margin-top: 80px;
+  .home-main{width: 100%; justify-self: center; margin-top: 100px;
   }
   .home-main-grid{ grid-template-columns: 1fr 1fr ;}
 }
 @media(max-width: 400px) {
-  .home-main{width: 100%; justify-self: center; margin-top: 120px;
+  .home-main{width: 100%; justify-self: center; margin-top: 140px;
   }
   #vinLotInput {
     width: 80%;

@@ -56,20 +56,28 @@ searchInput.addEventListener("input", async function () {
       ContMenu.classList.toggle('show');
       
     });
-    window.addEventListener('click', (e) => {
-      
-    if (!e.target.matches('#dropdownToggleDays')) {
+   window.addEventListener('click', (e) => {
+    // 1. GÜNLER MENÜSÜ İÇİN
+    // Tıklanan şey 'dropdownToggleDays' ID'li kutunun İÇİNDE değilse kapat
+    if (!e.target.closest('#dropdownToggleDays')) { 
         if (DayMenu.classList.contains('show')) {
           DayMenu.classList.remove('show');
-    }}
-    if (!e.target.matches('#dropdownToggleContact')) {
+        }
+    }
+
+    // 2. İLETİŞİM MENÜSÜ İÇİN
+    if (!e.target.closest('#dropdownToggleContact')) {
         if (ContMenu.classList.contains('show')) {
           ContMenu.classList.remove('show');
-    }}
-   if (!e.target.matches('#dropdownTogglehow')) {
+        }
+    }
+
+    // 3. NASIL İŞLİYOR MENÜSÜ İÇİN
+    if (!e.target.closest('#dropdownTogglehow')) {
         if (howMenu.classList.contains('show')) {
           howMenu.classList.remove('show');
-    }}
+        }
+    }
 });
 
     const navFilterLinks = document.querySelectorAll('.has-submenu .submenu a[data-filter]');
