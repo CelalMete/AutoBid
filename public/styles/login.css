@@ -6,7 +6,6 @@
                 initial-value: 0deg;
                 inherits: false;
         }
-
         @keyframes cerceve{
             0%{
                 --angle:0deg 
@@ -15,13 +14,10 @@
                 --angle:360deg
             }
         }
-        
-       
         :root {
-            --r1: #142c54;
-            --r2: hsl(218, 62%, 40%);
+            --r1: #334150;
+            --r2:#2B3541;
             --r0: #f0fcfc;
-    
         }
         *{
             box-sizing: border-box;
@@ -301,7 +297,7 @@
             margin-right: 3vw;
             margin-top: -10vh;
             z-index: 1;
-            border-radius: 10px 0px 10px 10px;  
+            border-radius: 0px 0px 10px 10px;  
             display: flex;
             justify-content: center;
             flex-direction: column;

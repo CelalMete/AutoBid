@@ -32,10 +32,11 @@
     <div class="top-right" >  
        <a href="/profile/Personal-Informaton" class="name">
       <img id="ppfoto"  src="/photos/user.svg" alt="">
-     <div class="text" ><%= user.Ad %>
+       <% const b = "Misafir" %>
+     <div class="text" ><%= user.Ad || b %> 
     </div></a> 
      
-          <% const a = "#" %>
+          <% const a = "/photos/icons/Sample_User_Icon.png" %>
           <a id="pp" href="/profile/Personal-Informaton">
             <div class=" profilediv"  >
             <img class="profilePic" src="<%= user.pp || a %> ">

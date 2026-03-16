@@ -57,22 +57,16 @@ searchInput.addEventListener("input", async function () {
       
     });
    window.addEventListener('click', (e) => {
-    // 1. GÜNLER MENÜSÜ İÇİN
-    // Tıklanan şey 'dropdownToggleDays' ID'li kutunun İÇİNDE değilse kapat
     if (!e.target.closest('#dropdownToggleDays')) { 
         if (DayMenu.classList.contains('show')) {
           DayMenu.classList.remove('show');
         }
     }
-
-    // 2. İLETİŞİM MENÜSÜ İÇİN
     if (!e.target.closest('#dropdownToggleContact')) {
         if (ContMenu.classList.contains('show')) {
           ContMenu.classList.remove('show');
         }
     }
-
-    // 3. NASIL İŞLİYOR MENÜSÜ İÇİN
     if (!e.target.closest('#dropdownTogglehow')) {
         if (howMenu.classList.contains('show')) {
           howMenu.classList.remove('show');

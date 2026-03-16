@@ -3,23 +3,24 @@ font-family: 'lato'; /* piksel ??? tasuki çalıntı*/
 src: url('/fonts/Lato-Regular.ttf'); 
 }
 body{background-color: rgb(244, 244, 244);}
-.perInfo{width: 300px;float: left ; margin-left: 50px; font-size: 20px;margin-top: 10px;}
-.leftProf{width:250px;float: left;height: auto;margin-right: 30px;margin-top: 50px;  background-color: white;}
-.rightProf{width: 800px;float: left;height: 1000px;margin-top: 50px;}
+.perInfo{width: 40%;float: left ;  font-size: 20px;margin-top: 10px;}
+.leftProf{width:28%;float: left;height:450px;margin-right: 2%;margin-top: 50px;  background-color: white;}
+.rightProf{width: 70%;float: left;height: 1000px;margin-top: 50px;}
 .list{display: flex; align-items: center; padding-left: 10px; text-decoration: none;
     height: 50px;width: 100%;color: #494848;border: 1px solid #ccc;border-bottom: 0;}
 
-.profileCont{width: 1100px;justify-self: center;height: 1000px;
+.profileCont{width: 80%;justify-self: center;height: 1100px;display: flex;flex-direction: row;
 }
-.profileCont2{height: auto;width:100%;}
-.ppCont{height: auto;width: 300px;float: left;}
-.ppFoto{margin-top: 10px;height: auto;width: 300px;}
+.profileCont2{height: auto;width:100%;display: flex;flex-direction: column;}
+.alt{display: flex;flex-direction: row;justify-content: space-between; }
+.ppCont{height: auto;width: 50%;float: left;}
+.ppFoto{margin-top: 10px;height: auto;width: 100%;}
 #bioMetin{font-size: 15px;color: #494848; margin-top: 15px;font-family: 'lato'sans-serif;}
 .sonuclar2 {float: left;
   display: flex; font-family: 'lato'sans-serif;
   flex-direction: column;
   gap: 15px;
-  margin-top: 20px; width:800px;
+  margin-top: 20px; width:70%;
 }
 .bas{margin-top: 50px;font-family: sans-serif;}
 .l{border-bottom:1px solid #ccc;}
@@ -28,11 +29,11 @@ body{background-color: rgb(244, 244, 244);}
  .sonuc2 {
   display: flex;
   border: 1px solid #ccc;
-width: 800px;
+width: 100%;
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   background-color: #fff;
-  height: 120px;
+  height:auto;
 }
 .foto2 img {
   
@@ -58,3 +59,14 @@ width: 800px;
 #ppbas{margin-top: 10px;}
 #ppForm{clear: both;margin-top: 10px;}
 #bioFormAlani{display: none;}
+@media(max-width: 730px) {
+ .perInfo{width: 45%;}
+ .ppCont{width: 55%;}
+ .profileCont{width: 90%;}
+}
+@media(max-width: 600px) {
+ .profileCont{width: 95%;}
+}
+@media(max-width: 600px) {
+ .profileCont{width: 95%;}
+}

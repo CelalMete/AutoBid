@@ -1,15 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     const navLinks = document.querySelectorAll(".nav-link");
     const contentItems = document.querySelectorAll(".content-item");
-
-    // Başlangıçta tüm içerikleri gizle ve ilk elemanı göster
     function initializePage() {
-        // Tüm içerikleri gizle
         contentItems.forEach(item => item.classList.remove("active"));
-        
         navLinks.forEach(link => link.classList.remove("active"));
-        
-        // İlk linki ve ilk içeriği aktif yap
         if (navLinks.length > 0) {
             navLinks[0].classList.add("active");
         }
@@ -18,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Sayfa yüklendiğinde bu fonksiyonu çalıştır
     initializePage();
 
     navLinks.forEach(link => {

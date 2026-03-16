@@ -322,7 +322,7 @@ cron.schedule('* * * * *', async () => {
 app.get('/login', csrfProtection,(req, res) => {
   res.render('login',{csrfToken: req.csrfToken() });
 });
-app.get('/', authMiddleware, async (req, res) => {
+app.get('/',  async (req, res) => {
   try {
     const user = await Kullanici.findById(req.session.userId);
     const now = new Date();
@@ -671,7 +671,7 @@ app.post('/de', async (req, res, next) => {
     }
 });
 app.post(
-  '/yeni-ilan-olustur',
+  '/yeni-ilan-olustur',authMiddleware,
   csrfProtection,
   (req, res, next) => {
     IlanUpload.fields([
@@ -727,7 +727,7 @@ app.post(
 );
 
 
-app.get('/upload',csrfProtection, async (req, res) => {
+app.get('/upload',authMiddleware,csrfProtection, async (req, res) => {
   const user = await Kullanici.findById(req.session.userId);
   const AnakategoriList = await Marka.find({kategori:"arac"})
 
@@ -999,7 +999,7 @@ app.get('/checkout-success', (req, res) => {
 });
 
 
-app.get('/profile/:section', csrfProtection, async (req, res) => {
+app.get('/profile/:section',authMiddleware, csrfProtection, async (req, res) => {
   
   try {
       const user = await Kullanici.findById(req.session.userId);

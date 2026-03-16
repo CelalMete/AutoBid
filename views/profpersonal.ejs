@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="/styles/profile.css">
 <meta name="csrf-token" content="<%= csrfToken %>">
+
 <div class="profileCont2" >
 <h2 class="PersonalBas">Profil</h2>
+<div class="alt">
 <div class="ppCont">
     <div>
         <img src="<%= user.pp || '/img/default-pp.jpg' %>"  alt="Profil Fotoğrafı" class="ppFoto">
@@ -37,7 +39,7 @@
 </div>
 
     </div>
-    
+</div>
       <script src="/scripts/personalsrc.js" defer></script>
      
 </div>
