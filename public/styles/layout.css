@@ -154,7 +154,7 @@ clear: both;position: fixed;display: block;border-left: none;
 .navSemL{height: 20px;width: 20px;align-items: center;margin-right:5px ;
     justify-content: center; float: right;}
 .logo{margin-right: 17px;margin-left: 50px; margin-right: 50px;
-margin-top: 20px;height: 45px;width: 192px; }
+margin-top: 20px;}
 
  .dropdown-content {
       display: none;
