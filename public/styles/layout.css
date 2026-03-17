@@ -53,8 +53,8 @@ header.nav-hidden {
 .nav-bottom{ height: 52px;width: 100%; 
   background-color: #2B3541;border-top: 1px solid #435061;}
 #logo {
-  height: 45px;
-  width: 192px;
+  height: 100%;
+  width: auto;
 }
 .nav-el-top {
   text-decoration: none;
@@ -243,12 +243,12 @@ z-index: 3131;background-color: #2B3541;height: 100%;width: 100%;}
 .top-right{width: 70px;}
 }
 @media(max-width: 580px) {
-  #logo{height: 38px;width: 142px;}
+  
 .name{display: none; width: 0%;}
 .top-right{width: 70px;}
 }
 @media(max-width: 300px) {
-  #logo{height: 35px;width: 122px;}
+  
 .name{display: none; width: 0%;}
 }
 @media (max-width: 768px) { 
