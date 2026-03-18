@@ -1403,6 +1403,7 @@ app.post('/admin/markaekle', async (req, res) => {
     }
 });
 // SERVER
-server.listen(3000, () => {
-  console.log("Sunucu 3000 portunda çalışıyor");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Sunucu ${PORT} portunda çalışıyor`);
 });
