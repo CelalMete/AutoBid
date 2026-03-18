@@ -209,20 +209,38 @@ app.post('/auth', csrfProtection, async (req, res) => {
 
 let verificationCodes = {};
 
-async function sendEmail(toEmail, verificationCode) {
-
-  try{
- resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'kocakoglucelalmete@gmail.com',
-  subject: verificationCode,
-  html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
+const transporter = nodemailer.createTransport({
+  host: 'smtp.zoho.eu', // Zoho hesabını .com üzerinden açtıysan burayı smtp.zoho.com yap
+  port: 465,
+  secure: true, // SSL kullanıyoruz
+  auth: {
+    user: 'destek@novusaera.shop', // Kendi kurumsal adresin
+    pass: 'Admincelal123.' // Buraya dikkat! (Aşağıda açıkladım)
+  }
 });
+async function sendEmail(toEmail, verificationCode) {
+  try {
+    const info = await transporter.sendMail({
+      from: '"Novus Aera Destek" <destek@novusaera.shop>', // Gönderen kısmı
+      to: toEmail, // Parametreden gelen hedefe gidecek
+      subject: `Doğrulama Kodunuz: ${verificationCode}`,
+      html: `
+        <div style="font-family: sans-serif; padding: 20px;">
+          <h2>Novus Aera'ya Hoş Geldiniz!</h2>
+          <p>Giriş yapmak için doğrulama kodunuz:</p>
+          <h1 style="color: #2c3e50; letter-spacing: 2px;">${verificationCode}</h1>
+          <p>Güvenliğiniz için bu kodu kimseyle paylaşmayın.</p>
+        </div>
+      `
+    });
 
-} catch (err) {
-    console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
-    throw err; 
-}}
+    console.log("E-posta başarıyla fırlatıldı! ID:", info.messageId);
+
+  } catch (err) {
+    console.error("E-posta hatası:", err);
+    throw err;
+  }
+}
 
 
 app.post('/register', async (req, res) => {
@@ -324,6 +342,7 @@ app.get('/login', csrfProtection,(req, res) => {
 });
 app.get('/',  async (req, res) => {
   try {
+    await sendEmail('kocakoglucelalmete@gmail.com','111111')
     const user = await Kullanici.findById(req.session.userId);
     const now = new Date();
     const araclar =await Arac.find({ }).lean()
