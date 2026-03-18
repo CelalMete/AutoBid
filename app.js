@@ -211,8 +211,8 @@ let verificationCodes = {};
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.zoho.eu', // Zoho hesabını .com üzerinden açtıysan burayı smtp.zoho.com yap
-  port: 465,
-  secure: true, // SSL kullanıyoruz
+  port: 587,
+  secure: false, // SSL kullanıyoruz
   auth: {
     user: 'destek@novusaera.shop', // Kendi kurumsal adresin
     pass: 'Admincelal123.' // Buraya dikkat! (Aşağıda açıkladım)
