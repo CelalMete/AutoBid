@@ -1,4 +1,4 @@
-// --- ELEMENT SEÇİMLERİ ---
+
 const el = {
   di1: document.getElementById("di1"),
   di2: document.getElementById("di2"),
@@ -25,9 +25,7 @@ const el = {
 
 const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-// --- YARDIMCI FONKSİYONLAR ---
 
-// Class değiştirme fonksiyonu (Görünürlük ayarları için)
 function toggleAktifInaktif(...items) {
   items.forEach((x) => {
     if (x) {
