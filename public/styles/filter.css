@@ -10,7 +10,7 @@ body{font-family: 'lato',sans-serif;}
     margin-right: 3%;
     margin-left: 6%;
     margin-top: 30px;
-    height: auto; /* Sabit 1000px'i kaldırdık */
+    height: auto; 
 }
 .contAlt {
     display: flex;
