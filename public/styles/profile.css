@@ -16,18 +16,13 @@ body{background-color: rgb(244, 244, 244);}
 .ppCont{height: auto;width: 50%;float: left;}
 .ppFoto{margin-top: 10px;height: auto;width: 100%;}
 #bioMetin{font-size: 15px;color: #494848; margin-top: 15px;font-family: 'lato'sans-serif;}
-.sonuclar2 {float: left;
-  display: flex; font-family: 'lato'sans-serif;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px; width:70%;
-}
+
 .bas{margin-top: 50px;font-family: sans-serif;}
 .l{border-bottom:1px solid #ccc;}
 .btn{font-family: 'lato'sans-serif;color: white; padding: 8px 15px; font-size: 14px; background-color: #007bff;
    border: none; border-radius: 5px; cursor: pointer;margin-top: 20px;}
  .sonuc2 {
-  display: flex;
+  display: flex;flex-direction: row;
   border: 1px solid #ccc;
 width: 100%;
   overflow: hidden;
@@ -36,7 +31,6 @@ width: 100%;
   height:auto;
 }
 .foto2 img {
-  
   height: 100%;
   object-fit: cover;
 }
