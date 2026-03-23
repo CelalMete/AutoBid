@@ -8,18 +8,18 @@
   <div class="container1" >
     <div class="background-overlay">
       <ul class="tags" >
-        <li>Açık Artırma</li>
+        <li>Reklamlama</li>
         <li>Nakliye & Sigorta</li>
-        <li>Evrak Takibi</li>
-        <li>Teslimat</li>
+        <li>bul bişilee</li>
+        <li>Buraya</li>
       </ul>
 
       <div class="motto" >
-        BUYING & SHIPPING AMERICAN AUTOMOBILES
+        Advertising & Reselling AUTOMOBILES
       </div>
 
       <div class="start">
-        <button class="btn loginbtn"> Start Bidding </button>
+        <button class="btn loginbtn"> Start Searching </button>
         <button id="how" class="btn loginbtn" > How It Works</button>
       </div>
       
@@ -107,30 +107,14 @@
           month: "2-digit",
           year: "numeric"
         }) %></div>
-       <div class="time" ><div class="sembol"></div>Bitiş Tarihi: <%= new Date(ilan.bitisTarihi).toLocaleDateString("tr-TR", {
+       <div class="time" >Bitiş Tarihi: <%= new Date(ilan.bitisTarihi).toLocaleDateString("tr-TR", {
           day: "2-digit",
           month: "2-digit",
           year: "numeric"
         }) %></div>
         <div class="price">
-          <div class="mini-price">
-            <div class="mini-bs">currentBid</div>
-            <div class="mini-amount">
-              <% if (teklifler[ilan._id]) { %>
-                <p><%= teklifler[ilan._id].fiyat %>₺ </p>
-              <% } else { %>
-              <p>0$</p>
-              <% } %>
-      </div><!--amount-->
-      </div><!--miniprice-->
-          <div class="mini-price">
-          <div class="mini-bs2" >Buy Now!!</div>
-            <div class="mini-amount">
-            
-              <p class="bn" ">999999₺ </p>
-        
-      </div>
-      </div>
+        <div class="minibas">Fiyat:</div>
+        <div class="fiyatnum"><%=ilan.fiyat %></div>
             </div>
           </div>
         </div>

@@ -124,14 +124,8 @@ src: url('/fonts/Lato-Regular.ttf');
   text-decoration: underline;
 }
  .price{width: 100%;border-radius: 10px;  background-color: #F5F6F8; clear: both; display: flex; /* Flexbox'ı etkinleştir */
-  justify-content: space-between;padding: 10px;margin-top: 20px;
+  justify-content: space-between;padding: 10px;margin-top: 20px;flex-direction: row;
   align-items: center;}
-.mini-price{height: 50px;width: 50%;display: flex; /* İçeriği hizalamak için flex kullan */
-  flex-direction: column; /* İçeriği dikeyde hizala */
-  justify-content: center; }
-.mini-bs{text-align: left; color: #7F8FA4;; height: 20px;font-size: 14px;font-family: 'lato',sans-serif;margin-top: 10px;}
-.mini-bs2{text-align: right; color: #7F8FA4;; height: 20px;font-size: 14px;font-family: 'lato',sans-serif;margin-top: 10px;}
-.mini-amount{ height: 20px;font-size: 16px;font-family: 'lato',sans-serif;margin-top: 10px;}
 
 
 .link-alt{text-decoration: none;font-size: larger; color: #C8C8C8;

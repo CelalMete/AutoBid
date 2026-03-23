@@ -535,7 +535,6 @@ app.get('/yeni-ilan-olustur', csrfProtection, async(req, res) => {
     const toplam = filtreler.length;
 const parcaBoyutu = Math.ceil(toplam / 3); // Her kolona kaç tane düşecek? (Yukarı yuvarla)
 
-    
     const kolon1 = filtreler.slice(0, parcaBoyutu);
     const kolon2 = filtreler.slice(parcaBoyutu, parcaBoyutu * 2);
     const kolon3 = filtreler.slice(parcaBoyutu * 2);
@@ -555,9 +554,7 @@ app.get('/shipping/:kategori/:section', isAdmin1, csrfProtection, async (req, re
     const user = await Kullanici.findById(req.session.userId);
     const section = req.params.section || 'vehicle-Payment';
     const kategori = req.params.kategori || 'Otomobil';
-
     let items = [];
-
     if (kategori === 'Otomobil') {
       items = await Arac.find({ durum: section }).lean();
     }
