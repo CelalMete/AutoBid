@@ -4,7 +4,7 @@
 
 <div class="profileCont">
   <div class="leftProf">
-    <% durumlar.forEach(d => { %>
+    <% durums.forEach(d => { %>
       <% if (d.key !== 'none' && d.key !== 'vehicle-Payment') { %> 
         <a href="/shipping/<%= kategori %>/<%= d.key %>" 
            class="<%= section === d.key ? 'active' : '' %> list">

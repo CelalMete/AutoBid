@@ -561,11 +561,17 @@ app.get('/shipping/:kategori/:section', isAdmin1, csrfProtection, async (req, re
     if (kategori === 'Otomobil') {
       items = await Arac.find({ durum: section }).lean();
     }
+   let durums = [];
+    let bas = await durum.findOne({ key: 'vehicle-Payment' });
+    while (bas && bas.next != null) {
+      durums.push(bas); 
+      bas = await durum.findOne({ key: bas.next }); 
+    }
+    if (bas) {durums.push(bas); }
     const lang = req.user?.lang || "tr";
-     const durumlar = await durum.find({ kategori }).lean();
     res.render('Layout', {
-      user,durumlar,
-      section,lang,
+      user,
+      section,lang,durums,
       kategori,
       csrfToken: req.csrfToken(),
       content: 'shippingInfo',
