@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
+  console.log('aaaaaaaaaaaa')
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
   console.log("payment.js başarıyla yüklendi🚀");
 
   const teklifForm = document.getElementById("teklifForm");
+  const mesaj=document.getElementById("mesajform")
 const plus = document.getElementById("plus-five");
 const minus = document.getElementById("minus-five");
 const enYuksekTeklifSpan = document.getElementById("enYuksekTeklif");
@@ -11,13 +13,18 @@ const ilanDataRaw = appData?.getAttribute("data-ilan-data");
 const ilanData = ilanDataRaw ? JSON.parse(ilanDataRaw) : null;
 const ilanId = ilanData?._id;
 const kullaniciId = appData?.getAttribute("data-kullanici-id") || "Anonim";
-  const appDataElement = document.getElementById("app-data");
-  const ilanDataString = appDataElement.getAttribute("data-ilan-data");
   const filtrelerData = downbarContainer.dataset.filtre;
    const teklifInput = document.getElementById("teklifInput");
-  const enYuksekTeklif = parseFloat(appDataElement.getAttribute("data-en-yuksek-teklif")) || 0;
 
-  
+  mesaj.addEventListener('submit',(e)=>{
+    e.preventDefault();
+  const formData = new FormData(mesaj);
+  const gidenBilgiler = Object.fromEntries(formData.entries());
+    console.log("Gönderilmeye Hazır Form Verileri:", gidenBilgiler);
+ })
+
+ 
+
 let downbarData=[]
 downbarData = JSON.parse(filtrelerData);
   const container = document.getElementById("downbarContainer");
@@ -43,125 +50,8 @@ downbarData = JSON.parse(filtrelerData);
     });
   }
 
-  function buyerFeeCopart(lotPrice) {
-    const fees = [
-      { max: 50, fee: 1 },
-      { max: 100, fee: 1 },
-      { max: 200, fee: 25 },
-      { max: 300, fee: 60 },
-      { max: 350, fee: 85 },
-      { max: 400, fee: 100 },
-      { max: 450, fee: 125 },
-      { max: 500, fee: 135 },
-      { max: 550, fee: 145 },
-      { max: 600, fee: 155 },
-      { max: 700, fee: 170 },
-      { max: 800, fee: 195 },
-      { max: 900, fee: 215 },
-      { max: 1000, fee: 230 },
-      { max: 1200, fee: 250 },
-      { max: 1300, fee: 270 },
-      { max: 1400, fee: 285 },
-      { max: 1500, fee: 300 },
-      { max: 1600, fee: 315 },
-      { max: 1700, fee: 330 },
-      { max: 1800, fee: 350 },
-      { max: 2000, fee: 370 },
-      { max: 2400, fee: 390 },
-      { max: 2500, fee: 425 },
-      { max: 3000, fee: 460 },
-      { max: 3500, fee: 505 },
-      { max: 4000, fee: 555 },
-      { max: 4500, fee: 600 },
-      { max: 5000, fee: 625 },
-      { max: 5500, fee: 650 },
-      { max: 6000, fee: 675 },
-      { max: 6500, fee: 700 },
-      { max: 7000, fee: 720 },
-      { max: 7500, fee: 755 },
-      { max: 8000, fee: 775 },
-      { max: 8500, fee: 800 },
-      { max: 9000, fee: 820 },
-      { max: 10000, fee: 820 },
-      { max: 10500, fee: 850 },
-      { max: 11000, fee: 850 },
-      { max: 11500, fee: 850 },
-      { max: 12000, fee: 860 },
-      { max: 12500, fee: 875 },
-      { max: 15000, fee: 890 },
-    ];
-    for (let i = 0; i < fees.length; i++) {
-      if (lotPrice < fees[i].max) {
-        return fees[i].fee;
-      }
-    }
-    return 0;
-  }
-
-  function hesaplamalariGuncelle(lotFiyati) {
-    const lotElement = document.getElementById("lot");
-    const subtotalElement = document.getElementById("subtotal");
-    const auctionfeeElement = document.getElementById("auction-fees");
-    const truckingElement = document.getElementById("trucking");
-    const shippingElement = document.getElementById("shipping");
-    const OurFeeElement = document.getElementById("our-fee");
-
-    const auctionFees = buyerFeeCopart(parseFloat(lotFiyati));
-    const truckingToPort = 340;
-    const shipping = 1545;
-    const bidCarsFee = 450;
-
-    const subtotal = parseFloat(lotFiyati) + auctionFees + truckingToPort + shipping + bidCarsFee;
-
-    const customElement = document.getElementById("custom-value");
-    const taxElement = document.getElementById("tax");
-    const vatElement = document.getElementById("vat");
-    const agencyElement = document.getElementById("agency");
-    const ClaerenceElement = document.getElementById("Claerence");
-    const totalElement = document.getElementById("total");
-    
-
-    const Custom = subtotal;
-    const tax = subtotal * (10 / 100);
-    const vat = subtotal * (21 / 100);
-    const agency = 500;
-    
-    const total = Custom + tax + vat + agency ;
-
-    // ekrana yaz
-    lotElement.textContent = "$" + lotFiyati;
-    subtotalElement.textContent = "$" + subtotal.toFixed(2);
-    shippingElement.textContent = "$" + shipping.toFixed(2);
-    auctionfeeElement.textContent = "$" + auctionFees;
-    truckingElement.textContent = "$" + truckingToPort;
-    OurFeeElement.textContent = "$" + bidCarsFee;
-    customElement.textContent = "$" + Custom;
-    taxElement.textContent = "$" + tax.toFixed(2);
-    vatElement.textContent = "$" + vat.toFixed(2);
-    ClaerenceElement.textContent = "$" + (tax + vat + agency).toFixed(2);
-    agencyElement.textContent = "$" + agency.toFixed(2);
-    totalElement.textContent = "$" + total.toFixed(2);
-
-    const priceInput = document.querySelector("#payment-form input[name='price1']");
-    if (priceInput) {
-      priceInput.value = total.toFixed(2);
-    }
-  }
-
-
-  if (teklifInput) {
-    teklifInput.addEventListener("input", function () {
-      const girilenFiyat = parseFloat(this.value) || 0;
-      hesaplamalariGuncelle(girilenFiyat);
-    });
-  }
 const fastbuy=document.getElementById('fastbuy').innerText
-  if (enYuksekTeklif > 0) {
-    hesaplamalariGuncelle(enYuksekTeklif);
-  }
-  else{
-    hesaplamalariGuncelle(fastbuy);
-  }
+ 
       function watchlist() {
          fetch(`/watchlist/ekle/${ilanId}`, {
       method: "POST",
@@ -267,6 +157,7 @@ minus.addEventListener("click", () => {
   let mevcutDeger = parseInt(teklifInput.value) || 0;
   if (mevcutDeger >= 100) teklifInput.value = mevcutDeger - 100;
 });
+
 
 teklifForm.addEventListener("submit", (e) => {
   e.preventDefault();

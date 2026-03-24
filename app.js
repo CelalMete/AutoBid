@@ -127,7 +127,7 @@ const kategori = require('./public/models/kategori');
 const { body } = require('express-validator');
 const { Resend } = require('resend');
 
-const resend = process.env.RESEND;
+const resend = new Resend(process.env.RESEND);
 
 
 
@@ -210,15 +210,16 @@ app.post('/auth', csrfProtection, async (req, res) => {
 let verificationCodes = {};
 
 async function sendEmail(toEmail, verificationCode) {
-
   try{
- resend.emails.send({
-  from: 'onboarding@resend.dev',
-  to: 'kocakoglucelalmete@gmail.com',
-  subject: verificationCode,
+     console.log('asa')
+    console.log(toEmail+'a')
+  const veri = await resend.emails.send({
+  from: 'admin@frontiera.store',
+  to: toEmail,
+  subject: `${verificationCode}`,
   html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
 });
-
+console.log("RESEND CEVABI:", veri);
   } catch (err) {
     console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
     throw err;
@@ -247,7 +248,7 @@ app.post('/register', async (req, res) => {
         let verificationCode = Math.floor(100000 + Math.random() * 900000);
         verificationCodes[email] = verificationCode;
         req.session.verificationCode=verificationCodes[email]
-        console.log(email)
+        console.log(email+'a')
         console.log(verificationCode)
         sendEmail(email,verificationCode)
         return res.json({ success: true });
@@ -264,6 +265,7 @@ app.get('/verify-code', csrfProtection, (req, res) => {
 app.post('/verify-code', csrfProtection, async(req, res) => {
     const { code } = req.body;
     if (!req.session.user1) {
+      console.log('aa')
         return res.status(400).json({ success: false, message: "Oturum süresi dolmuş." });
     }
 
@@ -365,22 +367,20 @@ app.get('/',  async (req, res) => {
 
 
 async function sendEmail2(toEmail, subject, message) {
-  try {
-  
-    const mailOptions = {
-      from: `"BidCars" <${process.env.EMAIL}>`,
-      to: toEmail,
-      subject,
-      text: message,
-    };
-
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`✅ E-posta gönderildi: ${toEmail}`);
-    return { success: true, info }; // ✅ BAŞARILI SONUÇ DÖN
+ try{
+     console.log('asa')
+    console.log(toEmail+'a')
+  const veri = await resend.emails.send({
+  from: 'admin@frontiera.store',
+  to: toEmail,
+  subject: `${subject}`,
+  html: `${message}`
+});
+console.log("RESEND CEVABI:", veri);
   } catch (err) {
-    console.error("📩 E-posta gönderme hatası:", err);
-    return { success: false, error: err }; // ❌ HATA DÖN
-  }
+    console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
+    throw err;
+}
 }
 
 

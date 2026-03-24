@@ -249,11 +249,12 @@ top: 20px;
 
 .teklif {
     flex: 3; 
+    background-color: white;
     margin-left: 0; 
     color: #212529;
     height: auto; 
     border-radius: 10px; 
-   padding-top: 0;
+    padding: 20px;
     box-sizing: border-box;
     margin-bottom: 20px;
 }
@@ -649,6 +650,9 @@ top: 20px;
 .nav-btn:hover {
     opacity: 1;
 }
+.message{display: flex;flex-direction: column;}
+.gonder{width: min-content;margin-top: 5px;padding: 5px 10px 5px 10px; background-color: #219af3;
+color: white; border: 1px solid rgb(34, 64, 211); border-radius: 4px;}
 .swap{width: 90%;justify-self: center;display: flex;
     flex-direction: row;height:40px ; border-radius: 5px;overflow: hidden;}
 .swp{width: 50%;display: flex; height: auto;justify-content: center;
