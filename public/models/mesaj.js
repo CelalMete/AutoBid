@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 const mesajSchema = new mongoose.Schema({
-  kategori: { type: String, required: true },
   from: {type: mongoose.Schema.Types.ObjectId, 
           ref: 'user',   
           required: true },

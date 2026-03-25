@@ -39,10 +39,9 @@ const kullaniciId = appData?.getAttribute("data-kullanici-id") || "Anonim";
   const formData = new FormData(mesaj);
   const gidenBilgiler = Object.fromEntries(formData.entries());
   console.log('1')
- sendmessage(gidenBilgiler)
+ sendmessage(gidenBilgiler.mesaj)
  })
 
- 
 
 let downbarData=[]
 downbarData = JSON.parse(filtrelerData);

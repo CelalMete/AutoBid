@@ -127,6 +127,7 @@ const fsExtra = require('fs-extra');
 const kategori = require('./public/models/kategori');
 const { body } = require('express-validator');
 const { Resend } = require('resend');
+const mesaj = require('./public/models/mesaj');
 
 const resend = new Resend(process.env.RESEND);
 
@@ -229,23 +230,18 @@ console.log("RESEND CEVABI:", veri);
 
 app.post('/register', async (req, res) => {
     const { Ad, Soyad, email, sifre1, sifre2 } = req.body;
-
     if (!Ad || !Soyad || !email || !sifre1 || !sifre2) {
         return res.status(400).json({ success: false, message: 'Tüm alanlar doldurulmalıdır' });
     }
-
     if (sifre1 !== sifre2) {
         return res.status(400).json({ success: false, message: 'Şifreler uyuşmuyor' });
     }
-
     try {
         const existingUser = await Kullanici.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ success: false, message: 'Bu kullanıcı zaten kayıtlı' });
         }
-
         req.session.user1 = { Ad, Soyad, email, sifre1 };
-
         let verificationCode = Math.floor(100000 + Math.random() * 900000);
         verificationCodes[email] = verificationCode;
         req.session.verificationCode=verificationCodes[email]
@@ -253,7 +249,6 @@ app.post('/register', async (req, res) => {
         console.log(verificationCode)
         sendEmail(email,verificationCode)
         return res.json({ success: true });
-
     } catch (error) {
         console.error("Register Rotası Hatası:", error);
         return res.status(500).json({ success: false, message: "İşlem başarısız", error: error.message });
@@ -268,14 +263,10 @@ app.post('/sendmessage', csrfProtection, async (req, res) => {
     if (!req.session || !req.session.user) {
         return res.status(401).json({ success: false, message: "Mesaj göndermek için giriş yapmalısınız." });
     }
-    const email = req.session.user.email;
-    const owner = await Kullanici.findById(ilanData.IlanSahibi);
-    if (!owner) {
-        return res.status(404).json({ success: false, message: "İlan sahibi bulunamadı." });
-    }
-    const to = owner.email;
-    console.log('E-postalar hazırlandı:', email, '->', to);
-    await sendEmail3(email, to, 'deneme', message);
+    const tarih=new Date();
+    const newmesaj = new mesaj({from:req.session.userId,to:ilanData.IlanSahibi,date:tarih,message:message})
+    await newmesaj.save();
+    
     res.json({ success: true, message: "Mesajınız başarıyla gönderildi." });
 
   } catch (err) {
@@ -400,23 +391,6 @@ console.log("RESEND CEVABI:", veri);
     throw err;
 }
 }
-async function sendEmail3(fromEmail,toEmail, subject, message) {
- try{
-     console.log('asa')
-    console.log(toEmail+'a')
-  const veri = await resend.emails.send({
-  from: 'admin@frontiera.store',
-  to: toEmail,
-  subject: `${subject}`,
-  html: `${message}`
-});
-console.log("RESEND CEVABI:", veri);
-  } catch (err) {
-    console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
-    throw err;
-}
-}
-
 app.put("/ilan/durum-guncelle/:id", csrfProtection, async (req, res) => {
   try {
    
