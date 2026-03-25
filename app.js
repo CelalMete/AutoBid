@@ -115,6 +115,7 @@ const Arac = require('./public/models/Aracmodel');
 const Is = require('./public/models/ismodel');
 const Esya = require('./public/models/esyamodel');
 const Teklif = require('./public/models/teklif');
+const Mesaj = require('./public/models/mesaj');
 const durum = require('./public/models/durum')
 const Marka = require('./public/models/markalar')
 const Kategori = require('./public/models/kategori');
@@ -261,7 +262,27 @@ app.post('/register', async (req, res) => {
 app.get('/verify-code', csrfProtection, (req, res) => {
   res.render('email', { csrfToken: req.csrfToken() });
 });
+app.post('/sendmessage', csrfProtection, async (req, res) => {
+  try {
+    const { message, ilanData } = req.body;
+    if (!req.session || !req.session.user) {
+        return res.status(401).json({ success: false, message: "Mesaj göndermek için giriş yapmalısınız." });
+    }
+    const email = req.session.user.email;
+    const owner = await Kullanici.findById(ilanData.IlanSahibi);
+    if (!owner) {
+        return res.status(404).json({ success: false, message: "İlan sahibi bulunamadı." });
+    }
+    const to = owner.email;
+    console.log('E-postalar hazırlandı:', email, '->', to);
+    await sendEmail3(email, to, 'deneme', message);
+    res.json({ success: true, message: "Mesajınız başarıyla gönderildi." });
 
+  } catch (err) {
+    console.error("MESAJ GÖNDERME HATASI:", err);
+    res.status(500).json({ success: false, message: "Sunucuda bir hata oluştu." });
+  }
+});
 app.post('/verify-code', csrfProtection, async(req, res) => {
     const { code } = req.body;
     if (!req.session.user1) {
@@ -363,9 +384,6 @@ app.get('/',  async (req, res) => {
     res.status(500).send("Sunucu hatası");
   }
 });
-
-
-
 async function sendEmail2(toEmail, subject, message) {
  try{
      console.log('asa')
@@ -382,7 +400,22 @@ console.log("RESEND CEVABI:", veri);
     throw err;
 }
 }
-
+async function sendEmail3(fromEmail,toEmail, subject, message) {
+ try{
+     console.log('asa')
+    console.log(toEmail+'a')
+  const veri = await resend.emails.send({
+  from: 'admin@frontiera.store',
+  to: toEmail,
+  subject: `${subject}`,
+  html: `${message}`
+});
+console.log("RESEND CEVABI:", veri);
+  } catch (err) {
+    console.error("E-posta hatası:", err); // console.err DEĞİL, console.error OLMALI
+    throw err;
+}
+}
 
 app.put("/ilan/durum-guncelle/:id", csrfProtection, async (req, res) => {
   try {

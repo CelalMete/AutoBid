@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  console.log('aaaaaaaaaaaa')
+
   const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
   console.log("payment.js başarıyla yüklendi🚀");
 
@@ -15,12 +15,31 @@ const ilanId = ilanData?._id;
 const kullaniciId = appData?.getAttribute("data-kullanici-id") || "Anonim";
   const filtrelerData = downbarContainer.dataset.filtre;
    const teklifInput = document.getElementById("teklifInput");
-
+ function sendmessage(message) {
+         fetch(`/sendmessage`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": csrfToken
+      },
+       body: JSON.stringify({ message:message,ilanData:ilanData })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("İlan Watchlist'e eklendi!");
+      } else {
+        alert(data.message || "Hata oluştu.");
+      }
+    })
+    .catch(() => alert("Sunucuya bağlanılamadı."));
+  }
   mesaj.addEventListener('submit',(e)=>{
     e.preventDefault();
   const formData = new FormData(mesaj);
   const gidenBilgiler = Object.fromEntries(formData.entries());
-    console.log("Gönderilmeye Hazır Form Verileri:", gidenBilgiler);
+  console.log('1')
+ sendmessage(gidenBilgiler)
  })
 
  
