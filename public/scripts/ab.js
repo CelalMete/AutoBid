@@ -16,7 +16,7 @@ const kullaniciId = appData?.getAttribute("data-kullanici-id") || "Anonim";
   const filtrelerData = downbarContainer.dataset.filtre;
    const teklifInput = document.getElementById("teklifInput");
  function sendmessage(message) {
-         fetch(`/sendmessage`, {
+      fetch(`/sendmessage`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

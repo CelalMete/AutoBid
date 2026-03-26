@@ -274,6 +274,33 @@ app.post('/sendmessage', csrfProtection, async (req, res) => {
     res.status(500).json({ success: false, message: "Sunucuda bir hata oluştu." });
   }
 });
+
+app.get('/getmessages',async(req,res)=>{
+  try{
+  const userId= req.session.userId;
+ const tumMesajlar = await mesaj.find({
+      $or: [{ from: userId }, { to: userId }]
+    })
+    .sort({ date: -1 }) 
+    
+    let atanlar=[];
+    let benzersiz= [];
+    tumMesajlar.forEach((msg)=>{
+      let atan= msg.to===toString()?msg.from:msg.to;
+       res.json({success: true, atan})
+    })
+     
+    ;}
+    catch(err){console.error("Inbox hatası:", err);
+    res.status(500).send("Sunucu hatası");}
+})
+app.get('/messages',async(req,res)=>{
+  res.render('layout',{title: 'messages',
+      content: 'messages',
+      extraStyles: '/styles/mesaj.css',
+      metaDescription: 'mesaj at.'})
+ 
+})
 app.post('/verify-code', csrfProtection, async(req, res) => {
     const { code } = req.body;
     if (!req.session.user1) {
