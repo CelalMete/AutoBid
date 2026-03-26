@@ -283,11 +283,15 @@ app.get('/getmessages',async(req,res)=>{
     })
     .sort({ date: -1 }) 
     
-    let atanlar=[];
-    let benzersiz= [];
+    let gorulen=[];
+    let benzersiz= new Set();;
     tumMesajlar.forEach((msg)=>{
-      let atan= msg.to===toString()?msg.from:msg.to;
-       res.json({success: true, atan})
+      let atan= userId.toString()===toString()?msg.to:msg.from;
+       if(!gorulen.has(atan._id.toString())){
+        gorulen.add(atan._id.toString());
+        benzersiz.push(atan)
+       }
+       res.json({ success: true, kisiler: benzersiz })
     })
      
     ;}
