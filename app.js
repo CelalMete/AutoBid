@@ -287,7 +287,7 @@ app.get('/getmessages',async(req,res)=>{
     let benzersiz= new Set();;
     tumMesajlar.forEach((msg)=>{
       let atan= userId.toString()===toString()?msg.to:msg.from;
-       if(!gorulen.has(atan._id.toString())){
+       if(!benzersiz.has(atan._id.toString())){
         gorulen.add(atan._id.toString());
         benzersiz.push(atan)
        }
