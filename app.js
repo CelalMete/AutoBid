@@ -295,7 +295,7 @@ app.get('/getmessages',async(req,res)=>{
     res.status(500).send("Sunucu hatası");}
 })
 app.get('/messages',async(req,res)=>{
-  res.render('layout',{title: 'messages',
+  res.render('Layout',{title: 'messages',
       content: 'messages',
       extraStyles: '/styles/mesaj.css',
       metaDescription: 'mesaj at.'})
