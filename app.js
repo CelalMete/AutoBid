@@ -289,13 +289,7 @@ app.get('/getmessages',async(req,res)=>{
       let atan= userId.toString()===msg.from._id.toString()?msg.to:msg.from;
        if(!gorulen.has(atan._id.toString())){
         gorulen.add(atan._id.toString());
-        benzersiz.push({
-          _id: atan._id,
-          isim: karsiKisi.Ad || "İsimsiz Kullanıcı", 
-          foto: karsiKisi.pp || karsiKisi.avatar || "/logo.png",
-          sonMesaj: msg.message, 
-          tarih: msg.date 
-          })
+        benzersiz.push(atan)
        }
        
     })
