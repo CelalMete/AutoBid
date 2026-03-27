@@ -289,7 +289,7 @@ app.get('/getmessages',async(req,res)=>{
       let atan= userId.toString()===msg.from._id.toString()?msg.to:msg.from;
        if(!gorulen.has(atan._id.toString())){
         gorulen.add(atan._id.toString());
-        benzersiz.push(atan)
+        benzersiz.push({kisiler:atan})
        }
        
     })

@@ -10,21 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("4 - Fetch mutfaktan döndü! Cevap durumu:", cevap.status);
             
             const veri = await cevap.json();
-            
+            console.log(veri)
         } catch (hata) {
             console.log("HATA ÇIKTI:", hata);
-        }
-    }
-    async function verikullan() {
-        console.log("veriler kullanicalak");
-        try {   
-            const cevap = await fetch('/getmessages'); 
-            console.log("4 - Fetch mutfaktan döndü! Cevap durumu:", cevap.status);
-            
-            const veri = await cevap.json();
-            
-        } catch (hata) {
-            console.log("HATA ÇIKTI:", hata);
+
         }
     }
     
