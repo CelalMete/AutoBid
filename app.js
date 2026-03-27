@@ -289,7 +289,7 @@ app.get('/getmessages',async(req,res)=>{
       let atan= userId.toString()===msg.from._id.toString()?msg.to:msg.from;
        if(!gorulen.has(atan._id.toString())){
         gorulen.add(atan._id.toString());
-        benzersiz.push({kisiler:atan})
+        benzersiz.push({atan})
        }
        
     })
@@ -301,7 +301,7 @@ app.get('/getmessages',async(req,res)=>{
 app.get('/messages',async(req,res)=>{
   res.render('Layout',{title: 'messages',
       content: 'messages',
-      extraStyles: '/styles/mesaj.css',
+      extraStyles: '/styles/mesajlar.css',
       metaDescription: 'mesaj at.'})
  
 })

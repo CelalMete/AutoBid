@@ -1,15 +1,21 @@
-// 1. Sinyal: Dosya HTML'e bağlı mı?
-console.log("1 - JavaScript dosyası HTML'e başarıyla bağlandı!");
 
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("2 - Sayfa yüklendi (DOMContentLoaded çalıştı)!");
+    const side = document.getElementById('side')
+    
     async function kisileriGetir123() {
-        console.log("3 - kisileriGetir fonksiyonu tetiklendi, Fetch başlıyor...");
         try {   
             const cevap = await fetch('/getmessages'); 
-            console.log("4 - Fetch mutfaktan döndü! Cevap durumu:", cevap.status);
-            
             const veri = await cevap.json();
+            veri.kisiler.forEach(element => {
+               const namediv = document.createElement('div')
+               const ppimg = document.createElement('img')
+               ppimg.src=element.pp
+
+               namediv.innerText=element.atan.Ad;
+                namediv.classList.add('name')
+                side.appendChild(ppimg)
+               side.appendChild(namediv)
+            });
             console.log(veri)
         } catch (hata) {
             console.log("HATA ÇIKTI:", hata);

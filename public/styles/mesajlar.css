@@ -1,0 +1,3 @@
+.cont{display: flex;flex-direction: row;}
+#side{display: flex;flex-direction: column; width: 150px; }
+.name{margin-left: 10px;}
