@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
             veri.kisiler.forEach(element => {
                const namediv = document.createElement('div')
                const ppimg = document.createElement('img')
-               ppimg.src=element.pp
+               ppimg.src=element.atan.pp
 
                namediv.innerText=element.atan.Ad;
                 namediv.classList.add('name')
