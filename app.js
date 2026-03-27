@@ -283,17 +283,17 @@ app.get('/getmessages',async(req,res)=>{
     })
     .sort({ date: -1 }) 
     
-    let gorulen=[];
-    let benzersiz= new Set();;
+    let gorulen=new Set();
+    let benzersiz= [];
     tumMesajlar.forEach((msg)=>{
-      let atan= userId.toString()===toString()?msg.to:msg.from;
-       if(!benzersiz.has(atan._id.toString())){
+      let atan= userId.toString()===msg.from._id.toString()?msg.to:msg.from;
+       if(!gorulen.has(atan._id.toString())){
         gorulen.add(atan._id.toString());
         benzersiz.push(atan)
        }
-       res.json({ success: true, kisiler: benzersiz })
+       
     })
-     
+     res.json({ success: true, kisiler: benzersiz })
     ;}
     catch(err){console.error("Inbox hatası:", err);
     res.status(500).send("Sunucu hatası");}
