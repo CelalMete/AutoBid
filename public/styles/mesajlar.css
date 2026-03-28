@@ -2,3 +2,4 @@
 #side{display: flex;flex-direction: column; width: 150px; }
 .sender{margin-left: 10px;}
 .ppimg{height: 50px;width: 50px;display: block;opacity: 0.5;}
+.personblock{width: 150px;display: flex;flex-direction: row;}
