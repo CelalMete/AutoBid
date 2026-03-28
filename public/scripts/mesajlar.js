@@ -9,11 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
             veri.kisiler.forEach(element => {
                const namediv = document.createElement('div')
                const ppimg = document.createElement('img')
+               namediv.innerText=element.atan.Ad;
                ppimg.src=element.atan.pp
-               namediv.innerText=element.atan.Ad||element.atan.kullaniciAdi;
-                namediv.classList.add('name')
+                namediv.classList.add('sender')
+                ppimg.classList.add('ppimg')
                 side.appendChild(ppimg)
                side.appendChild(namediv)
+                
             });
             console.log(veri)
         } catch (hata) {
