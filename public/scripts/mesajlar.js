@@ -10,8 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
                const namediv = document.createElement('div')
                const ppimg = document.createElement('img')
                ppimg.src=element.atan.pp
-
-               namediv.innerText=element.atan.Ad;
+               namediv.innerText=element.atan.Ad||element.atan.kullaniciAdi;
                 namediv.classList.add('name')
                 side.appendChild(ppimg)
                side.appendChild(namediv)
